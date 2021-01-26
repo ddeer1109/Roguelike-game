@@ -12,6 +12,8 @@ class Room:
             for col in range(width):
                 if row == 0 or row == height - 1:
                     added_area = Wall(row, col)
+                elif col == 0 or col == width - 1:
+                    added_area = Wall(row, col)
                 else:
                     added_area = Empty_space(row, col)
 
@@ -20,5 +22,12 @@ class Room:
 
         return board
 
-room = Room(5, 10)
-room.board
+    def print_room(self):
+        for i in range(len(self.board)):
+            temp_str = ''
+            for j in range(len(self.board[0])):
+                temp_str += f"{(self.board[i][j].icon)} "
+            print(temp_str)
+
+room = Room(20, 30)
+room.print_room()
