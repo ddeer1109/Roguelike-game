@@ -1,3 +1,5 @@
 EMPTY_AREA_ICON = '.'
 WALL_ICON = '#'
 GATE_ICON = 'G'
+
+PLAYER = "P"

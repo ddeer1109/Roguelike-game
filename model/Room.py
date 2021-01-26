@@ -1,6 +1,13 @@
+import sys
+import os.path
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
+from view import util
 from Empty_space import Empty_space
 from Wall import Wall
 from Gate import Gate
+from Player import Creature
 import random
 
 class Room:
@@ -27,6 +34,7 @@ class Room:
             board.append(inner_board)
 
         return board
+
 
     def print_room(self):
         for i in range(len(self.board)):
@@ -71,7 +79,34 @@ class Room:
         if bot: self.create_bottom_gate()
         if left: self.create_left_gate()
         if right: self.create_right_gate()
+
+player = Creature(3,3)
+
 room = Room(20, 30)
-room.print_room()
+room.board[player.x][player.y] = str(player)
 room.create_gates(left=False, right=False)
-room.print_room()
+
+is_running = True
+while is_running:
+    k_pressed = str.lower(util.key_pressed())
+    if k_pressed == "w":
+        room.board[player.x][player.y] = Empty_space(player.x, player.y)
+        player.move_up()
+        room.board[player.x][player.y] = str(player)
+    if k_pressed == "s":
+        room.board[player.x][player.y] = Empty_space(player.x, player.y)
+        player.move_down()
+        room.board[player.x][player.y] = str(player)
+    if k_pressed == "a":
+        room.board[player.x][player.y] = Empty_space(player.x, player.y)
+        player.move_left()
+        room.board[player.x][player.y] = str(player)
+    if k_pressed == "d":
+        room.board[player.x][player.y] = Empty_space(player.x, player.y)
+        player.move_right()
+        room.board[player.x][player.y] = str(player)
+    util.clear_screen()
+    room.print_room()
+    
+
+    
