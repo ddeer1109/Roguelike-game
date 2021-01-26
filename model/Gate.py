@@ -6,3 +6,6 @@ class Gate(Field):
         super().__init__(x, y)
         self.icon = GATE_ICON
         self.opened = False
+
+    def __str__(self):
+        return self.icon
