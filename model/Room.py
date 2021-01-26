@@ -85,23 +85,35 @@ player = Creature(3,3)
 room = Room(20, 30)
 room.board[player.x][player.y] = str(player)
 room.create_gates(left=False, right=False)
-
+room.print_room()
 is_running = True
 while is_running:
     k_pressed = str.lower(util.key_pressed())
     if k_pressed == "w":
+        if type(room.board[player.x-1][player.y]) is Wall:
+            continue
+        
         room.board[player.x][player.y] = Empty_space(player.x, player.y)
         player.move_up()
         room.board[player.x][player.y] = str(player)
-    if k_pressed == "s":
+    elif k_pressed == "s":
+        if type(room.board[player.x+1][player.y]) is Wall:
+            continue
+        
         room.board[player.x][player.y] = Empty_space(player.x, player.y)
         player.move_down()
         room.board[player.x][player.y] = str(player)
-    if k_pressed == "a":
+    elif k_pressed == "a":
+        if type(room.board[player.x][player.y-1]) is Wall:
+            continue
+        
         room.board[player.x][player.y] = Empty_space(player.x, player.y)
         player.move_left()
         room.board[player.x][player.y] = str(player)
-    if k_pressed == "d":
+    elif k_pressed == "d":
+        if type(room.board[player.x][player.y+1]) is Wall:
+            continue
+        
         room.board[player.x][player.y] = Empty_space(player.x, player.y)
         player.move_right()
         room.board[player.x][player.y] = str(player)
