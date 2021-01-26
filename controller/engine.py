@@ -11,7 +11,7 @@ class Board:
     #     board = []
     #     for i in range(self.length):
     #         board.append([EMPTY_AREA_SYMBOL] * self.width)
-
+    pass
 
 
 def create_board(width, height):
