@@ -31,3 +31,5 @@ class Room:
 
 room = Room(20, 30)
 room.print_room()
+room2 = Room(40, 20)
+room.print_room()
