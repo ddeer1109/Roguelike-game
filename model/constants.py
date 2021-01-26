@@ -1,0 +1,1 @@
+EMPTY_AREA_ICON = ' '
