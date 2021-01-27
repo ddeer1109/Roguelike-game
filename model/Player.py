@@ -21,3 +21,8 @@ class Creature:
 
     def move_right(self):
         self.y += 1
+
+class Player(Creature):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.health = 100

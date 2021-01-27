@@ -23,9 +23,9 @@ class Board:
 
 
 
-
-board = Board(20, 30)
-board.central_room.print_room()
-board.right_room.print_room()
-board.left_room.print_room()
-board.boss_room.print_room()
+#
+# board = Board(20, 30)
+# board.central_room.print_room()
+# board.right_room.print_room()
+# board.left_room.print_room()
+# board.boss_room.print_room()
