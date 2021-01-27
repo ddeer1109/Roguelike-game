@@ -42,6 +42,7 @@ class Room:
             for j in range(len(self.board[0])):
                 temp_str += str(self.board[i][j])
             print(temp_str)
+        print()            
 
     
     def create_upper_gate(self):
@@ -74,51 +75,51 @@ class Room:
             current_index -= 1
 
 
-    def create_gates(self, up=True, bot=True, left=True, right=True):
-        if up: self.create_upper_gate()
-        if bot: self.create_bottom_gate()
+    def create_gates(self, upper=False, bottom=False, left=False, right=False):
+        if upper: self.create_upper_gate()
+        if bottom: self.create_bottom_gate()
         if left: self.create_left_gate()
         if right: self.create_right_gate()
 
-player = Creature(3,3)
+# player = Creature(3,3)
 
-room = Room(20, 30)
-room.board[player.x][player.y] = str(player)
-room.create_gates(left=False, right=False)
-room.print_room()
-is_running = True
-while is_running:
-    k_pressed = str.lower(util.key_pressed())
-    if k_pressed == "w":
-        if type(room.board[player.x-1][player.y]) is Wall:
-            continue
+# room = Room(20, 30)
+# room.board[player.x][player.y] = str(player)
+# room.create_gates(left=False, right=False)
+# room.print_room()
+# is_running = True
+# while is_running:
+#     k_pressed = str.lower(util.key_pressed())
+#     if k_pressed == "w":
+#         if type(room.board[player.x-1][player.y]) is Wall:
+#             continue
         
-        room.board[player.x][player.y] = Empty_space(player.x, player.y)
-        player.move_up()
-        room.board[player.x][player.y] = str(player)
-    elif k_pressed == "s":
-        if type(room.board[player.x+1][player.y]) is Wall:
-            continue
+#         room.board[player.x][player.y] = Empty_space(player.x, player.y)
+#         player.move_up()
+#         room.board[player.x][player.y] = str(player)
+#     elif k_pressed == "s":
+#         if type(room.board[player.x+1][player.y]) is Wall:
+#             continue
         
-        room.board[player.x][player.y] = Empty_space(player.x, player.y)
-        player.move_down()
-        room.board[player.x][player.y] = str(player)
-    elif k_pressed == "a":
-        if type(room.board[player.x][player.y-1]) is Wall:
-            continue
+#         room.board[player.x][player.y] = Empty_space(player.x, player.y)
+#         player.move_down()
+#         room.board[player.x][player.y] = str(player)
+#     elif k_pressed == "a":
+#         if type(room.board[player.x][player.y-1]) is Wall:
+#             continue
         
-        room.board[player.x][player.y] = Empty_space(player.x, player.y)
-        player.move_left()
-        room.board[player.x][player.y] = str(player)
-    elif k_pressed == "d":
-        if type(room.board[player.x][player.y+1]) is Wall:
-            continue
+#         room.board[player.x][player.y] = Empty_space(player.x, player.y)
+#         player.move_left()
+#         room.board[player.x][player.y] = str(player)
+#     elif k_pressed == "d":
+#         if type(room.board[player.x][player.y+1]) is Wall:
+#             continue
         
-        room.board[player.x][player.y] = Empty_space(player.x, player.y)
-        player.move_right()
-        room.board[player.x][player.y] = str(player)
-    util.clear_screen()
-    room.print_room()
+#         room.board[player.x][player.y] = Empty_space(player.x, player.y)
+#         player.move_right()
+#         room.board[player.x][player.y] = str(player)
+#     util.clear_screen()
+#     room.print_room()
     
 
     

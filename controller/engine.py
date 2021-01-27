@@ -1,3 +1,4 @@
+from model.Board import Board
 
 def create_board(width, height):
     '''
@@ -10,7 +11,11 @@ def create_board(width, height):
     Returns:
     list: Game board
     '''
-    
+    board = Board(20, 30)
+    board.central_room.print_room()
+    board.right_room.print_room()
+    board.left_room.print_room()
+    board.boss_room.print_room()
 
 
 def put_player_on_board(board, player):
