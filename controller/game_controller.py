@@ -6,6 +6,7 @@ sys.path.append(
 from controller import engine
 from view import ui, util
 from model.Player import Player
+from model.Wall import Wall
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
@@ -15,15 +16,30 @@ BOARD_WIDTH = 30
 BOARD_HEIGHT = 20
 
 
-def create_player():
-    '''
-    Creates a 'player' dictionary for storing all player related informations - i.e. player icon, player position.
-    Fell free to extend this dictionary!
-
-    Returns:
-    dictionary
-    '''
-    pass
+def service_player_moves(key_pressed, room, player):
+    k_pressed = str.lower(key_pressed)
+    if k_pressed == "w":
+        
+        if type(room.fields[player.x-1][player.y]) is not Wall:
+            room.service_move_up(player)    
+        
+    elif k_pressed == "s":
+        
+        if type(room.fields[player.x+1][player.y]) is not Wall:
+            room.service_move_down(player)
+    
+    elif k_pressed == "a":
+        
+        if type(room.fields[player.x][player.y-1]) is not Wall:
+            room.service_move_left(player)
+    
+    elif k_pressed == "d":
+        
+        if type(room.fields[player.x][player.y+1]) is not Wall:
+            room.service_move_right(player)
+   
+    
+    
 
 
 def main():
@@ -42,6 +58,9 @@ def main():
         if key == 'q':
             is_running = False
         else:
-            pass
+            service_player_moves(key, board.central_room, player)
+        
         util.clear_screen()
+        board.central_room.print_room()
+        
     

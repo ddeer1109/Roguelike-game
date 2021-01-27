@@ -7,6 +7,7 @@ from view import util
 from model.Empty_space import Empty_space
 from model.Wall import Wall
 from model.Gate import Gate
+from model.Player import Player
 import random
 
 class Room:
@@ -80,45 +81,28 @@ class Room:
         if left: self.create_left_gate()
         if right: self.create_right_gate()
 
-# player = Player(3,3)
-
-# room = Room(20, 30)
-# room.board[player.x][player.y] = str(player)
-# room.create_gates(left=False, right=False)
-# room.print_room()
-# is_running = True
-# while is_running:
-#     k_pressed = str.lower(util.key_pressed())
-#     if k_pressed == "w":
-#         if type(room.board[player.x-1][player.y]) is Wall:
-#             continue
-        
-#         room.board[player.x][player.y] = Empty_space(player.x, player.y)
-#         player.move_up()
-#         room.board[player.x][player.y] = str(player)
-#     elif k_pressed == "s":
-#         if type(room.board[player.x+1][player.y]) is Wall:
-#             continue
-        
-#         room.board[player.x][player.y] = Empty_space(player.x, player.y)
-#         player.move_down()
-#         room.board[player.x][player.y] = str(player)
-#     elif k_pressed == "a":
-#         if type(room.board[player.x][player.y-1]) is Wall:
-#             continue
-        
-#         room.board[player.x][player.y] = Empty_space(player.x, player.y)
-#         player.move_left()
-#         room.board[player.x][player.y] = str(player)
-#     elif k_pressed == "d":
-#         if type(room.board[player.x][player.y+1]) is Wall:
-#             continue
-        
-#         room.board[player.x][player.y] = Empty_space(player.x, player.y)
-#         player.move_right()
-#         room.board[player.x][player.y] = str(player)
-#     util.clear_screen()
-#     room.print_room()
     
+    def service_move_up(self, creature_object):
+        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        creature_object.move_up()
+        self.fields[creature_object.x][creature_object.y] = str(creature_object)
+
+
+    def service_move_down(self, creature_object):
+        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        creature_object.move_down()
+        self.fields[creature_object.x][creature_object.y] = str(creature_object)
+
+    def service_move_left(self, creature_object):
+        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        creature_object.move_left()
+        self.fields[creature_object.x][creature_object.y] = str(creature_object)
+
+
+    def service_move_right(self, creature_object):
+        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        creature_object.move_right()
+        self.fields[creature_object.x][creature_object.y] = str(creature_object)
+
 
     
