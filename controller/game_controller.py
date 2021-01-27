@@ -32,7 +32,7 @@ def service_player_moves(key_pressed, room, player):
         
         if type(room.fields[player.x][player.y-1]) is not Wall:
             room.service_move_left(player)
-    
+
     elif k_pressed == "d":
         
         if type(room.fields[player.x][player.y+1]) is not Wall:
@@ -46,15 +46,18 @@ def main():
     print("START")
     player = Player(PLAYER_START_X, PLAYER_START_Y)
     board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
-    engine.put_player_on_board(board, player)
+    engine.put_player_on_board(board, PLAYER_START_X, PLAYER_START_Y, player)
     util.clear_screen()
     board.central_room.print_room()
     is_running = True
+    
     while is_running:
-        engine.put_player_on_board(board, player)
+        if player.current_field == "G":
+            engine.put_player_on_board(board, player)
         ui.display_board(board)
     
         key = util.key_pressed()
+        
         if key == 'q':
             is_running = False
         else:

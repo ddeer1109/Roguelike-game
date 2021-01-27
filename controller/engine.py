@@ -20,7 +20,7 @@ def create_board(width, height):
     return Board(width, height)
     
 
-def put_player_on_board(board, player):
+def put_player_on_board(board, x, y, player):
     '''
     Modifies the game board by placing the player icon at its coordinates.
 
@@ -31,5 +31,5 @@ def put_player_on_board(board, player):
     Returns:
     Nothing
     '''
-    board.place_player(player)
+    board.place_player(x,y,player)
     

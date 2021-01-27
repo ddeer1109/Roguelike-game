@@ -6,3 +6,4 @@ class Player(Creature):
         super().__init__(x, y)
         self.icon = PLAYER
         self.health = 100
+        self.current_field = None

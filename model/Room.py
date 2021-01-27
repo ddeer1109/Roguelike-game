@@ -11,13 +11,15 @@ from model.Player import Player
 import random
 
 class Room:
-    def __init__(self, width, height):
-        self.fields = self.init_board(width, height)
+    def __init__(self, height, width):
+        self.fields = self.init_board(height, width)
+        self.upper_gate = None
+        self.bottom_gate =None
         self.left_gate = None
         self.right_gate = None
 
 
-    def init_board(self, width, height):
+    def init_board(self, height,width):
         board = []
         for row in range(height):
             inner_board = []
@@ -46,33 +48,51 @@ class Room:
 
     
     def create_upper_gate(self):
-        current_index = random.randrange(3, len(self.fields[0]) - 1)
-        for _ in range(3):
-            self.fields[0][current_index] = Gate(0, current_index)
-            current_index -= 1
+        first_row_index = 0 
+        row_length = len(self.fields[0])
+        
+        column_index = random.randrange(first_row_index + 1, row_length)
+        
+        
+        gate = Gate(first_row_index, column_index)
+        self.fields[first_row_index][column_index] = gate
+        self.upper_gate = gate
 
     
     def create_bottom_gate(self):
-        current_index = random.randrange(3, len(self.fields[0]) - 1)
-        for _ in range(3):
-            self.fields[-1][current_index] = Gate(len(self.fields)-1, current_index)
-            current_index -= 1
+        first_col_index = 0
+        row_length = len(self.fields[0])
+        col_length = len(self.fields)
+        
+        column_index = random.randrange(first_col_index + 1, row_length)
 
-    
+        gate = Gate(col_length - 1, column_index)
+        self.fields[col_length - 1][column_index] = gate
+        self.bottom_gate = gate
+
+
     def create_left_gate(self):
-        current_index = random.randrange(3, len(self.fields) - 1)
-        left_side = 0
-        for _ in range(3):
-            self.fields[current_index][left_side] = Gate(current_index, left_side)
-            current_index -= 1
+        first_col_index = 0
+        first_row_index = 0
+        col_length = len(self.fields)
+        row_index = random.randrange(first_row_index + 1, col_length)
+    
+        gate = Gate(row_index, first_col_index)
+        self.fields[row_index][first_col_index] = gate
+        self.left_gate = gate 
+
 
 
     def create_right_gate(self):
-        current_index = random.randrange(3, len(self.fields) - 1)
-        right_side = -1
-        for _ in range(3):
-            self.fields[current_index][right_side] = Gate(current_index, right_side)
-            current_index -= 1
+        first_row_index = 0
+        row_length = len(self.fields[0])
+        col_length = len(self.fields)
+        row_index = random.randrange(first_row_index + 1, col_length)
+        
+        gate = Gate(row_index, row_length - 1)
+        self.fields[row_index][row_length - 1] = gate
+        self.right_gate = gate
+
 
 
     def create_gates(self, upper=False, bottom=False, left=False, right=False):
@@ -83,25 +103,34 @@ class Room:
 
     
     def service_move_up(self, creature_object):
-        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        if self.fields[creature_object.x][creature_object.y] is not Gate:
+            self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
         creature_object.move_up()
+        creature_object.current_field = self.fields[creature_object.x][creature_object.y]
         self.fields[creature_object.x][creature_object.y] = str(creature_object)
 
 
     def service_move_down(self, creature_object):
-        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        if self.fields[creature_object.x][creature_object.y] is not Gate:
+            self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
         creature_object.move_down()
+        creature_object.current_field = self.fields[creature_object.x][creature_object.y]
         self.fields[creature_object.x][creature_object.y] = str(creature_object)
 
+
     def service_move_left(self, creature_object):
-        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        if self.fields[creature_object.x][creature_object.y] is not Gate:
+            self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
         creature_object.move_left()
+        creature_object.current_field = self.fields[creature_object.x][creature_object.y]
         self.fields[creature_object.x][creature_object.y] = str(creature_object)
 
 
     def service_move_right(self, creature_object):
-        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        if self.fields[creature_object.x][creature_object.y] is not Gate:
+            self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
         creature_object.move_right()
+        creature_object.current_field = self.fields[creature_object.x][creature_object.y]
         self.fields[creature_object.x][creature_object.y] = str(creature_object)
 
 

@@ -25,8 +25,9 @@ class Board:
         self.boss_room.create_gates(bottom=True)
 
 
-    def place_player(self, player_object):
-        self.central_room.fields[player_object.x][player_object.y] = player_object.icon
+    def place_player(self, x, y, player_object):    
+            self.central_room.fields[x][y] = str(player_object)
+        
 
 
 
