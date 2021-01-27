@@ -4,10 +4,9 @@ sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 from view import util
-from Empty_space import Empty_space
-from Wall import Wall
-from Gate import Gate
-from Player import Creature
+from model.Empty_space import Empty_space
+from model.Wall import Wall
+from model.Gate import Gate
 import random
 
 class Room:
@@ -81,7 +80,7 @@ class Room:
         if left: self.create_left_gate()
         if right: self.create_right_gate()
 
-# player = Creature(3,3)
+# player = Player(3,3)
 
 # room = Room(20, 30)
 # room.board[player.x][player.y] = str(player)

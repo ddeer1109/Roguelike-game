@@ -1,4 +1,10 @@
-from Room import Room
+import sys
+import os.path
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
+import model.Room
+
 
 class Board:
     def __init__(self, width, height):
@@ -7,7 +13,7 @@ class Board:
                  = self.generate_rooms(width, height)
         self.generate_gates()
     
-    
+
     def generate_rooms(self, width, height, count=4):
         return (Room(height, width) for _ in range(count))
 
@@ -17,6 +23,10 @@ class Board:
         self.right_room.create_gates(left=True)
         self.left_room.create_gates(upper=True, right=True)
         self.boss_room.create_gates(bottom=True)
+
+
+    def place_player(self, player_object):
+        self.central_room[player_object.x][player_object.y] = player_object.icon
 
 
 

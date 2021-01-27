@@ -1,5 +1,5 @@
-from Field import Field
-from constants import GATE_ICON
+from model.Field import Field
+from model.constants import GATE_ICON
 
 class Gate(Field):
     def __init__(self, x, y):

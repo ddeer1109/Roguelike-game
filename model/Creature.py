@@ -1,10 +1,7 @@
-from constants import PLAYER
-
 class Creature:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.icon = PLAYER
 
 
     def __str__(self):

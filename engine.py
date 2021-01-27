@@ -1,9 +1,17 @@
-import sys
-import os.path
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+class Board:
+    # EMPTY_AREA_SYMBOL = " " 
 
-from model.Board import Board
+    # def __init__(self, length=20, width=30):
+    #     self.length = length
+    #     self.width = width
+    #     self.fields = self.init_board()
+
+
+    # def init_board(self):
+    #     board = []
+    #     for i in range(self.length):
+    #         board.append([EMPTY_AREA_SYMBOL] * self.width)
+    pass
 
 
 def create_board(width, height):
@@ -17,8 +25,8 @@ def create_board(width, height):
     Returns:
     list: Game board
     '''
-    return Board(width, height)
-    
+    pass
+
 
 def put_player_on_board(board, player):
     '''
@@ -31,5 +39,4 @@ def put_player_on_board(board, player):
     Returns:
     Nothing
     '''
-    board.place_player(player)
-    
+    pass

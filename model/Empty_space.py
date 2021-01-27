@@ -1,5 +1,5 @@
-from Field import Field
-from constants import EMPTY_AREA_ICON
+from model.Field import Field
+from model.constants import EMPTY_AREA_ICON
 
 class Empty_space(Field):
     def __init__(self, x, y):
