@@ -11,7 +11,7 @@ import random
 
 class Room:
     def __init__(self, width, height):
-        self.board = self.init_board(width, height)
+        self.fields = self.init_board(width, height)
         self.left_gate = None
         self.right_gate = None
 
@@ -36,41 +36,41 @@ class Room:
 
 
     def print_room(self):
-        for i in range(len(self.board)):
+        for i in range(len(self.fields)):
             temp_str = ''
-            for j in range(len(self.board[0])):
-                temp_str += str(self.board[i][j])
+            for j in range(len(self.fields[0])):
+                temp_str += str(self.fields[i][j])
             print(temp_str)
         print()            
 
     
     def create_upper_gate(self):
-        current_index = random.randrange(3, len(self.board[0]) - 1)
+        current_index = random.randrange(3, len(self.fields[0]) - 1)
         for _ in range(3):
-            self.board[0][current_index] = Gate(0, current_index)
+            self.fields[0][current_index] = Gate(0, current_index)
             current_index -= 1
 
     
     def create_bottom_gate(self):
-        current_index = random.randrange(3, len(self.board[0]) - 1)
+        current_index = random.randrange(3, len(self.fields[0]) - 1)
         for _ in range(3):
-            self.board[-1][current_index] = Gate(len(self.board)-1, current_index)
+            self.fields[-1][current_index] = Gate(len(self.fields)-1, current_index)
             current_index -= 1
 
     
     def create_left_gate(self):
-        current_index = random.randrange(3, len(self.board) - 1)
+        current_index = random.randrange(3, len(self.fields) - 1)
         left_side = 0
         for _ in range(3):
-            self.board[current_index][left_side] = Gate(current_index, left_side)
+            self.fields[current_index][left_side] = Gate(current_index, left_side)
             current_index -= 1
 
 
     def create_right_gate(self):
-        current_index = random.randrange(3, len(self.board) - 1)
+        current_index = random.randrange(3, len(self.fields) - 1)
         right_side = -1
         for _ in range(3):
-            self.board[current_index][right_side] = Gate(current_index, right_side)
+            self.fields[current_index][right_side] = Gate(current_index, right_side)
             current_index -= 1
 
 

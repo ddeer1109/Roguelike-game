@@ -3,7 +3,7 @@ import os.path
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
-import model.Room
+from model.Room import Room
 
 
 class Board:
@@ -26,7 +26,7 @@ class Board:
 
 
     def place_player(self, player_object):
-        self.central_room[player_object.x][player_object.y] = player_object.icon
+        self.central_room.fields[player_object.x][player_object.y] = player_object.icon
 
 
 

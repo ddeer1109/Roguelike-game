@@ -32,6 +32,7 @@ def main():
     board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
     engine.put_player_on_board(board, player)
     util.clear_screen()
+    board.central_room.print_room()
     is_running = True
     while is_running:
         engine.put_player_on_board(board, player)
