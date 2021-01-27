@@ -3,4 +3,4 @@ class Board:
         self.central_room = room1
         self.left_room = room2
         self.right_room = room3
-        pass
+        

@@ -40,7 +40,7 @@ class Room:
         for i in range(len(self.board)):
             temp_str = ''
             for j in range(len(self.board[0])):
-                temp_str += f"{(str(self.board[i][j]))} "
+                temp_str += str(self.board[i][j])
             print(temp_str)
 
     
