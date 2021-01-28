@@ -27,12 +27,16 @@ class Board:
 
 
         self.central_room.gates["right"].connect_gates(self.right_room.gates["left"], self.right_room)
-        self.central_room.gates["left"].connect_gates(self.left_room.gates["right"], self.central_room)
+        self.central_room.gates["left"].connect_gates(self.left_room.gates["right"], self.left_room)
 
         self.left_room.gates["right"].connect_gates(self.central_room.gates["left"], self.central_room)
+        self.left_room.gates["upper"].connect_gates(self.boss_room.gates["bottom"], self.boss_room)
+        
         self.right_room.gates["left"].connect_gates(self.central_room.gates["right"], self.central_room)
         
+        self.boss_room.gates["bottom"].connect_gates(self.left_room.gates["upper"], self.left_room)
         
+
 
     def place_player(self, room, x, y, player_object):    
             if room == "central":

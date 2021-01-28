@@ -1,4 +1,4 @@
-from builtins import next
+from builtins import IndexError, next
 from model.Field import Field
 from model.constants import GATE_ICON
 
@@ -21,9 +21,18 @@ class Gate(Field):
         self.connected_room = room
 
 
-    def go_through_gate(self, player_object):
-        next_gate_x, next_gate_y = self.connection_gate.x, self.connection_gate.y 
-        
-        self.connected_room.fields[next_gate_x][next_gate_y] = str(player_object)
-        player_object.x, player_object.y = next_gate_x, next_gate_y
-        return self.connected_room
+    def go_through_gate(self, player_object, direction):
+            if direction == "left":
+                next_gate_x, next_gate_y = self.connection_gate.x, self.connection_gate.y-1 
+            elif direction == "right":
+                next_gate_x, next_gate_y = self.connection_gate.x, self.connection_gate.y+1
+            elif direction == "upper":
+                next_gate_x, next_gate_y = self.connection_gate.x-1, self.connection_gate.y 
+            elif direction == "bottom":
+                 next_gate_x, next_gate_y = self.connection_gate.x+1, self.connection_gate.y
+
+            self.connected_room.fields[next_gate_x][next_gate_y] = str(player_object)
+            player_object.x, player_object.y = next_gate_x, next_gate_y
+            return self.connected_room
+
+
