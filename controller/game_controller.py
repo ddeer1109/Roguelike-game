@@ -48,16 +48,11 @@ def service_player_moves(key_pressed, room, player, current_room):
             return current_room
 
     elif k_pressed == "d":
-<<<<<<< HEAD
-
-        if type(room.fields[player.x][player.y+1]) is not Wall:
-=======
         next_area = type(room.fields[player.x][player.y+1])
         
         if next_area is Gate:
             return current_room.gates[RIGHT].go_through_gate(player, RIGHT)
         elif next_area is not Wall:
->>>>>>> gates_experiment
             room.service_move_right(player)
             return current_room
         
