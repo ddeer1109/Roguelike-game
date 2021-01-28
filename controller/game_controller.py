@@ -34,7 +34,7 @@ def service_player_moves(key_pressed, room, player):
             room.service_move_left(player)
 
     elif k_pressed == "d":
-        
+
         if type(room.fields[player.x][player.y+1]) is not Wall:
             room.service_move_right(player)
    
