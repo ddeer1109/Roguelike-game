@@ -44,7 +44,7 @@ class Room:
 
         return board
 
-
+    #TODO - move methon print_toom to ui.py
     def print_room(self):
         clear_screen()
         for i in range(len(self.fields)):
