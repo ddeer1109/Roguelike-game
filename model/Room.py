@@ -8,7 +8,9 @@ from model.Empty_space import Empty_space
 from model.Wall import Wall
 from model.Gate import Gate
 from model.Player import Player
+from model.constants import UPPER, BOTTOM, LEFT, RIGHT
 import random
+from view.util import clear_screen
 
 class Room:
     def __init__(self, height, width):
@@ -18,10 +20,10 @@ class Room:
         # self.left_gate = None
         # self.right_gate = None
         self.gates = {
-            "upper": None,
-            "bottom": None,
-            "left": None,
-            "right": None
+            UPPER: None,
+            BOTTOM: None,
+            LEFT: None,
+            RIGHT: None
         }
         ######
     def init_board(self, height,width):
@@ -44,12 +46,13 @@ class Room:
 
 
     def print_room(self):
+        clear_screen()
         for i in range(len(self.fields)):
             temp_str = ''
             for j in range(len(self.fields[0])):
                 temp_str += str(self.fields[i][j])
             print(temp_str)
-        print()            
+
 
 ####################    
     def create_upper_gate(self):
@@ -62,7 +65,7 @@ class Room:
         gate = Gate(first_row_index, column_index)
         self.fields[first_row_index][column_index] = gate
         # self.upper_gate = gate
-        self.gates["upper"] = gate
+        self.gates[UPPER] = gate
     
     def create_bottom_gate(self):
         first_col_index = 0
@@ -74,7 +77,7 @@ class Room:
         gate = Gate(col_length - 1, column_index)
         self.fields[col_length - 1][column_index] = gate
         self.bottom_gate = gate
-        self.gates["bottom"] = gate
+        self.gates[BOTTOM] = gate
 
     def create_left_gate(self):
         first_col_index = 0
@@ -86,7 +89,7 @@ class Room:
         gate = Gate(row_index, first_col_index)
         self.fields[row_index][first_col_index] = gate
         # self.left_gate = gate 
-        self.gates["left"] = gate
+        self.gates[LEFT] = gate
 
 
 
@@ -99,7 +102,7 @@ class Room:
         gate = Gate(row_index, row_length - 1)
         self.fields[row_index][row_length - 1] = gate
         # self.right_gate = gate
-        self.gates["right"] = gate
+        self.gates[RIGHT] = gate
 
 ##################3
     def create_gates(self, upper=False, bottom=False, left=False, right=False):

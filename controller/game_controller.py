@@ -9,6 +9,7 @@ from view import ui, util
 from model.Player import Player
 from model.Wall import Wall
 from model.Gate import Gate
+from model.constants import UPPER, BOTTOM, LEFT, RIGHT
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
 PLAYER_START_Y = 3
@@ -23,7 +24,7 @@ def service_player_moves(key_pressed, room, player, current_room):
         next_area = type(room.fields[player.x-1][player.y])
     
         if next_area is Gate:
-            return current_room.gates["upper"].go_through_gate(player, "upper")
+            return current_room.gates[UPPER].go_through_gate(player, UPPER)
         elif next_area is not Wall:
             room.service_move_up(player)    
             return current_room    
@@ -32,7 +33,7 @@ def service_player_moves(key_pressed, room, player, current_room):
         next_area = type(room.fields[player.x+1][player.y])
         
         if next_area is Gate:
-            return current_room.gates["bottom"].go_through_gate(player, "bottom")
+            return current_room.gates[BOTTOM].go_through_gate(player, BOTTOM)
         elif next_area is not Wall:
             room.service_move_down(player)
             return current_room
@@ -41,7 +42,7 @@ def service_player_moves(key_pressed, room, player, current_room):
         next_area = type(room.fields[player.x][player.y-1])
         
         if next_area is Gate:
-            return current_room.gates["left"].go_through_gate(player, "left")
+            return current_room.gates[LEFT].go_through_gate(player, LEFT)
         elif next_area is not Wall:
             room.service_move_left(player)
             return current_room
@@ -50,7 +51,7 @@ def service_player_moves(key_pressed, room, player, current_room):
         next_area = type(room.fields[player.x][player.y+1])
         
         if next_area is Gate:
-            return current_room.gates["right"].go_through_gate(player, "right")
+            return current_room.gates[RIGHT].go_through_gate(player, RIGHT)
         elif next_area is not Wall:
             room.service_move_right(player)
             return current_room
@@ -70,7 +71,7 @@ def main():
     is_running = True
     
     while is_running:
-        util.clear_screen()
+        #util.clear_screen()
         current_room.print_room()
         #Here changed mostly
 
@@ -81,16 +82,16 @@ def main():
         else:
             current_room = service_player_moves(key, current_room, player, current_room)
 
-        if player.current_field == current_room.gates["right"]:
-            # engine.put_player_on_board(board, board.boss_room.gates["bottom"].x, board.boss_room.gates["bottom"].y, player)
+        if player.current_field == current_room.gates[RIGHT]:
+            # engine.put_player_on_board(board, board.boss_room.gates[BOTTOM].x, board.boss_room.gates[BOTTOM].y, player)
             # current_room = board
-            current_room = current_room.gates["right"].go_through_gate(player, "right")
+            current_room = current_room.gates[RIGHT].go_through_gate(player, RIGHT)
             
         
-        if player.current_field == current_room.gates["left"]:
-            # engine.put_player_on_board(board, board.boss_room.gates["bottom"].x, board.boss_room.gates["bottom"].y, player)
+        if player.current_field == current_room.gates[LEFT]:
+            # engine.put_player_on_board(board, board.boss_room.gates[BOTTOM].x, board.boss_room.gates[BOTTOM].y, player)
             # current_room = board
-            current_room = current_room.gates["left"].go_through_gate(player, "left")
+            current_room = current_room.gates[LEFT].go_through_gate(player, LEFT)
             
         
         

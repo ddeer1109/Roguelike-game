@@ -4,7 +4,7 @@ sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 from model.Board import Board
-
+from model.constants import CENTRAL
 
 def create_board(width, height):
     '''
@@ -31,5 +31,5 @@ def put_player_on_board(board, x, y, player):
     Returns:
     Nothing
     '''
-    board.place_player("central", x,y,player)
+    board.place_player(CENTRAL, x,y,player)
     
