@@ -4,6 +4,7 @@ sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 from model.Room import Room
+from model.Gate import Gate
 
 
 class Board:
@@ -25,9 +26,28 @@ class Board:
         self.boss_room.create_gates(bottom=True)
 
 
-    def place_player(self, x, y, player_object):    
-            self.central_room.fields[x][y] = str(player_object)
+        self.central_room.gates["right"].connect_gates(self.right_room.gates["left"], self.right_room)
+        self.central_room.gates["left"].connect_gates(self.left_room.gates["right"], self.central_room)
+
+        self.left_room.gates["right"].connect_gates(self.central_room.gates["left"], self.central_room)
+        self.right_room.gates["left"].connect_gates(self.central_room.gates["right"], self.central_room)
         
+        
+
+    def place_player(self, room, x, y, player_object):    
+            if room == "central":
+                self.central_room.fields[x][y] = str(player_object)
+            elif room == "left":
+                self.left_room.fields[x][y] = str(player_object)
+            elif room == "right":
+                self.right_room.fields[x][y] = str(player_object)
+            elif room == "boss":
+                self.boss_room.fields[x][y] = str(player_object) 
+            
+         
+    # def go_through_gate()
+    
+    #############################    
 
 
 

@@ -1,4 +1,4 @@
-EMPTY_AREA_ICON = '.'
+EMPTY_AREA_ICON = ' '
 WALL_ICON = '#'
 GATE_ICON = 'G'
 

@@ -31,5 +31,5 @@ def put_player_on_board(board, x, y, player):
     Returns:
     Nothing
     '''
-    board.place_player(x,y,player)
+    board.place_player("central", x,y,player)
     

@@ -13,12 +13,17 @@ import random
 class Room:
     def __init__(self, height, width):
         self.fields = self.init_board(height, width)
-        self.upper_gate = None
-        self.bottom_gate =None
-        self.left_gate = None
-        self.right_gate = None
-
-
+        # self.upper_gate = None
+        # self.bottom_gate =None
+        # self.left_gate = None
+        # self.right_gate = None
+        self.gates = {
+            "upper": None,
+            "bottom": None,
+            "left": None,
+            "right": None
+        }
+        ######
     def init_board(self, height,width):
         board = []
         for row in range(height):
@@ -46,40 +51,42 @@ class Room:
             print(temp_str)
         print()            
 
-    
+####################    
     def create_upper_gate(self):
         first_row_index = 0 
         row_length = len(self.fields[0])
         
-        column_index = random.randrange(first_row_index + 1, row_length)
+        column_index = random.randrange(first_row_index + 1, row_length-1)
         
         
         gate = Gate(first_row_index, column_index)
         self.fields[first_row_index][column_index] = gate
-        self.upper_gate = gate
-
+        # self.upper_gate = gate
+        self.gates["upper"] = gate
     
     def create_bottom_gate(self):
         first_col_index = 0
         row_length = len(self.fields[0])
         col_length = len(self.fields)
         
-        column_index = random.randrange(first_col_index + 1, row_length)
+        column_index = random.randrange(first_col_index + 1, row_length-1)
 
         gate = Gate(col_length - 1, column_index)
         self.fields[col_length - 1][column_index] = gate
         self.bottom_gate = gate
-
+        self.gates["bottom"] = gate
 
     def create_left_gate(self):
         first_col_index = 0
         first_row_index = 0
         col_length = len(self.fields)
-        row_index = random.randrange(first_row_index + 1, col_length)
+        
+        row_index = random.randrange(first_row_index + 1, col_length-1)
     
         gate = Gate(row_index, first_col_index)
         self.fields[row_index][first_col_index] = gate
-        self.left_gate = gate 
+        # self.left_gate = gate 
+        self.gates["left"] = gate
 
 
 
@@ -87,14 +94,14 @@ class Room:
         first_row_index = 0
         row_length = len(self.fields[0])
         col_length = len(self.fields)
-        row_index = random.randrange(first_row_index + 1, col_length)
+        row_index = random.randrange(first_row_index + 1, col_length-1)
         
         gate = Gate(row_index, row_length - 1)
         self.fields[row_index][row_length - 1] = gate
-        self.right_gate = gate
+        # self.right_gate = gate
+        self.gates["right"] = gate
 
-
-
+##################3
     def create_gates(self, upper=False, bottom=False, left=False, right=False):
         if upper: self.create_upper_gate()
         if bottom: self.create_bottom_gate()

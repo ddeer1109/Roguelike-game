@@ -7,7 +7,7 @@ from controller import engine
 from view import ui, util
 from model.Player import Player
 from model.Wall import Wall
-
+from model.Gate import Gate
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
 PLAYER_START_Y = 3
@@ -48,22 +48,28 @@ def main():
     board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
     engine.put_player_on_board(board, PLAYER_START_X, PLAYER_START_Y, player)
     util.clear_screen()
-    board.central_room.print_room()
+    # here
+    current_room = board.central_room
     is_running = True
     
     while is_running:
-        if player.current_field == "G":
-            engine.put_player_on_board(board, player)
-        ui.display_board(board)
-    
+        util.clear_screen()
+        current_room.print_room()
+        #Here changed mostly
+        if player.current_field == board.central_room.gates["right"]:
+            # engine.put_player_on_board(board, board.boss_room.gates["bottom"].x, board.boss_room.gates["bottom"].y, player)
+            # current_room = board
+            current_room = board.central_room.gates["right"].go_through_gate(player)
+            
+        
         key = util.key_pressed()
         
         if key == 'q':
             is_running = False
         else:
-            service_player_moves(key, board.central_room, player)
+            service_player_moves(key, current_room, player)
         
-        util.clear_screen()
-        board.central_room.print_room()
+        
+
         
     
