@@ -78,6 +78,7 @@ class Main:
         while is_running:
             # util.clear_screen()
             ui.UI.display_room(current_room)
+            ui.UI.display_statistics(player)
             #Here changed mostly
 
             key = util.Util.key_pressed()
@@ -98,10 +99,3 @@ class Main:
                 # engine.put_player_on_board(board, board.boss_room.gates[BOTTOM].x, board.boss_room.gates[BOTTOM].y, player)
                 # current_room = board
                 current_room = current_room.gates[LEFT].go_through_gate(player, LEFT)
-            
-        
-        
-        
-
-        
-    
