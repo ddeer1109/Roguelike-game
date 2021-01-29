@@ -6,6 +6,7 @@ sys.path.append(
 
 from controller import engine
 from view import ui, util
+# from view.ui import UI
 from model.Player import Player
 from model.Wall import Wall
 from model.Gate import Gate
@@ -70,9 +71,11 @@ def main():
     current_room = board.central_room
     is_running = True
     
+    ui.UI.display_room(current_room)
+
     while is_running:
-        #util.clear_screen()
-        current_room.print_room()
+        util.clear_screen()
+        ui.UI.display_room(current_room)
         #Here changed mostly
 
         key = util.key_pressed()

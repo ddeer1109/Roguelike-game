@@ -45,13 +45,13 @@ class Room:
         return board
 
 
-    def print_room(self):
-        clear_screen()
-        for i in range(len(self.fields)):
-            temp_str = ''
-            for j in range(len(self.fields[0])):
-                temp_str += str(self.fields[i][j])
-            print(temp_str)
+    # def print_room(self):
+    #     clear_screen()
+    #     for i in range(len(self.fields)):
+    #         temp_str = ''
+    #         for j in range(len(self.fields[0])):
+    #             temp_str += str(self.fields[i][j])
+    #         print(temp_str)
 
 
 ####################    
