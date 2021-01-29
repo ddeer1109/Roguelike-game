@@ -1,4 +1,4 @@
-from controller.game_controller import main
+from controller.game_controller import Main
 
 if __name__ == '__main__':
-    main()
+    Main.main()
