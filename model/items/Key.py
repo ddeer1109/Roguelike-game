@@ -8,6 +8,7 @@ class Key(Field):
     
     def add_gate_to_key(self, gate):
         self.opened_gate = gate
+        gate.oppening_key = self
 
     def __str__(self):
         return self.icon

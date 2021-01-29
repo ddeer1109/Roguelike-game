@@ -66,9 +66,17 @@ class Main:
         elif k_pressed == "d":
             next_area = type(room.fields[player.x][player.y+1])
             next_object = room.fields[player.x][player.y+1]
-            
+            current_gate = current_room.gates[RIGHT]
+
             if next_area is Gate:
-                return current_room.gates[RIGHT].go_through_gate(player, RIGHT)
+                if not current_gate.is_opened:
+                    if current_gate.oppening_key in player.inventory:
+                        current_gate.open_gate()
+                        return current_gate.go_through_gate(player, RIGHT)
+                else:
+                    return current_gate.go_through_gate(player, RIGHT)
+
+
             elif next_area is not Wall:
                 if next_area is Key:
                     player.inventory.append(next_object)

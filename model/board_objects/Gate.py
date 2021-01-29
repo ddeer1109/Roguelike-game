@@ -11,6 +11,7 @@ class Gate(Field):
         self.is_opened = False
         self.connection_gate = None
         self.connected_room = None
+        self.oppening_key = None
     
     
     def __str__(self):
@@ -19,6 +20,9 @@ class Gate(Field):
         else:
             self.icon = GATE_ICON
         return self.icon
+
+    def open_gate(self):
+        self.is_opened = True
 
 
     def connect_gates(self, gate, room):
