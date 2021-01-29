@@ -2,6 +2,9 @@ class Creature:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.health = 50
+        self.attack = None
+        self.defence = None
 
 
     def __str__(self):

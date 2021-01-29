@@ -66,7 +66,7 @@ def main():
     player = Player(PLAYER_START_X, PLAYER_START_Y)
     board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
     engine.put_player_on_board(board, PLAYER_START_X, PLAYER_START_Y, player)
-    util.clear_screen()
+    # util.clear_screen()
     # here
     current_room = board.central_room
     is_running = True
@@ -74,11 +74,11 @@ def main():
     ui.UI.display_room(current_room)
 
     while is_running:
-        util.clear_screen()
+        # util.clear_screen()
         ui.UI.display_room(current_room)
         #Here changed mostly
 
-        key = util.key_pressed()
+        key = util.Util.key_pressed()
         
         if key == 'q':
             is_running = False

@@ -10,7 +10,6 @@ from model.Gate import Gate
 from model.Player import Player
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
 import random
-from view.util import clear_screen
 
 class Room:
     def __init__(self, height, width):
@@ -43,26 +42,6 @@ class Room:
             board.append(inner_board)
 
         return board
-
-<<<<<<< HEAD
-
-    # def print_room(self):
-    #     clear_screen()
-    #     for i in range(len(self.fields)):
-    #         temp_str = ''
-    #         for j in range(len(self.fields[0])):
-    #             temp_str += str(self.fields[i][j])
-    #         print(temp_str)
-=======
-    #TODO - move methon print_toom to ui.py
-    def print_room(self):
-        clear_screen()
-        for i in range(len(self.fields)):
-            temp_str = ''
-            for j in range(len(self.fields[0])):
-                temp_str += str(self.fields[i][j])
-            print(temp_str)
->>>>>>> 697ae6b47a71a73d812bba7c0a2fdccf98dc370e
 
 
 ####################    

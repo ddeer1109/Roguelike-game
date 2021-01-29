@@ -41,7 +41,7 @@ class Board:
 
     def place_player(self, room, x, y, player_object):    
             if room == CENTRAL:
-                self.central_room.fields[x][y] = str(player_object)
+                self.central_room.fields[x][y] = player_object
             '''elif room == LEFT:
                 self.left_room.fields[x][y] = str(player_object)
             elif room == RIGHT:

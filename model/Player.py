@@ -5,5 +5,4 @@ class Player(Creature):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.icon = PLAYER
-        self.health = 100
-        self.current_room = CENTRAL
+        # self.current_room = CENTRAL

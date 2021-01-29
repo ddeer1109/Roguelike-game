@@ -1,3 +1,4 @@
+from view.util import Util
 class UI:
     @staticmethod
     def display_room(room):
@@ -7,7 +8,7 @@ class UI:
         Returns:
         Nothing
         '''
-        # clear_screen()
+        Util.clear_screen()
         for i in range(len(room.fields)):
             temp_str = ''
             for j in range(len(room.fields[0])):
