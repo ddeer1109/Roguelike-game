@@ -66,7 +66,8 @@ class Main:
         print("START")
         player = Player(PLAYER_START_X, PLAYER_START_Y)
         board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
-        engine.put_player_on_board(board, PLAYER_START_X, PLAYER_START_Y, player)
+
+        engine.put_player_on_board(board, player)
         # util.clear_screen()
         # here
         current_room = board.central_room
