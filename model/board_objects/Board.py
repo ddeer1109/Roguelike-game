@@ -20,8 +20,14 @@ class Board:
         return (Room(height, width) for _ in range(count))
 
 
+
     def generate_gates(self):
+
         self.central_room.create_gates(left=True, right=True)
+        
+        self.central_room.create_key(10, 10)
+        
+        
         self.right_room.create_gates(left=True)
         self.left_room.create_gates(upper=True, right=True)
         self.boss_room.create_gates(bottom=True)

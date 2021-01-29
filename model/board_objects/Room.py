@@ -9,6 +9,7 @@ from model.board_objects.Wall import Wall
 from model.board_objects.Gate import Gate
 from model.creatures.Player import Player
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
+from model.items.Key import Key
 import random
 
 class Room:
@@ -42,6 +43,11 @@ class Room:
             board.append(inner_board)
 
         return board
+
+
+    def create_key(self, x, y):
+        key = Key(x, y)
+        self.fields[x][y] = key
 
 
 ####################    
