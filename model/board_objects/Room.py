@@ -48,6 +48,7 @@ class Room:
     def create_key(self, x, y):
         key = Key(x, y)
         self.fields[x][y] = key
+        return self.fields[x][y]
 
 
 ####################    

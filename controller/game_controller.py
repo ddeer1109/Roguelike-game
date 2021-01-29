@@ -72,7 +72,7 @@ class Main:
             elif next_area is not Wall:
                 if next_area is Key:
                     player.inventory.append(next_object)
-                    
+
                 room.service_move_right(player)
                 return current_room
             
