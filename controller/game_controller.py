@@ -11,6 +11,7 @@ from model.creatures.Player import Player
 from model.board_objects.Wall import Wall
 from model.board_objects.Gate import Gate
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
+from model.items.Key import Key
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
 PLAYER_START_Y = 3
@@ -22,39 +23,56 @@ class Main:
     @staticmethod
     def service_player_moves(key_pressed, room, player, current_room):
         k_pressed = str.lower(key_pressed)
+        
         if k_pressed == "w":
             next_area = type(room.fields[player.x-1][player.y])
-        
+            next_object = room.fields[player.x-1][player.y]
+            
             if next_area is Gate:
                 return current_room.gates[UPPER].go_through_gate(player, UPPER)
             elif next_area is not Wall:
+                if next_area is Key:
+                    player.inventory.append(next_object)
+
                 room.service_move_up(player)    
                 return current_room    
         
         elif k_pressed == "s":
             next_area = type(room.fields[player.x+1][player.y])
+            next_object = room.fields[player.x+1][player.y]
             
             if next_area is Gate:
                 return current_room.gates[BOTTOM].go_through_gate(player, BOTTOM)
             elif next_area is not Wall:
+                if next_area is Key:
+                    player.inventory.append(next_object)
+
                 room.service_move_down(player)
                 return current_room
         
         elif k_pressed == "a":
             next_area = type(room.fields[player.x][player.y-1])
+            next_object = room.fields[player.x][player.y-1]
             
             if next_area is Gate:
                 return current_room.gates[LEFT].go_through_gate(player, LEFT)
             elif next_area is not Wall:
+                if next_area is Key:
+                    player.inventory.append(next_object)
+
                 room.service_move_left(player)
                 return current_room
 
         elif k_pressed == "d":
             next_area = type(room.fields[player.x][player.y+1])
+            next_object = room.fields[player.x][player.y+1]
             
             if next_area is Gate:
                 return current_room.gates[RIGHT].go_through_gate(player, RIGHT)
             elif next_area is not Wall:
+                if next_area is Key:
+                    player.inventory.append(next_object)
+                    
                 room.service_move_right(player)
                 return current_room
             

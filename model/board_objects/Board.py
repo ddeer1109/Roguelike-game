@@ -24,9 +24,7 @@ class Board:
     def generate_gates(self):
 
         self.central_room.create_gates(left=True, right=True)
-        
-        self.central_room.create_key(10, 10)
-        
+           
         
         self.right_room.create_gates(left=True)
         self.left_room.create_gates(upper=True, right=True)
@@ -43,6 +41,11 @@ class Board:
         
         self.boss_room.gates[BOTTOM].connect_gates(self.left_room.gates[UPPER], self.left_room)
         
+
+        self.central_room.create_key(10, 10)
+        self.central_room.create_key(12, 15)
+
+        self.left_room.create_key(12, 11)
 
 
     def place_player(self, player):    
