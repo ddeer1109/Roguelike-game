@@ -3,7 +3,7 @@ import os.path
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
-from model.Board import Board
+from model.board_objects.Board import Board
 from model.constants import CENTRAL
 
 def create_board(width, height):

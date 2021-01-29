@@ -3,8 +3,8 @@ import os.path
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
-from model.Room import Room
-from model.Gate import Gate
+from model.board_objects.Room import Room
+from model.board_objects.Gate import Gate
 from model.constants import  UPPER, BOTTOM, LEFT, RIGHT, CENTRAL, BOSS
 
 

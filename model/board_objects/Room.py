@@ -4,10 +4,10 @@ sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 from view import util
-from model.Empty_space import Empty_space
-from model.Wall import Wall
-from model.Gate import Gate
-from model.Player import Player
+from model.board_objects.Empty_space import Empty_space
+from model.board_objects.Wall import Wall
+from model.board_objects.Gate import Gate
+from model.creatures.Player import Player
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
 import random
 

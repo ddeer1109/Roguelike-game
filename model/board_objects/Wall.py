@@ -1,4 +1,4 @@
-from model.Field import Field
+from model.board_objects.Field import Field
 from model.constants import WALL_ICON
 
 class Wall(Field):

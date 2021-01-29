@@ -1,4 +1,4 @@
-from model.Creature import Creature
+from model.creatures.Creature import Creature
 from model.constants import PLAYER, CENTRAL
 
 class Player(Creature):

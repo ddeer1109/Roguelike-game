@@ -1,4 +1,4 @@
-from model.Field import Field
+from model.board_objects.Field import Field
 from model.constants import EMPTY_AREA_ICON
 
 class Empty_space(Field):

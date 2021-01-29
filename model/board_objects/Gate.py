@@ -1,5 +1,5 @@
 from builtins import IndexError, next
-from model.Field import Field
+from model.board_objects.Field import Field
 from model.constants import GATE_ICON, UPPER, BOTTOM, LEFT, RIGHT
 
 

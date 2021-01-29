@@ -7,9 +7,9 @@ sys.path.append(
 from controller import engine
 from view import ui, util
 # from view.ui import UI
-from model.Player import Player
-from model.Wall import Wall
-from model.Gate import Gate
+from model.creatures.Player import Player
+from model.board_objects.Wall import Wall
+from model.board_objects.Gate import Gate
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
