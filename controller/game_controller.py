@@ -21,11 +21,14 @@ BOARD_HEIGHT = 20
 
 class Main:
     @staticmethod
-    def service_player_moves(key_pressed, room, player, current_room):
+    def service_player_inputs(key_pressed, room, player):
         k_pressed = str.lower(key_pressed)
         
-        current_room = Main.service_pressing_move_key(k_pressed, room, player)
-            # current_room = Main.service_pressing_d(room, player)
+        current_room = room 
+        
+        if k_pressed in ["w","a","s","d"]:
+            current_room = Main.service_pressing_move_key(k_pressed, room, player)
+                
         return current_room
 
 
@@ -198,6 +201,6 @@ class Main:
                 is_running = False
             else:
                 #TODO - check cls reference instead of Main
-                current_room = Main.service_player_moves(key, current_room, player, current_room)
+                current_room = Main.service_player_inputs(key, current_room, player, current_room)
 
             
