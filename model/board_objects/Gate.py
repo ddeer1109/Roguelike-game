@@ -23,6 +23,7 @@ class Gate(Field):
 
     def open_gate(self):
         self.is_opened = True
+        self.connection_gate.is_opened = True
 
 
     def connect_gates(self, gate, room):

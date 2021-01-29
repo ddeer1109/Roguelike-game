@@ -110,32 +110,31 @@ class Room:
 
     
     def service_move_up(self, creature_object):
-        if self.fields[creature_object.x][creature_object.y] is not Gate:
-            self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
         creature_object.move_up()
         creature_object.current_field = self.fields[creature_object.x][creature_object.y]
         self.fields[creature_object.x][creature_object.y] = str(creature_object)
 
 
     def service_move_down(self, creature_object):
-        if self.fields[creature_object.x][creature_object.y] is not Gate:
-            self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        
+        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
         creature_object.move_down()
         creature_object.current_field = self.fields[creature_object.x][creature_object.y]
         self.fields[creature_object.x][creature_object.y] = str(creature_object)
 
 
     def service_move_left(self, creature_object):
-        if self.fields[creature_object.x][creature_object.y] is not Gate:
-            self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        
+        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
         creature_object.move_left()
         creature_object.current_field = self.fields[creature_object.x][creature_object.y]
         self.fields[creature_object.x][creature_object.y] = str(creature_object)
 
 
     def service_move_right(self, creature_object):
-        if self.fields[creature_object.x][creature_object.y] is not Gate:
-            self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
+        
+        self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)
         creature_object.move_right()
         creature_object.current_field = self.fields[creature_object.x][creature_object.y]
         self.fields[creature_object.x][creature_object.y] = str(creature_object)
