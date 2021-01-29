@@ -8,7 +8,7 @@ class Gate(Field):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.icon = GATE_ICON
-        self.isopened = False
+        self.is_opened = True
         self.connection_gate = None
         self.connected_room = None
     

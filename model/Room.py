@@ -44,6 +44,7 @@ class Room:
 
         return board
 
+<<<<<<< HEAD
 
     # def print_room(self):
     #     clear_screen()
@@ -52,6 +53,16 @@ class Room:
     #         for j in range(len(self.fields[0])):
     #             temp_str += str(self.fields[i][j])
     #         print(temp_str)
+=======
+    #TODO - move methon print_toom to ui.py
+    def print_room(self):
+        clear_screen()
+        for i in range(len(self.fields)):
+            temp_str = ''
+            for j in range(len(self.fields[0])):
+                temp_str += str(self.fields[i][j])
+            print(temp_str)
+>>>>>>> 697ae6b47a71a73d812bba7c0a2fdccf98dc370e
 
 
 ####################    
