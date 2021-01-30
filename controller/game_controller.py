@@ -10,6 +10,7 @@ from view import ui, util
 # from view.ui import UI
 from model.creatures.Player import Player
 from model.creatures.Bandit import Bandit
+from model.fight.Fight import Fight
 from model.board_objects.Wall import Wall
 from model.board_objects.Gate import Gate
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
@@ -82,6 +83,8 @@ class Main:
             elif type(next_object) is Food:
                 player.eat_food(next_object.health_increase)
             elif type(next_object) is Bandit:
+                fight = Fight(player, next_object)
+                fight.print_fight()
                 return current_room
 
 

@@ -4,7 +4,7 @@ class Fight:
         self.enemy = enemy
 
     def print_fight(self):
-        print("figth")
-
-fight = Fight('player', 'enemy')
-fight.print_fight()
+        print(self.player)
+        print(self.enemy)
+        print('___________________________')
+        input('...')
