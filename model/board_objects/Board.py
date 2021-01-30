@@ -5,6 +5,7 @@ sys.path.append(
 
 from model.board_objects.Room import Room
 from model.board_objects.Gate import Gate
+from model.creatures.Bandit import Bandit
 from model.constants import  UPPER, BOTTOM, LEFT, RIGHT, CENTRAL, BOSS
 
 
@@ -52,6 +53,7 @@ class Board:
         key_left_upper.add_gate_to_key(self.left_room.gates[UPPER])
 
         self.central_room.create_food(3,4)
+        self.central_room.create_bandit(5, 3)
         
 
 

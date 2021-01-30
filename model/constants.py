@@ -3,6 +3,7 @@ WALL_ICON = '#'
 GATE_ICON = 'G'
 
 PLAYER = "@"
+BANDIT = "B"
 
 UPPER = 'upper'
 BOTTOM = 'bottom'

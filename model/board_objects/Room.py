@@ -8,6 +8,7 @@ from model.board_objects.Empty_space import Empty_space
 from model.board_objects.Wall import Wall
 from model.board_objects.Gate import Gate
 from model.creatures.Player import Player
+from model.creatures.Bandit import Bandit
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
 from model.items.Key import Key
 from model.items.Food import Food
@@ -54,8 +55,10 @@ class Room:
     def create_food(self, x, y):
         food = Food(x,y)
         self.fields[x][y] = food
-        return self.fields[x][y]
 
+    def create_bandit(self, x, y):
+        bandit = Bandit(x, y)
+        self.fields[x][y] = bandit
 
 ####################    
     def create_upper_gate(self):

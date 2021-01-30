@@ -9,6 +9,7 @@ from controller import engine
 from view import ui, util
 # from view.ui import UI
 from model.creatures.Player import Player
+from model.creatures.Bandit import Bandit
 from model.board_objects.Wall import Wall
 from model.board_objects.Gate import Gate
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
@@ -80,6 +81,8 @@ class Main:
                 player.inventory.append(next_object)
             elif type(next_object) is Food:
                 player.eat_food(next_object.health_increase)
+            elif type(next_object) is Bandit:
+                return current_room
 
 
             if direction == UPPER:
