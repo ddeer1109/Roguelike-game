@@ -58,7 +58,7 @@ class Main:
             direction = RIGHT
 
         return modified_x, modified_y, direction
-
+    @staticmethod
     def service_pressing_move_key(key_pressed, room, player):
         modified_player_x, modified_player_y, direction = Main.get_data_after_key_press(key_pressed, player)
 
@@ -84,8 +84,12 @@ class Main:
                 player.eat_food(next_object.health_increase)
             elif type(next_object) is Bandit:
                 fight = Fight(player, next_object)
-                fight.print_fight()
-                return current_room
+                winner = fight.start_fight()
+                if winner == player:
+                    pass
+                else:
+                    print("==============You died===============")
+                    current_room = None
 
 
             if direction == UPPER:
@@ -99,8 +103,8 @@ class Main:
 
         return current_room
 
-    @staticmethod
-    def main():
+    @classmethod
+    def main(cls):
         print("START")
         player = Player(PLAYER_START_X, PLAYER_START_Y)
         board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
@@ -125,4 +129,6 @@ class Main:
                 is_running = False
             else:
                 # TODO - check cls reference instead of Main
-                current_room = Main.service_player_inputs(key, current_room, player)
+                current_room = cls.service_player_inputs(key, current_room, player)
+                if current_room == None: 
+                    is_running = False
