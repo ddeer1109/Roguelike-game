@@ -87,9 +87,11 @@ class Main:
                 winner = fight.start_fight()
                 if winner == player:
                     pass
-                else:
+                elif winner == next_object:
                     print("==============You died===============")
                     current_room = None
+                else:
+                    return current_room
 
 
             if direction == UPPER:

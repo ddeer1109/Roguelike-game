@@ -7,7 +7,8 @@ class Player(Creature):
         super().__init__(x, y)
         self.icon = PLAYER
         self.inventory = []
-        self.attack = 10
+        self.attack = 3
+
 
     def eat_food(self, food):
         self.health += food
