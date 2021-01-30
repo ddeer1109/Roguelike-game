@@ -1,5 +1,5 @@
 import random
-from time import sleep
+from view.ui import UI
 MELEE_ATTACK = 1
 RANGE_ATTACK = 2
 MAGIC_ATTACK = 3
@@ -17,13 +17,14 @@ class Fight:
         enemy = self.enemy
         
         while self.player.health > 0 and self.enemy.health > 0:
-            print(f'_{player}_____{enemy}_')
-            print(f"Player health: {self.player.health}\nEnemy health: {self.enemy.health}")
-            
+            UI.display_fight(player,enemy)
+
             winner = self.serve_turn(player, enemy)
+            
             if winner == RUN:
                 break
         
+        UI.annouce_winner(winner)
         return winner
 
 
@@ -32,7 +33,6 @@ class Fight:
         if player_input == RUN and player.attack >= enemy.attack:
             return RUN
         self.serve_move(player_input, player, enemy)
-        input("press enter to continue")
         
         if enemy.health <= 0:
             return player
@@ -40,49 +40,31 @@ class Fight:
         
         if player.health <= 0:
             return enemy
-        input("press enter to continue")
 
 
     def player_fight_input(self):
-        print("Choose option: 1. Melee attack 4. Run (only if your attack is higher)")
-        player_input = int(input("Choose one of options: "))
+        
+        player_input = UI.get_input_of_fight_menu()
         
         while player_input not in [MELEE_ATTACK, RUN]:
-            print("Incorrect input. ")
-            player_input = int(input("Choose one of options: "))
+            UI.print_incorrect_info()
+            player_input = UI.get_input_of_fight_menu()
         return player_input
 
 
 
     def serve_move(self, move, player, enemy):
         if move == MELEE_ATTACK:
-            dice_roll = random.randint(0,6)
+            dice_roll = random.randint(0,4)
 
-            if dice_roll == 0:
-                print("You missed")
-                return "missed"
             damage = dice_roll * player.attack
             enemy.health -= damage
-            print(f"Damage done: {damage}.")
-            print(f'_{player}>   {enemy}_')
-            sleep(0.5)
-            print(f'_{player}->  {enemy}_')
-            sleep(0.5)
-            print(f'_{player}--> {enemy}_')
-            sleep(0.5)
-            print(f'_{player}--->{enemy}_')
-            sleep(0.5)
+            UI.display_melee_animation(player, enemy, damage)
+
+        #TODO (?)    
         elif move == RANGE_ATTACK:
             pass
+        
         elif move == MAGIC_ATTACK:
             pass
-        
-    # def get_enemy_attack(enemy, player):
-    #     dice_roll = random.randint(0,6)
-
-    #     if dice_roll == 0:
-    #         print("Enemy missed")
-    #         return
-    #     damage = dice_roll * enemy.attack
-    #     player.health -= damage
-    #     print(f"Enemy's done {damage} damage")
+     
