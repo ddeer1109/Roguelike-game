@@ -53,8 +53,8 @@ class Room:
 
     def create_food(self, x, y):
         food = Food(x,y)
-        self.fields[x][y]=food
-
+        self.fields[x][y] = food
+        return self.fields[x][y]
 
 
 ####################    

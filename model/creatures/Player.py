@@ -9,4 +9,4 @@ class Player(Creature):
         self.inventory = []
 
     def eat_food(self, food):
-        self.health += food.health_increase
+        self.health += food
