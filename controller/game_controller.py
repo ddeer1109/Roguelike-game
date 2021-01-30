@@ -28,12 +28,14 @@ class Main:
     def service_player_inputs(cls, key_pressed, room, player):
         k_pressed = str.lower(key_pressed)
 
-        current_room = room
-
-        if k_pressed in ["w", "a", "s", "d"]:
+        
+        current_room = room 
+        
+        if k_pressed in ["w","a","s","d"]:
             current_room = cls.service_pressing_move_key(k_pressed, room, player)
-
+                
         return current_room
+
 
     def get_data_after_key_press(pressed_key, player):
         if pressed_key == "w":
