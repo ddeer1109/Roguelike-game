@@ -20,14 +20,14 @@ BOARD_WIDTH = 30
 BOARD_HEIGHT = 20
 
 class Main:
-    @staticmethod
-    def service_player_inputs(key_pressed, room, player):
+    @classmethod
+    def service_player_inputs(cls, key_pressed, room, player):
         k_pressed = str.lower(key_pressed)
         
         current_room = room 
         
         if k_pressed in ["w","a","s","d"]:
-            current_room = Main.service_pressing_move_key(k_pressed, room, player)
+            current_room = cls.service_pressing_move_key(k_pressed, room, player)
                 
         return current_room
 
