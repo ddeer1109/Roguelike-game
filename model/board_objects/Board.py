@@ -44,11 +44,13 @@ class Board:
 
         key_central_left = self.central_room.create_key(10, 10)
         key_central_right = self.central_room.create_key(12, 15)
+        key_left_upper = self.right_room.create_key(3, 19)
 
         key_central_left.add_gate_to_key(self.central_room.gates[LEFT])
         key_central_right.add_gate_to_key(self.central_room.gates[RIGHT])
+        key_left_upper.add_gate_to_key(self.left_room.gates[UPPER])
+
         
-        self.left_room.create_key(12, 11)
 
 
     def place_player(self, player):    

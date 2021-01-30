@@ -201,6 +201,6 @@ class Main:
                 is_running = False
             else:
                 #TODO - check cls reference instead of Main
-                current_room = Main.service_player_inputs(key, current_room, player, current_room)
+                current_room = Main.service_player_inputs(key, current_room, player)
 
             
