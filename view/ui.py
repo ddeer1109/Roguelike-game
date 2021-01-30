@@ -19,3 +19,4 @@ class UI:
     def display_statistics(player):
         print(f"Inventory: {player.inventory}", end = "\t")
         print(f"Healt: {player.health}", end="\t")
+        print('')

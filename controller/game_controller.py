@@ -13,6 +13,7 @@ from model.board_objects.Wall import Wall
 from model.board_objects.Gate import Gate
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
 from model.items.Key import Key
+from model.items import Food
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 3
@@ -74,6 +75,9 @@ class Main:
         elif type(next_object) is not Wall:
             if type(next_object) is Key:
                 player.inventory.append(next_object)
+            elif type(next_object) is Food:
+                player.eat_food(next_object)
+
 
             if direction == UPPER:
                 room.service_move_up(player)

@@ -10,6 +10,7 @@ from model.board_objects.Gate import Gate
 from model.creatures.Player import Player
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
 from model.items.Key import Key
+from model.items.Food import Food
 import random
 
 class Room:
@@ -49,6 +50,11 @@ class Room:
         key = Key(x, y)
         self.fields[x][y] = key
         return self.fields[x][y]
+
+    def create_food(self, x, y):
+        food = Food(x,y)
+        self.fields[x][y]=food
+
 
 
 ####################    

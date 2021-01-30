@@ -11,3 +11,6 @@ RIGHT = 'right'
 
 CENTRAL = 'central'
 BOSS = 'boss'
+
+FOOD = 'F'
+KEY = 'K'

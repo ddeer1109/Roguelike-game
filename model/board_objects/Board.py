@@ -8,6 +8,7 @@ from model.board_objects.Gate import Gate
 from model.constants import  UPPER, BOTTOM, LEFT, RIGHT, CENTRAL, BOSS
 
 
+
 class Board:
     def __init__(self, width, height):
         self.central_room, self.left_room,\
@@ -50,6 +51,7 @@ class Board:
         key_central_right.add_gate_to_key(self.central_room.gates[RIGHT])
         key_left_upper.add_gate_to_key(self.left_room.gates[UPPER])
 
+        self.central_room.create_food(5,5)
         
 
 
