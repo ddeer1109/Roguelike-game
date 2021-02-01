@@ -67,10 +67,9 @@ class Room:
         
         column_index = random.randrange(first_row_index + 1, row_length-1)
         
-        
         gate = Gate(first_row_index, column_index)
         self.fields[first_row_index][column_index] = gate
-        # self.upper_gate = gate
+        
         self.gates[UPPER] = gate
     
     def create_bottom_gate(self):
@@ -82,7 +81,7 @@ class Room:
 
         gate = Gate(col_length - 1, column_index)
         self.fields[col_length - 1][column_index] = gate
-        self.bottom_gate = gate
+        
         self.gates[BOTTOM] = gate
 
     def create_left_gate(self):
@@ -94,9 +93,8 @@ class Room:
     
         gate = Gate(row_index, first_col_index)
         self.fields[row_index][first_col_index] = gate
-        # self.left_gate = gate 
+        
         self.gates[LEFT] = gate
-
 
 
     def create_right_gate(self):
@@ -107,7 +105,7 @@ class Room:
         
         gate = Gate(row_index, row_length - 1)
         self.fields[row_index][row_length - 1] = gate
-        # self.right_gate = gate
+        
         self.gates[RIGHT] = gate
 
 ##################3

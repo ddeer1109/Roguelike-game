@@ -28,9 +28,9 @@ class UI:
     @staticmethod
     def display_fight(player, enemy):
         Util.clear_screen()
-        print("*** FIGHT ***\n")
         print(f'  {player}       {enemy}  ')
         print()
+        print("*** FIGHT ***\n")
         print(f"PLAYER Health: {player.health}    Arrows: {player.arrows}    Mana: {player.mana}\
             \nENEMY Health: {enemy.health}     Arrows: {enemy.arrows}   Mana: {enemy.mana}")
         print()
@@ -91,11 +91,7 @@ class UI:
     @staticmethod
     def display_range_animation(player, enemy, damage):
         if damage == 0:
-            if player.arrows == 0:
-                UI.display_info("No ammunition for range attack")
-            else:
-                UI.display_info("Range attack missed.")
-            return None
+            UI.display_info("Range attack missed or no ammunition.")
         elif type(player) is Player.Player:
             Util.clear_screen()
             print(f'  {player}|)->     {enemy} ')

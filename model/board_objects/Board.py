@@ -26,8 +26,6 @@ class Board:
     def generate_gates(self):
 
         self.central_room.create_gates(left=True, right=True)
-           
-        
         self.right_room.create_gates(left=True)
         self.left_room.create_gates(upper=True, right=True)
         self.boss_room.create_gates(bottom=True)
@@ -36,10 +34,10 @@ class Board:
         self.central_room.gates[RIGHT].connect_gates(self.right_room.gates[LEFT], self.right_room)
         self.central_room.gates[LEFT].connect_gates(self.left_room.gates[RIGHT], self.left_room)
 
+        self.right_room.gates[LEFT].connect_gates(self.central_room.gates[RIGHT], self.central_room)
+
         self.left_room.gates[RIGHT].connect_gates(self.central_room.gates[LEFT], self.central_room)
         self.left_room.gates[UPPER].connect_gates(self.boss_room.gates[BOTTOM], self.boss_room)
-        
-        self.right_room.gates[LEFT].connect_gates(self.central_room.gates[RIGHT], self.central_room)
         
         self.boss_room.gates[BOTTOM].connect_gates(self.left_room.gates[UPPER], self.left_room)
         
@@ -57,28 +55,6 @@ class Board:
         self.central_room.create_bandit(7, 4)
         self.central_room.create_bandit(5, 8)
 
+
     def place_player(self, player):    
             self.central_room.fields[player.x][player.y] = player
-            '''elif room == LEFT:
-                self.left_room.fields[x][y] = str(player_object)
-            elif room == RIGHT:
-                self.right_room.fields[x][y] = str(player_object)
-            elif room == BOSS:
-                self.boss_room.fields[x][y] = str(player_object) '''
-            
-         
-    # def go_through_gate()
-    
-    #############################    
-
-
-
-
-
-
-#
-# board = Board(20, 30)
-# board.central_room.print_room()
-# board.right_room.print_room()
-# board.left_room.print_room()
-# board.boss_room.print_room()
