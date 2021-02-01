@@ -58,6 +58,8 @@ class Main:
             direction = RIGHT
 
         return modified_x, modified_y, direction
+
+
     @staticmethod
     def service_pressing_move_key(key_pressed, room, player):
         modified_player_x, modified_player_y, direction = Main.get_data_after_key_press(key_pressed, player)
@@ -66,42 +68,31 @@ class Main:
         current_room = room
 
         if type(next_object) is Gate:
-            current_gate = room.gates[direction]
-
-            if not current_gate.is_opened:
-                if current_gate.oppening_key in player.inventory:
-                    del player.inventory[player.inventory.index(current_gate.oppening_key)]
-                    current_gate.open_gate()
-                    current_room = current_gate.go_through_gate(player, direction)
-
-            else:
-                current_room = current_gate.go_through_gate(player, direction)
-
+            current_gate = current_room.gates[direction]
+            room_after_stepping_into_gate = current_gate.service_interaction(player, direction)
+            
+            if stepping_in_gate != "closed":
+                current_room = room_after_stepping_into_gate
+        
         elif type(next_object) is not Wall:
-            if type(next_object) is Key:
-                player.inventory.append(next_object)
-            elif type(next_object) is Food:
-                player.eat_food(next_object.health_increase)
+            
+            if type(next_object) in [Key, Food]:  
+                player.service_picking_item(next_object)
+            
             elif type(next_object) is Bandit:
-                fight = Fight(player, next_object)
-                winner = fight.start_fight()
-                if winner == player:
+                result_of_fight = Fight(player, next_object).service_fight()
+                
+                if result_of_fight == "victory":
                     pass
-                elif winner == next_object:
-                    print("==============You died===============")
+                
+                elif result_of_fight == "defeat":
                     current_room = None
-                else:
+                    return current_room
+                
+                elif result_of_fight == "run":
                     return current_room
 
-
-            if direction == UPPER:
-                room.service_move_up(player)
-            elif direction == BOTTOM:
-                room.service_move_down(player)
-            elif direction == LEFT:
-                room.service_move_left(player)
-            elif direction == RIGHT:
-                room.service_move_right(player)
+            current_room.service_moving_of_direction(player, direction)
 
         return current_room
 

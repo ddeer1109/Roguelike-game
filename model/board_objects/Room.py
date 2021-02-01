@@ -148,5 +148,15 @@ class Room:
         creature_object.current_field = self.fields[creature_object.x][creature_object.y]
         self.fields[creature_object.x][creature_object.y] = str(creature_object)
 
+    
+    def service_moving_of_direction(self, player, direction):
+        if direction == UPPER:
+            self.service_move_up(player)
+        elif direction == BOTTOM:
+            self.service_move_down(player)
+        elif direction == LEFT:
+            self.service_move_left(player)
+        elif direction == RIGHT:
+            self.service_move_right(player)
 
     

@@ -54,8 +54,8 @@ class Board:
 
         self.central_room.create_food(3,4)
         self.central_room.create_bandit(5, 3)
-        
-
+        self.central_room.create_bandit(7, 4)
+        self.central_room.create_bandit(5, 8)
 
     def place_player(self, player):    
             self.central_room.fields[player.x][player.y] = player

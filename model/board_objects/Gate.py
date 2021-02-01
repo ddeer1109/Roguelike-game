@@ -21,6 +21,20 @@ class Gate(Field):
             self.icon = GATE_ICON
         return self.icon
 
+
+    def service_interaction(self, player, direction):
+        if not self.is_opened:
+            if self.oppening_key in player.inventory:
+                del player.inventory[player.inventory.index(self.oppening_key)]
+                self.open_gate()
+                return self.go_through_gate(player, direction)
+            else:
+                return "closed"
+
+        else:
+            return self.go_through_gate(player, direction)
+
+
     def open_gate(self):
         self.is_opened = True
         self.connection_gate.is_opened = True
