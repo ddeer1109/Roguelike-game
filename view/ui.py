@@ -1,6 +1,6 @@
 from view.util import Util
 from time import sleep
-from model.creatures import Bandit, Player, Creature
+from model.creatures import Bandit, Player
 
 class UI:
     @staticmethod
@@ -21,7 +21,7 @@ class UI:
     @staticmethod
     def display_statistics(player):
         print(f"Inventory: {player.inventory}", end = "\t")
-        print(f"Health: {player.health}    Mana: {player.mana}", end="\t")
+        print(f"Health: {player.health}    Arrows: {player.arrows}    Mana: {player.mana}", end="\t")
         print('')
 
 
@@ -31,7 +31,8 @@ class UI:
         print("*** FIGHT ***\n")
         print(f'  {player}       {enemy}  ')
         print()
-        print(f"Player health: {player.health}  Player mana: {player.mana}\nEnemy health: {enemy.health}")
+        print(f"PLAYER Health: {player.health}    Arrows: {player.arrows}    Mana: {player.mana}\
+            \nENEMY Health: {enemy.health}     Arrows: {enemy.arrows}   Mana: {enemy.mana}")
         print()
         
     @staticmethod
@@ -90,7 +91,10 @@ class UI:
     @staticmethod
     def display_range_animation(player, enemy, damage):
         if damage == 0:
-            UI.display_info("Range attack has missed.")
+            if player.arrows == 0:
+                UI.display_info("No ammunition for range attack")
+            else:
+                UI.display_info("Range attack missed.")
             return None
         elif type(player) is Player.Player:
             Util.clear_screen()
@@ -130,7 +134,10 @@ class UI:
 
     @staticmethod
     def display_magic_animation(player, enemy, damage):
-        if type(player) is Player.Player:
+        if damage == 0:
+            UI.display_info("No enough mana for magic attack.")
+            return None
+        elif type(player) is Player.Player:
             Util.clear_screen()
             print(f'  {player}~o      {enemy} ')
             sleep(0.25)

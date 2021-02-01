@@ -22,3 +22,14 @@ class Player(Creature):
             self.pick_key(item)
         elif type(item) is Food.Food:
             self.eat_food(item)
+
+    def melee_attack(self):
+        return super().melee_attack()
+
+    
+    def range_attack(self):
+        return super().range_attack()
+
+
+    def magic_attack(self):
+        return super().magic_attack()
