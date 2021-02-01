@@ -71,7 +71,7 @@ class Main:
             current_gate = current_room.gates[direction]
             room_after_stepping_into_gate = current_gate.service_interaction(player, direction)
             
-            if stepping_in_gate != "closed":
+            if room_after_stepping_into_gate != "closed":
                 current_room = room_after_stepping_into_gate
         
         elif type(next_object) is not Wall:
