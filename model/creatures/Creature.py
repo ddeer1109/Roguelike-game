@@ -26,6 +26,25 @@ class Creature:
     def move_right(self):
         self.y += 1
 
+    def get_data_after_key_press(direction):
+        if direction == UPPER:
+            modified_x, modified_y = self.x - 1, self.y
+            direction = UPPER
+
+        elif direction == BOTTOM:
+            modified_x, modified_y = self.x + 1, self.y
+            direction = BOTTOM
+
+        elif direction == LEFT:
+            modified_x, modified_y = self.x, self.y - 1
+            direction = LEFT
+
+        elif direction == RIGHT:
+            modified_x, modified_y = self.x, self.y + 1
+            direction = RIGHT
+
+        return modified_x, modified_y, direction
+
     def melee_attack(self):
         dice_roll = random.randint(0,4)
         damage = dice_roll * self.attack

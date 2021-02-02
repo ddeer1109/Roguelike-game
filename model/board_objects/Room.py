@@ -65,11 +65,13 @@ class Room:
     def move_all_bandits(self):
         for bandit in self.bandits:
             if self.is_next_object_empty(bandit):
-                self.service_moving_of_direction(bandit, bandit.direction)
+                # self.service_moving_of_direction(bandit, bandit.direction)
+                current_room = self.service_pressing_move_key(bandit.direction, bandit)
             else:
                 bandit.change_direction()
             
             bandit.update_steps()
+        return current_room
 
     def is_next_object_empty(self, creature_object):
         if creature_object.direction == UPPER:
@@ -86,6 +88,84 @@ class Room:
                 return True 
 
         return False
+
+    def service_interaction_with_gate(self, direction, player):
+        # if type(next_object) is Gate:
+        current_gate = self.gates[direction]
+        room_after_stepping_into_gate = current_gate.service_interaction(player, direction)
+        
+        if room_after_stepping_into_gate != "closed":
+            return room_after_stepping_into_gate
+    
+    def service_interaction_with_creature(self, moving_object, next_object):
+        # if type(next_object) is not Wall:
+            
+            # if type(next_object) in [Key, Food]:  
+            #     player.service_picking_item(next_object)
+            
+            # elif type(next_object) is Bandit:
+        if type(moving_object) is not Player:
+            result_of_fight = Fight(next_object, moving_object).service_fight()
+        else:
+            result_of_fight = Fight(moving_object, next_object).service_fight()
+
+
+        if result_of_fight == "victory":
+            return self
+        
+        elif result_of_fight == "defeat":
+            return None
+
+        elif result_of_fight == "run":
+            return self
+
+        # current_room.service_moving_of_direction(player, direction)
+        # current_room.move_all_bandits()
+
+    def service_pressing_move_key(self, direction, player):
+        modified_player_x, modified_player_y, direction = player.get_data_after_key_press(direction)
+
+        next_object = self.fields[modified_player_x][modified_player_y]
+        current_room = self
+
+        if type(next_object) is Gate and type(player) is Player:
+            current_room = self.service_interaction_with_gate(next_object, direction, player)
+        
+        # if type(next_object) is Gate:
+        #     current_gate = current_room.gates[direction]
+        #     room_after_stepping_into_gate = current_gate.service_interaction(player, direction)
+            
+        #     if room_after_stepping_into_gate != "closed":
+        #         current_room = room_after_stepping_into_gate
+        
+
+        if type(next_object) is not Wall:
+            if type(next_object) in [Player, Bandit]:
+                current_room = self.service_interaction_with_creature(player, next_object)
+
+            if type(player) is Player:
+                if type(next_object) in [Key, Food]:
+                    player.service_picking_item(next_object)
+        #     if type(next_object) in [Key, Food]:  
+        #         player.service_picking_item(next_object)
+            
+        #     elif type(next_object) is Bandit:
+        #         result_of_fight = Fight(player, next_object).service_fight()
+                
+        #         if result_of_fight == "victory":
+        #             pass
+                
+        #         elif result_of_fight == "defeat":
+        #             current_room = None
+        #             return current_room
+                
+        #         elif result_of_fight == "run":
+        #             return current_room
+
+        self.service_moving_of_direction(player, direction)
+        current_room = self.move_all_bandits()
+
+        return current_room
 
 ####################    
     def create_upper_gate(self):

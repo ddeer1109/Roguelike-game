@@ -40,25 +40,25 @@ class Main:
                 
         return current_room
 
-    @staticmethod
-    def get_data_after_key_press(direction, player):
-        if direction == UPPER:
-            modified_x, modified_y = player.x - 1, player.y
-            direction = UPPER
+    # @staticmethod
+    # def get_data_after_key_press(direction, player):
+    #     if direction == UPPER:
+    #         modified_x, modified_y = player.x - 1, player.y
+    #         direction = UPPER
 
-        elif direction == BOTTOM:
-            modified_x, modified_y = player.x + 1, player.y
-            direction = BOTTOM
+    #     elif direction == BOTTOM:
+    #         modified_x, modified_y = player.x + 1, player.y
+    #         direction = BOTTOM
 
-        elif direction == LEFT:
-            modified_x, modified_y = player.x, player.y - 1
-            direction = LEFT
+    #     elif direction == LEFT:
+    #         modified_x, modified_y = player.x, player.y - 1
+    #         direction = LEFT
 
-        elif direction == RIGHT:
-            modified_x, modified_y = player.x, player.y + 1
-            direction = RIGHT
+    #     elif direction == RIGHT:
+    #         modified_x, modified_y = player.x, player.y + 1
+    #         direction = RIGHT
 
-        return modified_x, modified_y, direction
+    #     return modified_x, modified_y, direction
 
     @classmethod
     def convert_key_for_direction(cls, key_pressed):
@@ -71,42 +71,42 @@ class Main:
         elif key_pressed == 'd':
             return RIGHT
 
-    @staticmethod
-    def service_pressing_move_key(key_pressed, room, player):
-        modified_player_x, modified_player_y, direction = Main.get_data_after_key_press(key_pressed, player)
+    # @staticmethod
+    # def service_pressing_move_key(direction, room, player):
+    #     modified_player_x, modified_player_y, direction = player.get_data_after_key_press(direction)
 
-        next_object = room.fields[modified_player_x][modified_player_y]
-        current_room = room
+    #     next_object = room.fields[modified_player_x][modified_player_y]
+    #     current_room = room
 
-        if type(next_object) is Gate:
-            current_gate = current_room.gates[direction]
-            room_after_stepping_into_gate = current_gate.service_interaction(player, direction)
+    #     if type(next_object) is Gate:
+    #         current_gate = current_room.gates[direction]
+    #         room_after_stepping_into_gate = current_gate.service_interaction(player, direction)
             
-            if room_after_stepping_into_gate != "closed":
-                current_room = room_after_stepping_into_gate
+    #         if room_after_stepping_into_gate != "closed":
+    #             current_room = room_after_stepping_into_gate
         
-        elif type(next_object) is not Wall:
+    #     elif type(next_object) is not Wall:
             
-            if type(next_object) in [Key, Food]:  
-                player.service_picking_item(next_object)
+    #         if type(next_object) in [Key, Food]:  
+    #             player.service_picking_item(next_object)
             
-            elif type(next_object) is Bandit:
-                result_of_fight = Fight(player, next_object).service_fight()
+    #         elif type(next_object) is Bandit:
+    #             result_of_fight = Fight(player, next_object).service_fight()
                 
-                if result_of_fight == "victory":
-                    pass
+    #             if result_of_fight == "victory":
+    #                 pass
                 
-                elif result_of_fight == "defeat":
-                    current_room = None
-                    return current_room
+    #             elif result_of_fight == "defeat":
+    #                 current_room = None
+    #                 return current_room
                 
-                elif result_of_fight == "run":
-                    return current_room
+    #             elif result_of_fight == "run":
+    #                 return current_room
 
-            current_room.service_moving_of_direction(player, direction)
-            current_room.move_all_bandits()
+    #         current_room.service_moving_of_direction(player, direction)
+    #         current_room.move_all_bandits()
 
-        return current_room
+    #     return current_room
 
     @classmethod
     def main(cls):
