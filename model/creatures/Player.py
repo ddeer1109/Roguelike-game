@@ -17,6 +17,9 @@ class Player(Creature):
     def pick_key(self, key):
         self.inventory.append(key)
 
+    def pick_arrow(self, arrow):
+        self.arrows += arrow.count
+
     def get_coords_around(self):
         return super().get_coords_around()
 

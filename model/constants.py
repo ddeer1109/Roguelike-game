@@ -20,3 +20,4 @@ BOSS = 'boss'
 
 FOOD = 'F'
 KEY = 'K'
+ARROW = 'A'

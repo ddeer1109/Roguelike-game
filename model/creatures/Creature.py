@@ -1,5 +1,7 @@
+from model.board_objects.Empty_space import Empty_space
 from model.constants import MELEE_ATTACK, RANGE_ATTACK, MAGIC_ATTACK, UPPER, BOTTOM, LEFT, RIGHT
 import random
+from model.items import Arrow, Food 
 
 class Creature:
     def __init__(self, x, y):
@@ -72,6 +74,7 @@ class Creature:
         if self.mana >= 5:
             dice_roll = 10
             damage = dice_roll * self.attack
+            self.mana -= 5
             return damage
         else:
             return 0
@@ -85,3 +88,9 @@ class Creature:
             possible_moves.append(MAGIC_ATTACK)
 
         return random.choice(possible_moves)
+
+    def drop_item(self, room):
+        item = random.choice([Arrow.Arrow, Food.Food])
+        del room.bandits[room.bandits.index(self)]
+        room.fields[self.x][self.y] = item(self.x, self.y)
+        

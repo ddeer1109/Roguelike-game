@@ -71,46 +71,10 @@ class Main:
     @classmethod
     def service_pressing_move_key(cls, room, direction, player):
         current_room = room.service_pressing_move_key(direction, player)
-        room.move_all_bandits()
+        if room.move_all_bandits() == "game_over":
+            return "game_over"
 
         return current_room
-
-    # @staticmethod
-    # def service_pressing_move_key(direction, room, player):
-    #     modified_player_x, modified_player_y, direction = player.get_data_after_key_press(direction)
-
-    #     next_object = room.fields[modified_player_x][modified_player_y]
-    #     current_room = room
-
-    #     if type(next_object) is Gate:
-    #         current_gate = current_room.gates[direction]
-    #         room_after_stepping_into_gate = current_gate.service_interaction(player, direction)
-            
-    #         if room_after_stepping_into_gate != "closed":
-    #             current_room = room_after_stepping_into_gate
-        
-    #     elif type(next_object) is not Wall:
-            
-    #         if type(next_object) in [Key, Food]:  
-    #             player.service_picking_item(next_object)
-            
-    #         elif type(next_object) is Bandit:
-    #             result_of_fight = Fight(player, next_object).service_fight()
-                
-    #             if result_of_fight == "victory":
-    #                 pass
-                
-    #             elif result_of_fight == "defeat":
-    #                 current_room = None
-    #                 return current_room
-                
-    #             elif result_of_fight == "run":
-    #                 return current_room
-
-    #         current_room.service_moving_of_direction(player, direction)
-    #         current_room.move_all_bandits()
-
-    #     return current_room
 
     @classmethod
     def main(cls):
@@ -136,7 +100,7 @@ class Main:
             if key == 'q':
                 is_running = False
             else:
-                # TODO - check cls reference instead of Main
                 current_room = cls.service_player_inputs(key, current_room, player)
-                if current_room == None: 
+                if current_room == "game_over": 
                     is_running = False
+                    return ui.UI.display_info("Thank you for your time")

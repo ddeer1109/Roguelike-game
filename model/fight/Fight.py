@@ -10,21 +10,20 @@ class Fight:
 
     def service_fight(self):
         winner = self.start_fight()
+        UI.annouce_winner(winner)
         if type(winner) is Player:
             
             return "victory"
         
+        elif winner == RUN:
+            return "run"
+        
         elif type(winner) is not Player:
-            
             UI.display_info("=========== YOU DIED ==========")
             UI.display_info("========== GAME OVER =========")
             
             return "defeat"
         
-        else:
-            
-            return "run"
-
 
     def start_fight(self):
         player = self.player
@@ -36,9 +35,8 @@ class Fight:
             winner = self.serve_turn(player, enemy)
             
             if winner == RUN:
-                return
-        
-        UI.annouce_winner(winner)
+                return RUN
+
         return winner
 
     @classmethod
@@ -47,6 +45,9 @@ class Fight:
         
         if player_input == RUN and player.attack >= enemy.attack:
             return RUN
+        else:
+            UI.display_info("Too small attack to run away!")
+            player_input = MELEE_ATTACK
         
         cls.serve_move(player_input, player, enemy)
         

@@ -7,10 +7,10 @@ class Bandit(Creature):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.icon = BANDIT
-        self.attack = 2
+        self.attack = 3
         self.health = 20
         self.mana = 5
-        self.arrows = 1
+        self.arrows = 5
         self.direction = LEFT
         self.number_of_steps = 5
         
