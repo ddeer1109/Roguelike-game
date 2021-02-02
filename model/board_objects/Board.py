@@ -15,7 +15,7 @@ class Board:
         self.central_room, self.left_room,\
              self.right_room, self.boss_room\
                  = self.generate_rooms(width, height)
-        self.generate_gates()
+        self.generate_room_elements()
     
 
     def generate_rooms(self, width, height, count=4):
@@ -23,7 +23,7 @@ class Board:
 
 
 
-    def generate_gates(self):
+    def generate_room_elements(self):
 
         self.central_room.create_gates(left=True, right=True)
         self.right_room.create_gates(left=True)

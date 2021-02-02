@@ -93,6 +93,7 @@ class Main:
                     return current_room
 
             current_room.service_moving_of_direction(player, direction)
+            current_room.move_all_bandits()
 
         return current_room
 

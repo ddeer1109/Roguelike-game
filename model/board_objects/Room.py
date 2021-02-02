@@ -66,6 +66,11 @@ class Room:
     def add_bandit(self, bandit):
         self.bandits.append(bandit)
 
+    def move_all_bandits(self):
+        for bandit in self.bandits:
+            self.service_moving_of_direction(bandit, bandit.direction)
+            
+
 ####################    
     def create_upper_gate(self):
         first_row_index = 0 
@@ -154,7 +159,7 @@ class Room:
     
     def service_moving_of_direction(self, player, direction):
         if direction == UPPER:
-            self.service_move_up(player)
+            self.service_move_up(player)            
         elif direction == BOTTOM:
             self.service_move_down(player)
         elif direction == LEFT:
