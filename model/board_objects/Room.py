@@ -62,11 +62,13 @@ class Room:
     def add_bandit(self, bandit):
         self.bandits.append(bandit)
 
-    def move_all_bandits(self):
+    def move_all_bandits(self, next_object):
         for bandit in self.bandits:
             if self.is_next_object_empty(bandit):
-                # self.service_moving_of_direction(bandit, bandit.direction)
-                current_room = self.service_pressing_move_key(bandit.direction, bandit)
+                self.service_moving_of_direction(bandit, bandit.direction)
+                # current_room = self.service_pressing_move_key(bandit.direction, bandit)
+            elif type(next_object) is Player:
+                return self.service_interaction_with_creature(bandit, next_object)
             else:
                 bandit.change_direction()
             
@@ -163,7 +165,7 @@ class Room:
         #             return current_room
 
         self.service_moving_of_direction(player, direction)
-        current_room = self.move_all_bandits()
+        current_room = self.move_all_bandits(next_object)
 
         return current_room
 
