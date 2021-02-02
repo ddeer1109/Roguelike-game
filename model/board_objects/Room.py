@@ -30,7 +30,7 @@ class Room:
         }
         self.bandits = []
 
-        ######
+    
     def init_board(self, height,width):
         board = []
         for row in range(height):
@@ -49,7 +49,7 @@ class Room:
 
         return board
 
-
+#######################################################
     def create_key(self, x, y):
         key = Key(x, y)
         self.fields[x][y] = key
@@ -71,6 +71,7 @@ class Room:
         self.bandits.append(bandit)
 
 
+#######################################################
     def move_all_bandits(self, player_object):
         for bandit in self.bandits:
 
@@ -78,72 +79,34 @@ class Room:
             if result == "game_over":
                 return result
 
-
-    def service_interaction_with_gate(self, direction, player):
-        # if type(next_object) is Gate:
-        current_gate = self.gates[direction]
-        room_after_stepping_into_gate = current_gate.service_interaction(player, direction)
-        
-        if type(room_after_stepping_into_gate) is Room:
-            self.fields[player.x][player.y] = Empty_space(player.x, player.y)
-            return room_after_stepping_into_gate
-        
-        else:
-            return self
-
-
-    def service_interaction_with_creature(self, moving_object, next_object):
-    
-        if type(moving_object) is not Player:
-            result_of_fight = Fight(next_object, moving_object).service_fight()
-        else:
-            result_of_fight = Fight(moving_object, next_object).service_fight()
-
-
-        if result_of_fight == "victory":
-            if type(moving_object) is Player:
-                next_object.drop_item(self)
-            else:
-                moving_object.drop_item(self)
-
-        return result_of_fight
-        
-
-    def get_object_if_nearby(self, creature_object, looked_object):
-        coords = creature_object.get_coords_around()
-        objects = [self.fields[coord[0]][coord[1]] for coord in coords if type(self.fields[coord[0]][coord[1]]) is looked_object]
-        if len(objects) > 0:
-            return objects[0]
-            
-
-
+    ####################### ENEMY CREATURES MAIN FUNCTIONS #############################
     def service_enemies_actions(self, enemy_object, player_object):
         if enemy_object.isChasing:
             next_x, next_y = enemy_object.chase_creature(player_object, self)
         else:
             next_x, next_y = enemy_object.get_data_after_key_press(enemy_object.direction)
         
-        enemy_object.update_steps()
-
         next_object = self.fields[next_x][next_y]
 
-        if type(next_object) in [Gate, Key, Food, Arrow, Bandit]:
-            self.refresh_enemy_direction(next_object, enemy_object)
-        
-        elif type(next_object) is Wall:
+        if type(next_object) in [Gate, Key, Food, Arrow, Bandit, Wall]:
             self.refresh_enemy_direction(next_object, enemy_object)
         
         self.service_moving_of_direction(enemy_object, enemy_object.direction)
-        UI.display_room(self)
-        player_nearby = self.get_object_if_nearby(enemy_object, Player)
         
+        player_nearby = self.get_object_if_nearby(enemy_object, Player)
         if player_nearby != None:
             UI.display_attack_info(enemy_object)
 
             fight_result = self.service_interaction_with_creature(enemy_object, player_nearby)
-            
             if fight_result == "defeat":
                 return "game_over"
+
+
+    def get_object_if_nearby(self, creature_object, looked_object):
+        coords = creature_object.get_coords_around()
+        objects = [self.fields[coord[0]][coord[1]] for coord in coords if type(self.fields[coord[0]][coord[1]]) is looked_object]
+        if len(objects) > 0:
+            return objects[0]
         
         
     def refresh_enemy_direction(self, next_object, enemy_object):
@@ -164,34 +127,52 @@ class Room:
             enemy_object.direction = LEFT
             self.service_moving_of_direction(enemy_object, enemy_object.direction)
 
+####################### PLAYER MAIN FUNCTION #############################
 
     def service_pressing_move_key(self, direction, player):
         
         modified_player_x, modified_player_y = player.get_data_after_key_press(direction)
-
         next_object = self.fields[modified_player_x][modified_player_y]
-        current_room = self
 
         if type(next_object) is Gate:
-            current_room = self.service_interaction_with_gate(direction, player)
-            return current_room
+            return self.service_interaction_with_gate(direction, player)
         
         if type(next_object) is Bandit:
             fight_result = self.service_interaction_with_creature(player, next_object)
             if fight_result == "defeat":
                 return "game_over"
-            elif fight_result == "victory" or "run":
-                return current_room
-        
+            
         elif type(next_object) is not Wall:
             if type(next_object) in [Key, Food, Arrow]:
                 player.service_picking_item(next_object)
-
             self.service_moving_of_direction(player, direction)
 
-        return current_room
+        return self
 
-####################    
+
+####################### GATES #############################
+
+
+    def service_interaction_with_gate(self, direction, player):
+        # if type(next_object) is Gate:
+        current_gate = self.gates[direction]
+        room_after_stepping_into_gate = current_gate.service_interaction(player, direction)
+        
+        if type(room_after_stepping_into_gate) is Room:
+            self.fields[player.x][player.y] = Empty_space(player.x, player.y)
+            return room_after_stepping_into_gate
+        
+        else:
+            return self
+
+
+    def create_gates(self, upper=False, bottom=False, left=False, right=False):
+        if upper: self.create_upper_gate()
+        if bottom: self.create_bottom_gate()
+        if left: self.create_left_gate()
+        if right: self.create_right_gate()
+
+
     def create_upper_gate(self):
         first_row_index = 0 
         row_length = len(self.fields[0])
@@ -238,14 +219,28 @@ class Room:
         
         self.gates[RIGHT] = gate
 
-##################3
-    def create_gates(self, upper=False, bottom=False, left=False, right=False):
-        if upper: self.create_upper_gate()
-        if bottom: self.create_bottom_gate()
-        if left: self.create_left_gate()
-        if right: self.create_right_gate()
 
+
+####################### FIGHTING #############################
     
+    def service_interaction_with_creature(self, moving_object, next_object):
+    
+        if type(moving_object) is not Player:
+            result_of_fight = Fight(next_object, moving_object).service_fight()
+        else:
+            result_of_fight = Fight(moving_object, next_object).service_fight()
+
+
+        if result_of_fight == "victory":
+            if type(moving_object) is Player:
+                next_object.drop_item(self)
+            else:
+                moving_object.drop_item(self)
+
+        return result_of_fight
+
+
+####################### MOVEMENT #############################    
     def service_move_up(self, creature_object):
         
         self.fields[creature_object.x][creature_object.y] = Empty_space(creature_object.x, creature_object.y)

@@ -49,6 +49,7 @@ class Creature:
 
     def chase_creature(self, creature_object, room, distance=3):
         x,y = self.x, self.y
+        self.update_steps()
         if abs(x - creature_object.x) <= distance and abs(y - creature_object.y) <= distance: 
             if self.x > creature_object.x:
                 if self.x > 1:
