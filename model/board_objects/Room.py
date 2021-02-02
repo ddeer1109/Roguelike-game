@@ -17,10 +17,6 @@ import random
 class Room:
     def __init__(self, height, width):
         self.fields = self.init_board(height, width)
-        # self.upper_gate = None
-        # self.bottom_gate =None
-        # self.left_gate = None
-        # self.right_gate = None
         self.gates = {
             UPPER: None,
             BOTTOM: None,
@@ -68,8 +64,28 @@ class Room:
 
     def move_all_bandits(self):
         for bandit in self.bandits:
-            self.service_moving_of_direction(bandit, bandit.direction)
+            if self.is_next_object_empty(bandit):
+                self.service_moving_of_direction(bandit, bandit.direction)
+            else:
+                bandit.change_direction()
             
+            bandit.update_steps()
+
+    def is_next_object_empty(self, creature_object):
+        if creature_object.direction == UPPER:
+            if type(self.fields[creature_object.x - 1][creature_object.y]) is Empty_space:
+                return True
+        elif creature_object.direction == BOTTOM:
+            if type(self.fields[creature_object.x + 1][creature_object.y]) is Empty_space:
+                return True
+        elif creature_object.direction == LEFT:
+            if type(self.fields[creature_object.x][creature_object.y - 1]) is Empty_space:
+                return True
+        elif creature_object.direction == RIGHT:
+            if type(self.fields[creature_object.x][creature_object.y + 1]) is Empty_space:
+                return True 
+
+        return False
 
 ####################    
     def create_upper_gate(self):
