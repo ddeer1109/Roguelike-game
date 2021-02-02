@@ -27,6 +27,8 @@ class Room:
             LEFT: None,
             RIGHT: None
         }
+        self.bandits = []
+
         ######
     def init_board(self, height,width):
         board = []
@@ -59,6 +61,9 @@ class Room:
     def create_bandit(self, x, y):
         bandit = Bandit(x, y)
         self.fields[x][y] = bandit
+
+    def add_bandit(self, bandit):
+        self.bandits.append(bandit)
 
 ####################    
     def create_upper_gate(self):
@@ -95,7 +100,6 @@ class Room:
         self.fields[row_index][first_col_index] = gate
         
         self.gates[LEFT] = gate
-
 
     def create_right_gate(self):
         first_row_index = 0
