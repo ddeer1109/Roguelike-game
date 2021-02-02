@@ -35,30 +35,41 @@ class Main:
         current_room = room 
         
         if k_pressed in ["w","a","s","d"]:
+            k_pressed = cls.convert_key_for_direction(k_pressed)
             current_room = cls.service_pressing_move_key(k_pressed, room, player)
                 
         return current_room
 
-
-    def get_data_after_key_press(pressed_key, player):
-        if pressed_key == "w":
+    @staticmethod
+    def get_data_after_key_press(direction, player):
+        if direction == UPPER:
             modified_x, modified_y = player.x - 1, player.y
             direction = UPPER
 
-        elif pressed_key == "s":
+        elif direction == BOTTOM:
             modified_x, modified_y = player.x + 1, player.y
             direction = BOTTOM
 
-        elif pressed_key == "a":
+        elif direction == LEFT:
             modified_x, modified_y = player.x, player.y - 1
             direction = LEFT
 
-        elif pressed_key == "d":
+        elif direction == RIGHT:
             modified_x, modified_y = player.x, player.y + 1
             direction = RIGHT
 
         return modified_x, modified_y, direction
 
+    @classmethod
+    def convert_key_for_direction(cls, key_pressed):
+        if key_pressed == 'w':
+            return UPPER
+        elif key_pressed == 's':
+            return BOTTOM
+        elif key_pressed == 'a':
+            return LEFT
+        elif key_pressed == 'd':
+            return RIGHT
 
     @staticmethod
     def service_pressing_move_key(key_pressed, room, player):
