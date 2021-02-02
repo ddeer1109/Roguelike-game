@@ -10,9 +10,10 @@ from model.board_objects.Wall import Wall
 from model.board_objects.Gate import Gate
 from model.creatures.Player import Player
 from model.creatures.Bandit import Bandit
-from model.constants import UPPER, BOTTOM, LEFT, RIGHT
+from model.constants import ARROW, UPPER, BOTTOM, LEFT, RIGHT
 from model.items.Key import Key
 from model.items.Food import Food
+from model.items.Arrow import Arrow
 from model.fight.Fight import Fight
 from view.ui import UI 
 import random
@@ -121,8 +122,8 @@ class Room:
 
         next_object = self.fields[next_x][next_y]
 
-        if type(next_object) in [Gate, Key, Food]:
-            enemy_object.direction = enemy_object.change_direction()
+        if type(next_object) in [Gate, Key, Food, Arrow]:
+            self.refresh_enemy_direction(next_object, enemy_object)
         
         elif type(next_object) is Wall:
             self.refresh_enemy_direction(next_object, enemy_object)
@@ -141,14 +142,22 @@ class Room:
         
         
     def refresh_enemy_direction(self, next_object, enemy_object):
+        
+        if next_object.x == len(self.fields)-1:
+            enemy_object.direction = UPPER
+            self.service_moving_of_direction(enemy_object, enemy_object.direction)
+        
+        if next_object.y == 0:
+            enemy_object.direction = RIGHT
+            self.service_moving_of_direction(enemy_object, enemy_object.direction)
+
         if next_object.x == 0:
             enemy_object.direction = BOTTOM
-        elif next_object.x == len(self.fields)-1:
-            enemy_object.direction = UPPER
-        elif next_object.y == 0:
-            enemy_object.direction = RIGHT
-        elif next_object.y == len(self.fields[0]-1):
+            self.service_moving_of_direction(enemy_object, enemy_object.direction)
+        
+        if next_object.y == len(self.fields[0])-1:
             enemy_object.direction = LEFT
+            self.service_moving_of_direction(enemy_object, enemy_object.direction)
 
 
     def service_pressing_move_key(self, direction, player):
@@ -166,13 +175,11 @@ class Room:
             fight_result = self.service_interaction_with_creature(player, next_object)
             if fight_result == "defeat":
                 return "game_over"
-            elif fight_result == "victory":
-                return current_room
-            else:
+            elif fight_result == "victory" or "run":
                 return current_room
         
         elif type(next_object) is not Wall:
-            if type(next_object) in [Key, Food]:
+            if type(next_object) in [Key, Food, Arrow]:
                 player.service_picking_item(next_object)
 
             self.service_moving_of_direction(player, direction)

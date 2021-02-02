@@ -37,25 +37,6 @@ class Main:
                 
         return current_room
 
-    # @staticmethod
-    # def get_data_after_key_press(direction, player):
-    #     if direction == UPPER:
-    #         modified_x, modified_y = player.x - 1, player.y
-    #         direction = UPPER
-
-    #     elif direction == BOTTOM:
-    #         modified_x, modified_y = player.x + 1, player.y
-    #         direction = BOTTOM
-
-    #     elif direction == LEFT:
-    #         modified_x, modified_y = player.x, player.y - 1
-    #         direction = LEFT
-
-    #     elif direction == RIGHT:
-    #         modified_x, modified_y = player.x, player.y + 1
-    #         direction = RIGHT
-
-    #     return modified_x, modified_y, direction
 
     @classmethod
     def convert_key_for_direction(cls, key_pressed):
@@ -70,11 +51,19 @@ class Main:
 
     @classmethod
     def service_pressing_move_key(cls, room, direction, player):
+        Main.proceed_enemies_moves(room, 2)
         current_room = room.service_pressing_move_key(direction, player)
-        if room.move_all_bandits() == "game_over":
-            return "game_over"
-
+        Main.proceed_enemies_moves(room, 2)
+        
         return current_room
+
+    @staticmethod
+    def proceed_enemies_moves(room, moves_count=1):
+        for _ in range(moves_count):
+            if room.move_all_bandits() == "game_over":
+                return "game_over"
+            ui.UI.display_room(room)
+        return room
 
     @classmethod
     def main(cls):

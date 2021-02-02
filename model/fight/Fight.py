@@ -43,11 +43,12 @@ class Fight:
     def serve_turn(cls, player, enemy):
         player_input = cls.player_fight_input()
         
-        if player_input == RUN and player.attack >= enemy.attack:
-            return RUN
-        else:
-            UI.display_info("Too small attack to run away!")
-            player_input = MELEE_ATTACK
+        if player_input == RUN: 
+            if player.attack < enemy.attack:
+                UI.display_info("Too small attack to run away!")
+                player_input = MELEE_ATTACK
+            else:
+                return RUN
         
         cls.serve_move(player_input, player, enemy)
         
@@ -57,6 +58,7 @@ class Fight:
 
         enemy_move = enemy.get_random_possible_move()
         cls.serve_move(enemy_move, enemy, player)
+        
         
         if player.health <= 0:
             return enemy

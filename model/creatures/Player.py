@@ -1,6 +1,6 @@
 from model.creatures.Creature import Creature
 from model.constants import PLAYER, CENTRAL
-from model.items import Key, Food
+from model.items import Key, Food, Arrow
 
 class Player(Creature):
     def __init__(self, x, y):
@@ -28,6 +28,8 @@ class Player(Creature):
             self.pick_key(item)
         elif type(item) is Food.Food:
             self.eat_food(item)
+        elif type(item) is Arrow.Arrow:
+            self.pick_arrow(item)
 
     def melee_attack(self):
         return super().melee_attack()
