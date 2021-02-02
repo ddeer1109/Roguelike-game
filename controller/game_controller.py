@@ -35,8 +35,8 @@ class Main:
         current_room = room 
         
         if k_pressed in ["w","a","s","d"]:
-            k_pressed = cls.convert_key_for_direction(k_pressed)
-            current_room = cls.service_pressing_move_key(k_pressed, room, player)
+            direction = cls.convert_key_for_direction(k_pressed)
+            current_room = cls.service_pressing_move_key(room, direction, player)
                 
         return current_room
 
@@ -70,6 +70,10 @@ class Main:
             return LEFT
         elif key_pressed == 'd':
             return RIGHT
+
+    @classmethod
+    def service_pressing_move_key(cls, room, direction, player):
+        return room.service_pressing_move_key(direction, player)
 
     # @staticmethod
     # def service_pressing_move_key(direction, room, player):
@@ -110,7 +114,6 @@ class Main:
 
     @classmethod
     def main(cls):
-        print("START")
         player = Player(PLAYER_START_X, PLAYER_START_Y)
         board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
 

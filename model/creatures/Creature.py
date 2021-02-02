@@ -1,4 +1,4 @@
-from model.constants import MELEE_ATTACK, RANGE_ATTACK, MAGIC_ATTACK
+from model.constants import MELEE_ATTACK, RANGE_ATTACK, MAGIC_ATTACK, UPPER, BOTTOM, LEFT, RIGHT
 import random
 
 class Creature:
@@ -26,7 +26,7 @@ class Creature:
     def move_right(self):
         self.y += 1
 
-    def get_data_after_key_press(direction):
+    def get_data_after_key_press(self, direction):
         if direction == UPPER:
             modified_x, modified_y = self.x - 1, self.y
             direction = UPPER

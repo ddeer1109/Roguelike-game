@@ -71,7 +71,7 @@ class Room:
                 bandit.change_direction()
             
             bandit.update_steps()
-        return current_room
+        return self
 
     def is_next_object_empty(self, creature_object):
         if creature_object.direction == UPPER:
