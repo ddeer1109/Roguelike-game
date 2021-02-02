@@ -17,6 +17,9 @@ class Player(Creature):
     def pick_key(self, key):
         self.inventory.append(key)
 
+    def get_coords_around(self):
+        return super().get_coords_around()
+
     def service_picking_item(self, item):
         if type(item) is Key.Key:
             self.pick_key(item)

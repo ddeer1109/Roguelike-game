@@ -1,5 +1,6 @@
 from view.ui import UI
 from model.constants import MELEE_ATTACK, RANGE_ATTACK, MAGIC_ATTACK, RUN
+from model.creatures.Player import Player
 
 
 class Fight:
@@ -9,11 +10,11 @@ class Fight:
 
     def service_fight(self):
         winner = self.start_fight()
-        if winner == self.player:
+        if type(winner) is Player:
             
             return "victory"
         
-        elif winner == self.enemy:
+        elif type(winner) is not Player:
             
             UI.display_info("=========== YOU DIED ==========")
             UI.display_info("========== GAME OVER =========")

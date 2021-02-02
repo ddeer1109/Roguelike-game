@@ -11,7 +11,7 @@ class Bandit(Creature):
         self.health = 20
         self.mana = 5
         self.arrows = 1
-        self.direction = self.change_direction()
+        self.direction = LEFT
         self.number_of_steps = 5
         
 
@@ -19,13 +19,14 @@ class Bandit(Creature):
         player.health -= self.attack
 
     def change_direction(self):
-        self.direction = random.choice(directions)
+        direction = random.choice(list(set(directions) - set(self.direction)))
+        return direction
 
     def update_steps(self):
         self.number_of_steps -= 1
         if self.number_of_steps == 0:
             self.number_of_steps = random.randrange(5, 15)
-            self.change_direction()
+            self.direction = self.change_direction()
 
     # def move(self):
     #     self.move_up()

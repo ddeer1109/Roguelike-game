@@ -55,7 +55,7 @@ class Gate(Field):
             elif direction == BOTTOM:
                  next_gate_x, next_gate_y = self.connection_gate.x+1, self.connection_gate.y
 
-            self.connected_room.fields[next_gate_x][next_gate_y] = str(player_object)
+            self.connected_room.fields[next_gate_x][next_gate_y] = player_object
             player_object.x, player_object.y = next_gate_x, next_gate_y
             return self.connected_room
 

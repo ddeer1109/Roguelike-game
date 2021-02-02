@@ -28,14 +28,11 @@ BOARD_HEIGHT = 20
 class Main:
     @classmethod
     def service_player_inputs(cls, key_pressed, room, player):
-        k_pressed = str.lower(key_pressed)
 
-        # hello
-        
         current_room = room 
         
-        if k_pressed in ["w","a","s","d"]:
-            direction = cls.convert_key_for_direction(k_pressed)
+        if key_pressed in ["w","a","s","d"]:
+            direction = cls.convert_key_for_direction(key_pressed)
             current_room = cls.service_pressing_move_key(room, direction, player)
                 
         return current_room
@@ -73,7 +70,10 @@ class Main:
 
     @classmethod
     def service_pressing_move_key(cls, room, direction, player):
-        return room.service_pressing_move_key(direction, player)
+        current_room = room.service_pressing_move_key(direction, player)
+        room.move_all_bandits()
+
+        return current_room
 
     # @staticmethod
     # def service_pressing_move_key(direction, room, player):

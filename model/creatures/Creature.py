@@ -29,21 +29,30 @@ class Creature:
     def get_data_after_key_press(self, direction):
         if direction == UPPER:
             modified_x, modified_y = self.x - 1, self.y
-            direction = UPPER
 
         elif direction == BOTTOM:
             modified_x, modified_y = self.x + 1, self.y
-            direction = BOTTOM
 
         elif direction == LEFT:
             modified_x, modified_y = self.x, self.y - 1
-            direction = LEFT
 
         elif direction == RIGHT:
             modified_x, modified_y = self.x, self.y + 1
-            direction = RIGHT
 
         return modified_x, modified_y, direction
+
+    def get_coords_around(self):
+        coords_around = [
+        (self.x, self.y),
+        (self.x+1, self.y), 
+        (self.x, self.y+1),
+        (self.x-1, self.y),
+        (self.x, self.y-1),
+        (self.x+1, self.y+1),
+        (self.x-1, self.y-1),
+        (self.x+1, self.y-1),
+        (self.x-1, self.y+1)]
+        return coords_around
 
     def melee_attack(self):
         dice_roll = random.randint(0,4)

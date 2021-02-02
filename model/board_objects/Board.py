@@ -52,7 +52,7 @@ class Board:
 
         self.central_room.create_food(3,4)
         
-        bandit = self.central_room.create_bandit(5, 3)
+        bandit = self.central_room.create_bandit(4, 5)
         self.central_room.add_bandit(bandit)
         
         bandit = self.central_room.create_bandit(7, 4)
