@@ -52,13 +52,13 @@ class Board:
 
         self.central_room.create_food(3,4)
         
-        bandit = self.central_room.create_bandit(4, 5)
+        bandit = self.central_room.create_bandit(7, 9)
         self.central_room.add_bandit(bandit)
         
-        bandit = self.central_room.create_bandit(7, 4)
+        bandit = self.central_room.create_bandit(7, 7, chasing=True)
         self.central_room.add_bandit(bandit)
         
-        bandit = self.central_room.create_bandit(5, 8)
+        bandit = self.central_room.create_bandit(5, 8, chasing=True)
         self.central_room.add_bandit(bandit)
 
     def place_player(self, player):    

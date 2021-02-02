@@ -23,7 +23,19 @@ class UI:
         print(f"Health: {player.health}    Arrows: {player.arrows}    Mana: {player.mana}", end="\t")
         print('')
 
-
+    @staticmethod
+    def display_attack_info(enemy):
+        
+        info_line = "="*5 + repr(enemy) + "="*5
+        decor_line = "=" * len(info_line)
+        print(f"""
+        {decor_line}
+        {info_line}
+        {decor_line}
+        {"ATTACKED YOU".center(len(info_line), "=")}
+        {decor_line}
+        """)
+        sleep(1.5)
     @staticmethod
     def display_fight(player, enemy):
         Util.clear_screen()

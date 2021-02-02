@@ -18,8 +18,8 @@ from model.items.Key import Key
 from model.items.Food import Food
 
 PLAYER_ICON = '@'
-PLAYER_START_X = 3
-PLAYER_START_Y = 3
+PLAYER_START_X = 1
+PLAYER_START_Y = 1
 
 BOARD_WIDTH = 30
 BOARD_HEIGHT = 20
@@ -51,16 +51,16 @@ class Main:
 
     @classmethod
     def service_pressing_move_key(cls, room, direction, player):
-        Main.proceed_enemies_moves(room, 2)
         current_room = room.service_pressing_move_key(direction, player)
-        Main.proceed_enemies_moves(room, 2)
+        if Main.proceed_enemies_moves(room, player, 1) == "game_over":
+            return "game_over"
         
         return current_room
 
     @staticmethod
-    def proceed_enemies_moves(room, moves_count=1):
+    def proceed_enemies_moves(room, player, moves_count=1):
         for _ in range(moves_count):
-            if room.move_all_bandits() == "game_over":
+            if room.move_all_bandits(player) == "game_over":
                 return "game_over"
             ui.UI.display_room(room)
         return room
@@ -71,18 +71,15 @@ class Main:
         board = engine.create_board(BOARD_WIDTH, BOARD_HEIGHT)
 
         engine.put_player_on_board(board, player)
-        # util.clear_screen()
-        # here
+
         current_room = board.central_room
         is_running = True
 
         ui.UI.display_room(current_room)
 
         while is_running:
-            # util.clear_screen()
             ui.UI.display_room(current_room)
             ui.UI.display_statistics(player)
-            # Here changed mostly
 
             key = util.Util.key_pressed()
 

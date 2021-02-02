@@ -60,8 +60,9 @@ class Room:
         self.fields[x][y] = food
 
 
-    def create_bandit(self, x, y):
+    def create_bandit(self, x, y, chasing=False):
         bandit = Bandit(x, y)
+        bandit.isChasing = True
         self.fields[x][y] = bandit
         return bandit
 
@@ -70,10 +71,10 @@ class Room:
         self.bandits.append(bandit)
 
 
-    def move_all_bandits(self):
+    def move_all_bandits(self, player_object):
         for bandit in self.bandits:
 
-            result = self.service_enemies_actions(bandit)
+            result = self.service_enemies_actions(bandit, player_object)
             if result == "game_over":
                 return result
 
@@ -116,13 +117,17 @@ class Room:
             
 
 
-    def service_enemies_actions(self, enemy_object):
-        next_x, next_y, direction = enemy_object.get_data_after_key_press(enemy_object.direction)
+    def service_enemies_actions(self, enemy_object, player_object):
+        if enemy_object.isChasing:
+            next_x, next_y = enemy_object.chase_creature(player_object, self)
+        else:
+            next_x, next_y = enemy_object.get_data_after_key_press(enemy_object.direction)
+        
         enemy_object.update_steps()
 
         next_object = self.fields[next_x][next_y]
 
-        if type(next_object) in [Gate, Key, Food, Arrow]:
+        if type(next_object) in [Gate, Key, Food, Arrow, Bandit]:
             self.refresh_enemy_direction(next_object, enemy_object)
         
         elif type(next_object) is Wall:
@@ -133,7 +138,7 @@ class Room:
         player_nearby = self.get_object_if_nearby(enemy_object, Player)
         
         if player_nearby != None:
-            UI.display_info("\n\n=======Enemy attacked you!(=======" , clear_screen=False)
+            UI.display_attack_info(enemy_object)
 
             fight_result = self.service_interaction_with_creature(enemy_object, player_nearby)
             
@@ -162,7 +167,7 @@ class Room:
 
     def service_pressing_move_key(self, direction, player):
         
-        modified_player_x, modified_player_y, direction = player.get_data_after_key_press(direction)
+        modified_player_x, modified_player_y = player.get_data_after_key_press(direction)
 
         next_object = self.fields[modified_player_x][modified_player_y]
         current_room = self
@@ -270,6 +275,7 @@ class Room:
 
     
     def service_moving_of_direction(self, player, direction):
+        
         if direction == UPPER:
             self.service_move_up(player)            
         elif direction == BOTTOM:

@@ -9,9 +9,13 @@ class Creature:
         self.y = y
         self.health = 50
         self.mana = 0
+        self.arrows = 0
+        
         self.attack = None
         self.defence = None
-        self.arrows = 0
+        
+        self.direction = None
+        self.isChasing = False
 
     def __str__(self):
         return self.icon
@@ -41,7 +45,29 @@ class Creature:
         elif direction == RIGHT:
             modified_x, modified_y = self.x, self.y + 1
 
-        return modified_x, modified_y, direction
+        return modified_x, modified_y
+
+    def chase_creature(self, creature_object, room, distance=3):
+        x,y = self.x, self.y
+        if abs(x - creature_object.x) <= distance and abs(y - creature_object.y) <= distance: 
+            if self.x > creature_object.x:
+                if self.x > 1:
+                    self.direction = UPPER
+                    self.x-1
+            elif self.x < creature_object.x:
+                if self.x < len(room.fields) - 1:
+                    self.direction = BOTTOM
+                    x = self.x+1
+            if self.y > creature_object.y:
+                if self.y > 1:
+                    self.direction = LEFT
+                    y = self.y-1
+            elif self.y < creature_object.y:
+                if self.y < len(room.fields[0]) - 1:
+                    self.direction = RIGHT
+                    y = self.y+1
+            return x,y
+        return self.get_data_after_key_press(self.direction)
 
     def get_coords_around(self):
         coords_around = [

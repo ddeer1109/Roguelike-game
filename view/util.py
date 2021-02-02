@@ -1,6 +1,6 @@
 import sys
 import os
-
+from time import sleep
 class Util:
     @staticmethod
     def key_pressed():
@@ -32,3 +32,6 @@ class Util:
             os.system('cls')
         else:
             os.system('clear')
+
+    def sleep(time=1):
+        sleep(1)

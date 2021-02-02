@@ -14,7 +14,10 @@ class Bandit(Creature):
         self.direction = LEFT
         self.number_of_steps = 5
         
+    def __repr__(self) -> str:
+        return "Bandit"
 
+        
     def attack_player(self, player):
         player.health -= self.attack
 
