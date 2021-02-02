@@ -147,7 +147,7 @@ class Room:
 
         objects_around = self.get_objects_around_creature(enemy_object, Player)
 
-        if type(Player) in list(map(type, objects_around)):
+        if Player in list(map(type, objects_around)):
             fight_result = self.service_interaction_with_creature(enemy_object, objects_around[0])
             if fight_result == "victory":
                 self.fields[enemy_object.x][enemy_object.y] = Food(enemy_object.x, enemy_object.y)
