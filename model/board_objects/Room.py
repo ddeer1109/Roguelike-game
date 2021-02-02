@@ -61,6 +61,7 @@ class Room:
     def create_bandit(self, x, y):
         bandit = Bandit(x, y)
         self.fields[x][y] = bandit
+        return bandit
 
     def add_bandit(self, bandit):
         self.bandits.append(bandit)
