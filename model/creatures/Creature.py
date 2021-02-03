@@ -57,11 +57,13 @@ class Creature:
         if abs(x - creature_object.x) <= distance and abs(y - creature_object.y) <= distance: 
             if self.x > creature_object.x:
                 if self.x > 1:
-                    self.direction = UPPER
+                    # self.direction = UPPER
+                    self.direction = BOTTOM
                     self.x-1
             elif self.x < creature_object.x:
                 if self.x < len(room.fields) - 1:
-                    self.direction = BOTTOM
+                    # self.direction = BOTTOM
+                    self.direction = UPPER
                     x = self.x+1
             if self.y > creature_object.y:
                 if self.y > 1:

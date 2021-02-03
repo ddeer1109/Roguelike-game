@@ -55,10 +55,10 @@ class Board:
         bandit = self.central_room.create_bandit(7, 9)
         self.central_room.add_bandit(bandit)
         
-        bandit = self.central_room.create_bandit(7, 7, chasing=True)
+        bandit = self.central_room.create_bandit(7, 7, chasing=False)
         self.central_room.add_bandit(bandit)
         
-        bandit = self.central_room.create_bandit(5, 8, chasing=True)
+        bandit = self.central_room.create_bandit(5, 8, chasing=False)
         self.central_room.add_bandit(bandit)
 
     def place_player(self, player):    
