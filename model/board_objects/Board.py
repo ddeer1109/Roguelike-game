@@ -6,6 +6,7 @@ sys.path.append(
 from model.board_objects.Room import Room
 from model.board_objects.Gate import Gate
 from model.creatures.Bandit import Bandit
+from model.creatures.Archer_bandit import ArcherBandit
 from model.constants import  UPPER, BOTTOM, LEFT, RIGHT, CENTRAL, BOSS
 
 
@@ -54,6 +55,8 @@ class Board:
         
         bandit = self.central_room.create_bandit(7, 9)
         self.central_room.add_bandit(bandit)
+
+        archer = self.central_room.create_bandit(11, 11, ArcherBandit)
         
         bandit = self.central_room.create_bandit(7, 7, chasing=False)
         self.central_room.add_bandit(bandit)

@@ -9,13 +9,13 @@ class Bandit(Creature):
         self.icon = BANDIT
         self.attack = 3
         self.health = self.get_random_health()
-        self.mana = 5
-        self.arrows = 5
-        self.direction = LEFT
+        self.mana = 0
+        self.arrows = 0
+        self.direction = self.get_start_direction()
         self.number_of_steps = 5
         
-    def __repr__(self) -> str:
-        return "Bandit"
+    # def __repr__(self) -> str:
+    #     return "Bandit"
 
     def get_random_health(self):
         temp_health = random.randrange(20, 35)
@@ -34,6 +34,8 @@ class Bandit(Creature):
             self.number_of_steps = random.randrange(5, 15)
             self.direction = self.change_direction()
 
+    def get_start_direction(self):
+        return random.choice(directions)
     # def move(self):
     #     self.move_up()
 
@@ -41,12 +43,12 @@ class Bandit(Creature):
         return super().melee_attack()
 
     
-    def range_attack(self):
-        return super().range_attack()
+    # def range_attack(self):
+    #     return super().range_attack()
 
     
-    def magic_attack(self):
-        return super().magic_attack()
+    # def magic_attack(self):
+    #     return super().magic_attack()
 
 
     def get_possible_moves_list(self):

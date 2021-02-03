@@ -10,6 +10,7 @@ from model.board_objects.Wall import Wall
 from model.board_objects.Gate import Gate
 from model.creatures.Player import Player
 from model.creatures.Bandit import Bandit
+from model.creatures.Archer_bandit import ArcherBandit
 from model.constants import ARROW, UPPER, BOTTOM, LEFT, RIGHT
 from model.items.Key import Key
 from model.items.Food import Food
@@ -60,8 +61,8 @@ class Room:
         self.fields[x][y] = food
 
 
-    def create_bandit(self, x, y, chasing=False):
-        bandit = Bandit(x, y)
+    def create_bandit(self, x, y, bandit_type=Bandit, chasing=False):
+        bandit = bandit_type(x, y)
         bandit.isChasing = True
         self.fields[x][y] = bandit
         return bandit
