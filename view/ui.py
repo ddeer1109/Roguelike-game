@@ -159,7 +159,7 @@ class UI:
 
     @staticmethod
     def display_magic_animation(player, enemy, damage):
-         is_blocked = damage < 0      
+        is_blocked = damage < 0      
 
         if damage == 0:
             UI.display_info("No enough mana for magic attack.")

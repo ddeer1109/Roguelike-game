@@ -9,7 +9,7 @@ class Player(Creature):
         self.icon = PLAYER
         self.inventory = []
         self.attack = 3
-        self.defence = 3
+        self.defence = 10
         self.mana = 10
         self.killed_enemies = 0
         self.collected_food = 0

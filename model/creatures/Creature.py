@@ -88,14 +88,14 @@ class Creature:
         return coords_around
 
     def melee_attack(self):
-        attack_dice_roll = random.randint(0,4)
+        attack_dice_roll = random.randint(0,2)
 
         damage = attack_dice_roll * self.attack
         return damage
 
     def range_attack(self):
         if self.arrows > 0:
-            attack_dice_roll = random.randint([0,0,0,5,6,7])
+            attack_dice_roll = random.choice([0,0,0,2,3,4])
             
             damage = attack_dice_roll * self.attack
             self.arrows -= 1
@@ -105,7 +105,7 @@ class Creature:
 
     def magic_attack(self):
         if self.mana >= 5:
-            attack_dice_roll = 8
+            attack_dice_roll = 4
     
             damage = attack_dice_roll * self.attack
             self.mana -= 5
