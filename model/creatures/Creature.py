@@ -2,7 +2,7 @@ from model.board_objects.Empty_space import Empty_space
 from model.board_objects.Field import Field
 from model.constants import MELEE_ATTACK, RANGE_ATTACK, MAGIC_ATTACK, UPPER, BOTTOM, LEFT, RIGHT
 import random
-from model.items import Arrow, Food
+
  
 # import abc
 
@@ -20,6 +20,8 @@ class Creature(Field):
         
         self.direction = None
         self.isChasing = False
+
+        self.dropping_items = [None]
 
     def __str__(self):
         return self.icon
@@ -116,8 +118,13 @@ class Creature(Field):
 
         return random.choice(possible_moves)
 
+    @classmethod
+    def get_random_stat(cls, down_range, up_range):
+        return random.randrange(down_range, up_range)
+
+    
     def drop_item(self, room):
-        item = random.choice([Arrow.Arrow, Food.Food])
+        item = random.choice(self.dropping_items)
         del room.bandits[room.bandits.index(self)]
         room.fields[self.x][self.y] = item(self.x, self.y)
         

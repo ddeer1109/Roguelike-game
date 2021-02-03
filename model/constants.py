@@ -23,3 +23,4 @@ BOSS = 'boss'
 FOOD = 'F'
 KEY = 'K'
 ARROW = 'A'
+MANA_POTION = "u"

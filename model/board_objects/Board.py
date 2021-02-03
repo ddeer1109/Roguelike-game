@@ -1,3 +1,4 @@
+from model.creatures.Magic_bandit import MagicianBandit
 import sys
 import os.path
 sys.path.append(
@@ -8,7 +9,7 @@ from model.board_objects.Gate import Gate
 from model.creatures.Bandit import Bandit
 from model.creatures.Archer_bandit import ArcherBandit
 from model.constants import  UPPER, BOTTOM, LEFT, RIGHT, CENTRAL, BOSS
-
+import random
 
 
 class Board:
@@ -26,6 +27,16 @@ class Board:
 
     def generate_room_elements(self):
 
+        for room in [self.central_room, self.left_room, self.right_room]:
+            for _ in range(random.randint(3,7)): room.create_food()
+            for _ in range(random.randint(1,4)): room.create_bandit()
+            for _ in range(random.randint(1,3)): room.create_bandit(ArcherBandit)
+            for _ in range(random.randint(0,2)): room.create_bandit(MagicianBandit)
+
+        self.generate_gates()
+        self.generate_keys()
+
+    def generate_gates(self):
         self.central_room.create_gates(left=True, right=True)
         self.right_room.create_gates(left=True)
         self.left_room.create_gates(upper=True, right=True)
@@ -41,31 +52,19 @@ class Board:
         self.left_room.gates[UPPER].connect_gates(self.boss_room.gates[BOTTOM], self.boss_room)
         
         self.boss_room.gates[BOTTOM].connect_gates(self.left_room.gates[UPPER], self.left_room)
-        
 
-        key_central_left = self.central_room.create_key(2, 3, "Central left key")
-        key_central_right = self.central_room.create_key(12, 15, "Central right key")
-        key_left_upper = self.right_room.create_key(3, 19, "Left upper key")
+    def generate_keys(self):
+        
+        key_central_left = self.central_room.create_key("Central left key")
+        key_central_right = self.central_room.create_key("Central right key")
+        key_left_upper = self.right_room.create_key("Left upper key")
 
         key_central_left.add_gate_to_key(self.central_room.gates[LEFT])
         key_central_right.add_gate_to_key(self.central_room.gates[RIGHT])
         key_left_upper.add_gate_to_key(self.left_room.gates[UPPER])
 
-        self.central_room.create_food(3,4)
-        self.central_room.create_food(3,8)
-        self.central_room.create_food(5,4)
-        
-        self.central_room.create_food(15,18)
-        self.central_room.create_food(9,12)
-
-        bandit = self.central_room.create_bandit(7, 9)
-        archer = self.central_room.create_bandit(11, 11, ArcherBandit, chasing=True)
-        
-        bandit = self.central_room.create_bandit(7, 7, chasing=True)
-        archer = self.central_room.create_bandit(15, 15, ArcherBandit)
-        
-        bandit = self.central_room.create_bandit(5, 8, chasing=False)
-        
 
     def place_player(self, player):    
             self.central_room.fields[player.x][player.y] = player
+
+    

@@ -6,4 +6,8 @@ class Arrow(Field):
     def __init__(self, x, y):
         super().__init__(x,y)
         self.icon = ARROW
-        self.count = random.randrange(1,5)
+        self.count = random.randrange(2,5)
+
+
+    def __repr__(self) -> str:
+        return "Mana potion"

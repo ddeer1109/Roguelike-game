@@ -1,19 +1,18 @@
 from model.creatures.Creature import Creature
 from model.constants import PLAYER, CENTRAL
 from model.items import Key, Food, Arrow
-
+from view.ui import UI
 class Player(Creature):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.name = "Hero"
         self.icon = PLAYER
         self.inventory = []
-        self.attack = 5
+        self.attack = 10
         self.defence = 5
         self.mana = 10
         self.killed_enemies = 0
-        self.collected_food = 0
-        self.collected_arrows = 0
+        self.collected_items = 0
 
     def get_statistics(self):
         return {
@@ -22,21 +21,25 @@ class Player(Creature):
             'defence': str(self.defence),
             'mana': str(self.mana),
             'killed_enemies': str(self.killed_enemies),
-            'collected_arrows': str(self.collected_arrows),
-            'collected_food': str(self.collected_food)
+            'collected_items': str(self.collected_items),
+            
         }
 
     def eat_food(self, food):
         self.health += food.health_increase
-        self.collected_food += 1
+
 
     def pick_key(self, key):
         self.inventory.append(key)
 
 
+    def pick_mana_potion(self, potion):
+        self.mana += potion.mana_increase
+
+
     def pick_arrow(self, arrow):
         self.arrows += arrow.count
-        self.collected_arrows+= arrow.count
+
 
     def get_coords_around(self):
         return super().get_coords_around()
@@ -48,6 +51,11 @@ class Player(Creature):
             self.eat_food(item)
         elif type(item) is Arrow.Arrow:
             self.pick_arrow(item)
+        else:
+            self.pick_mana_potion(item)
+        self.collected_items += 1
+        
+        UI.display_decor_info(item, "WAS PICKED.")
 
     def melee_attack(self):
         return super().melee_attack()

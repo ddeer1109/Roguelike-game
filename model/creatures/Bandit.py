@@ -1,5 +1,6 @@
 from model.creatures.Creature import Creature
-from model.constants import BANDIT, UPPER, BOTTOM, LEFT, RIGHT
+from model.constants import BANDIT, MELEE_ATTACK, UPPER, BOTTOM, LEFT, RIGHT
+from model.items.Food import Food
 import random
 
 directions = [UPPER, BOTTOM, LEFT, RIGHT]
@@ -7,20 +8,18 @@ class Bandit(Creature):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.icon = BANDIT
-        self.attack = 3
-        self.defence = 2
-        self.health = self.get_random_health()
+        self.attack = super().get_random_stat(2,4)
+        self.defence = super().get_random_stat(2,5)
+        self.health = super().get_random_stat(25,35)
         self.mana = 0
         self.arrows = 0
         self.direction = self.get_start_direction()
         self.number_of_steps = 5
+        self.dropping_items = [Food]
         
     def __repr__(self) -> str:
         return "Bandit"
 
-    def get_random_health(self):
-        temp_health = random.randrange(20, 35)
-        return temp_health
         
     def attack_player(self, player):
         player.health -= self.attack
@@ -37,8 +36,7 @@ class Bandit(Creature):
 
     def get_start_direction(self):
         return random.choice(directions)
-    # def move(self):
-    #     self.move_up()
+    
 
     def melee_attack(self):
         return super().melee_attack()
@@ -53,4 +51,9 @@ class Bandit(Creature):
 
 
     def get_possible_moves_list(self):
-        return super().get_possible_moves_list()
+        return MELEE_ATTACK
+
+    def drop_item(self, room):
+        item = random.choice(self.dropping_items)
+        del room.bandits[room.bandits.index(self)]
+        room.fields[self.x][self.y] = item(self.x, self.y)

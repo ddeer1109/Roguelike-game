@@ -56,7 +56,8 @@ class Fight:
             return player
         
 
-        enemy_move = enemy.get_random_possible_move()
+        enemy_move = enemy.get_possible_moves_list()
+        
         cls.serve_move(enemy_move, enemy, player)
         
         
