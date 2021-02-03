@@ -10,4 +10,4 @@ class Arrow(Field):
 
 
     def __repr__(self) -> str:
-        return "Mana potion"
+        return "Arrow"
