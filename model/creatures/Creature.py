@@ -1,11 +1,13 @@
 from model.board_objects.Empty_space import Empty_space
+from model.board_objects.Field import Field
 from model.constants import MELEE_ATTACK, RANGE_ATTACK, MAGIC_ATTACK, UPPER, BOTTOM, LEFT, RIGHT
 import random
-from model.items import Arrow, Food 
+from model.items import Arrow, Food
+ 
 # import abc
 
 # @abc.ABC
-class Creature:
+class Creature(Field):
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -56,49 +58,37 @@ class Creature:
         x,y = self.x, self.y
         self.update_steps()
         if abs(x - creature_object.x) <= distance and abs(y - creature_object.y) <= distance: 
-            if self.x > creature_object.x:
+            if self.x >= creature_object.x:
                 if self.x > 1:
                     self.direction = UPPER
                     # self.direction = BOTTOM
                     self.x-1
-            elif self.x < creature_object.x:
+            elif self.x <= creature_object.x:
                 if self.x < len(room.fields) - 1:
                     self.direction = BOTTOM
                     # self.direction = UPPER
                     x = self.x+1
-            if self.y > creature_object.y:
+            if self.y >= creature_object.y:
                 if self.y > 1:
                     self.direction = LEFT
                     y = self.y-1
-            elif self.y < creature_object.y:
+            elif self.y <= creature_object.y:
                 if self.y < len(room.fields[0]) - 1:
                     self.direction = RIGHT
                     y = self.y+1
             return x,y
         return self.get_data_after_key_press(self.direction)
 
-    def get_coords_around(self):
-        coords_around = [
-        (self.x, self.y),
-        (self.x+1, self.y), 
-        (self.x, self.y+1),
-        (self.x-1, self.y),
-        (self.x, self.y-1),
-        (self.x+1, self.y+1),
-        (self.x-1, self.y-1),
-        (self.x+1, self.y-1),
-        (self.x-1, self.y+1)]
-        return coords_around
 
     def melee_attack(self):
-        attack_dice_roll = random.randint(0,2)
+        attack_dice_roll = random.randint(1,3)
 
         damage = attack_dice_roll * self.attack
         return damage
 
     def range_attack(self):
         if self.arrows > 0:
-            attack_dice_roll = random.choice([0,0,0,2,3,4])
+            attack_dice_roll = random.choice([0,0,0,3,3,4])
             
             damage = attack_dice_roll * self.attack
             self.arrows -= 1

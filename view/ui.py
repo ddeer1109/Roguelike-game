@@ -1,3 +1,4 @@
+from model.creatures.Archer_bandit import ArcherBandit
 from view.util import Util
 from time import sleep
 from model.creatures import Bandit, Player
@@ -22,6 +23,9 @@ class UI:
         print(f"Inventory: {player.inventory}", end = "\t")
         print(f"Health: {player.health}    Arrows: {player.arrows}    Mana: {player.mana}", end="\t")
         print('')
+    def add_new_line(times=3):
+        print(3*"\n", end="")
+
 
     @staticmethod
     def display_attack_info(enemy):
@@ -39,7 +43,8 @@ class UI:
     @staticmethod
     def display_fight(player, enemy):
         Util.clear_screen()
-        print(f'  {player}       {enemy}  ')
+        UI.add_new_line()
+        print(f'  {player}        {enemy}  ')
         print()
         print("*** FIGHT ***\n")
         print(f"PLAYER Health: {player.health}    Arrows: {player.arrows}    Mana: {player.mana}\
@@ -47,7 +52,12 @@ class UI:
         print()
         
     @staticmethod
+    def display_fight_statistics():
+        pass
+        
+    @staticmethod
     def annouce_winner(winner):
+        UI.add_new_line()
         if type(winner) is Player.Player:
             print("Winner is Player")
         elif isinstance(winner, (Bandit.Bandit)):
@@ -70,60 +80,6 @@ class UI:
         Util.clear_screen()
         
 
-    # @staticmethod
-    # def print_table(table):
-    #     """Prints tabular data like above.
-        
-    #     Args:
-    #         table: list of lists - the table to print out
-    #     """
-    
-    #     formatted_rows = UI.get_formatted_rows_list(table)
-    #     example_row = formatted_rows[0]
-        
-    #     length_of_bot_top_border = len(example_row)
-    #     border_center = "-" * length_of_bot_top_border
-        
-    #     top_border = f"/{border_center}\\"
-    #     bottom_border = f"\\{border_center}/"
-        
-    #     inside_border = "".join(["-" if element != "|" else "|" for element in example_row])
-        
-    #     print(top_border)
-    #     last_index = len(formatted_rows) - 1
-    #     for current_index in range(len(formatted_rows)):
-    #         print(formatted_rows[current_index])
-    #         if current_index != last_index:
-    #             print(inside_border)
-    #     print(bottom_border)
-    
-
-
-    # def get_formatted_rows_list(table):
-    #     ID_INDEX = 0
-
-    #     header_record = table[ID_INDEX]
-    #     columns = [[] for _ in range(len(header_record))]
-    #     for record in table:
-    #         for col_index ,table_element in enumerate(record):
-    #             columns[col_index].append(table_element)
-
-    #     formatted_columns = []
-        
-    #     for column in columns:
-    #         max_length = max(map(len, column)) + 2       
-    #         formatted_column = []
-    #         for element in column:
-    #             formatted_item = element.center(max_length)
-    #             formatted_column.append(formatted_item)       
-    #         formatted_columns.append(formatted_column)
-    #     formatted_rows = []
-        
-    #     for row_index in range(len(table)): 
-    #         formatted_rows.append(["|".join(element) for element in formatted_columns])
-
-    #     return formatted_rows
-
     @staticmethod
     def display_melee_animation(player, enemy, damage):
         is_blocked = damage < 0         
@@ -133,14 +89,17 @@ class UI:
             return None            
         elif type(player) is Player.Player:
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {player}-/==>  {enemy} ')
             sleep(0.25)
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'   {player}-/==> {enemy} ')
             sleep(0.25)
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'    {player}-/==>{enemy} ')
             sleep(0.25)
             if is_blocked:
@@ -148,19 +107,23 @@ class UI:
                 return
             
             Util.clear_screen()
+            UI.add_new_line()
             print(f'      {player}-/={enemy}=>')
 
             
-        elif type(player) is Bandit.Bandit:
+        elif type(player) is not Player.Player:
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {enemy}  <==/-{player}  ')
             sleep(0.25)
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {enemy} <==/-{player} ')
             sleep(0.25)
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {enemy}<==/-{player} ')
             sleep(0.25)
             if is_blocked:
@@ -168,6 +131,7 @@ class UI:
                 return
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'<={enemy}=/-{player} ')
         print(f"Damage done: {damage}.")
         sleep(2)
@@ -180,14 +144,17 @@ class UI:
             UI.display_info("Range attack missed or no ammunition.")
         elif type(player) is Player.Player:
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {player}|)->     {enemy} ')
             sleep(0.25)
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {player}|) -->   {enemy} ')
             sleep(0.25)
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {player}|)    -->{enemy} ')
             sleep(0.25)
 
@@ -196,18 +163,22 @@ class UI:
                 return
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {player}|)      -{enemy}> ')
             sleep(0.25)
-        elif type(player) is Bandit.Bandit:
+        elif type(player) is not Player.Player:
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {enemy}     <-(|{player}')
             sleep(0.25)
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {enemy}   <-- (|{player} ')
             sleep(0.25)
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {enemy}<--    (|{player} ')
             sleep(0.25)
 
@@ -216,11 +187,12 @@ class UI:
                 return
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f' <{enemy}-     (|{player} ')
             sleep(0.25)
 
         print(f"Damage done: {damage}.")
-        sleep(2)
+        sleep(1)
 
     @staticmethod
     def display_magic_animation(player, enemy, damage):
@@ -231,14 +203,17 @@ class UI:
             return None
         elif type(player) is Player.Player:
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {player}~o      {enemy} ')
             sleep(0.25)
 
             Util.clear_screen()
-            print(f'  {player}    ~o  {enemy} ')
+            UI.add_new_line()
+            print(f'  {player}   ~o   {enemy} ')
             sleep(0.25)
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {player}      ~o{enemy} ')
             sleep(0.25)
 
@@ -247,18 +222,22 @@ class UI:
                 return
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {player}        {enemy}~o')
             sleep(0.25)
-        elif type(player) is Bandit.Bandit:
+        elif type(player) is not Player.Player:
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {enemy}      o~{player} ')
             sleep(0.25)
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {enemy}   o~   {player} ')
             sleep(0.25)
 
             Util.clear_screen()
+            UI.add_new_line()
             print(f'  {enemy}o~      {player} ')
             sleep(0.25)
 
@@ -267,11 +246,12 @@ class UI:
                 return
 
             Util.clear_screen()
-            print(f'o~{enemy}        {player}  ')
+            UI.add_new_line()
+            print(f' o~{enemy}       {player}  ')
             sleep(0.25)
 
         print(f"Damage done: {damage}.")
-        sleep(2)
+        sleep(1)
 
 
     @staticmethod
@@ -286,6 +266,8 @@ class UI:
 
     @staticmethod
     def display_info(string, clear_screen=True):
-        if clear_screen: Util.clear_screen()
+        if clear_screen: 
+            Util.clear_screen()
+            UI.add_new_line()
         print(string)
-        sleep(1)
+        sleep(0.5)

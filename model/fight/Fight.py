@@ -106,6 +106,5 @@ class Fight:
             UI.display_magic_animation(player, enemy, damage)
 
         damage = 0 if damage < 0 else damage
-        UI.display_info(f"DAMAGE: {damage}")
         enemy.health -= damage
      

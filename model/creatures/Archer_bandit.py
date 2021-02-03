@@ -7,5 +7,8 @@ class ArcherBandit(Bandit):
         self.arrows = 10
         self.icon = ARCHER
 
+    def __repr__(self) -> str:
+        return "Archer Bandit"
+
     def range_attack(self):
         return super().range_attack()

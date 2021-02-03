@@ -52,17 +52,20 @@ class Board:
         key_left_upper.add_gate_to_key(self.left_room.gates[UPPER])
 
         self.central_room.create_food(3,4)
+        self.central_room.create_food(3,8)
+        self.central_room.create_food(5,4)
         
-        bandit = self.central_room.create_bandit(7, 9)
-        self.central_room.add_bandit(bandit)
+        self.central_room.create_food(15,18)
+        self.central_room.create_food(9,12)
 
-        archer = self.central_room.create_bandit(11, 11, ArcherBandit)
+        bandit = self.central_room.create_bandit(7, 9)
+        archer = self.central_room.create_bandit(11, 11, ArcherBandit, chasing=True)
         
-        bandit = self.central_room.create_bandit(7, 7, chasing=False)
-        self.central_room.add_bandit(bandit)
+        bandit = self.central_room.create_bandit(7, 7, chasing=True)
+        archer = self.central_room.create_bandit(15, 15, ArcherBandit)
         
         bandit = self.central_room.create_bandit(5, 8, chasing=False)
-        self.central_room.add_bandit(bandit)
+        
 
     def place_player(self, player):    
             self.central_room.fields[player.x][player.y] = player

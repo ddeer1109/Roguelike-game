@@ -8,6 +8,7 @@ from view import util
 from model.board_objects.Empty_space import Empty_space
 from model.board_objects.Wall import Wall
 from model.board_objects.Gate import Gate
+from model.board_objects.Field import Field
 from model.creatures.Player import Player
 from model.creatures.Bandit import Bandit
 from model.creatures.Archer_bandit import ArcherBandit
@@ -65,6 +66,7 @@ class Room:
         bandit = bandit_type(x, y)
         bandit.isChasing = True
         self.fields[x][y] = bandit
+        self.add_bandit(bandit)
         return bandit
 
 
@@ -88,46 +90,68 @@ class Room:
             next_x, next_y = enemy_object.get_data_after_key_press(enemy_object.direction)
         
         next_object = self.fields[next_x][next_y]
-
-        if type(next_object) in [Gate, Key, Food, Arrow, Bandit, Wall]:
+        player_nearby = self.get_object_if_nearby(next_object, Player)
+        if type(next_object) in [Gate, Key, Food, Arrow, Wall, Bandit, ArcherBandit]:
             self.refresh_enemy_direction(next_object, enemy_object)
+            return
         
-        self.service_moving_of_direction(enemy_object, enemy_object.direction)
-        UI.display_room(self)
-        player_nearby = self.get_object_if_nearby(enemy_object, Player)
-        if player_nearby != None:
+        elif player_nearby != None:
+            
+            self.service_moving_of_direction(enemy_object, enemy_object.direction)
+            enemy_object.update_steps()
+            UI.display_room(self)
             UI.display_attack_info(enemy_object)
 
             fight_result = self.service_interaction_with_creature(enemy_object, player_nearby)
             if fight_result == "defeat":
                 return "game_over"
+        else:
+            self.service_moving_of_direction(enemy_object, enemy_object.direction)
+            enemy_object.update_steps()
+            UI.display_room(self)
+        
 
 
-    def get_object_if_nearby(self, creature_object, looked_object):
-        coords = creature_object.get_coords_around()
-        objects = [self.fields[coord[0]][coord[1]] for coord in coords if type(self.fields[coord[0]][coord[1]]) is looked_object]
+    def get_object_if_nearby(self, field_object, looked_object):
+        coords = field_object.get_coords_around()
+        valid_coords = objects = [coord for coord in coords if coord[0] in range(1, len(self.fields)) and coord[1] in range(1,len(self.fields[0]))]
+        objects = [self.fields[coord[0]][coord[1]] for coord in valid_coords if type(self.fields[coord[0]][coord[1]]) is looked_object]
         if len(objects) > 0:
             return objects[0]
         
         
     def refresh_enemy_direction(self, next_object, enemy_object):
-        
-        if next_object.x == len(self.fields)-1:
-            enemy_object.direction = UPPER
-            self.service_moving_of_direction(enemy_object, enemy_object.direction)
-        
-        if next_object.y == 0:
-            enemy_object.direction = RIGHT
+        if type(next_object) in [Wall, Gate]:
+            if next_object.x == len(self.fields)-1:
+                enemy_object.direction = UPPER
+                self.service_moving_of_direction(enemy_object, enemy_object.direction)
+                return
+            
+            if next_object.y == 0:
+                enemy_object.direction = RIGHT
+                self.service_moving_of_direction(enemy_object, enemy_object.direction)
+                return
+            if next_object.x == 0:
+                enemy_object.direction = BOTTOM
+                self.service_moving_of_direction(enemy_object, enemy_object.direction)
+                return
+            if next_object.y == len(self.fields[0])-1:
+                enemy_object.direction = LEFT
+                self.service_moving_of_direction(enemy_object, enemy_object.direction)
+                return
+        else:
+            if enemy_object.x + 1 == next_object.x:
+                enemy_object.direction = UPPER
+            elif enemy_object.x - 1 == next_object.x:
+                enemy_object.direction = BOTTOM
+            elif enemy_object.y + 1 == next_object.y:
+                enemy_object.direction = LEFT
+            elif enemy_object.y - 1 == next_object.y:
+                enemy_object.direction = RIGHT
             self.service_moving_of_direction(enemy_object, enemy_object.direction)
 
-        if next_object.x == 0:
-            enemy_object.direction = BOTTOM
-            self.service_moving_of_direction(enemy_object, enemy_object.direction)
+            
         
-        if next_object.y == len(self.fields[0])-1:
-            enemy_object.direction = LEFT
-            self.service_moving_of_direction(enemy_object, enemy_object.direction)
-
 ####################### PLAYER MAIN FUNCTION #############################
 
     def service_pressing_move_key(self, direction, player):

@@ -7,3 +7,15 @@ class Field:
     def __str__(self):
         return self.icon
 
+    def get_coords_around(self):
+        coords_around = [
+        (self.x, self.y),
+        (self.x+1, self.y), 
+        (self.x, self.y+1),
+        (self.x-1, self.y),
+        (self.x, self.y-1),
+        (self.x+1, self.y+1),
+        (self.x-1, self.y-1),
+        (self.x+1, self.y-1),
+        (self.x-1, self.y+1)]
+        return coords_around

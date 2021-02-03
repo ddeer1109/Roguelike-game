@@ -8,14 +8,15 @@ class Bandit(Creature):
         super().__init__(x, y)
         self.icon = BANDIT
         self.attack = 3
+        self.defence = 2
         self.health = self.get_random_health()
         self.mana = 0
         self.arrows = 0
         self.direction = self.get_start_direction()
         self.number_of_steps = 5
         
-    # def __repr__(self) -> str:
-    #     return "Bandit"
+    def __repr__(self) -> str:
+        return "Bandit"
 
     def get_random_health(self):
         temp_health = random.randrange(20, 35)
@@ -31,7 +32,7 @@ class Bandit(Creature):
     def update_steps(self):
         self.number_of_steps -= 1
         if self.number_of_steps == 0:
-            self.number_of_steps = random.randrange(5, 15)
+            self.number_of_steps = random.randrange(4, 8)
             self.direction = self.change_direction()
 
     def get_start_direction(self):
