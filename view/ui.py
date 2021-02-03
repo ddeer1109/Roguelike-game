@@ -57,7 +57,11 @@ class UI:
 
         input("\nPress enter to continue...")
 
-    
+    @staticmethod
+    def display_full_statistics(player):
+        full_statistics = player.get_statistics()
+        Util.clear_screen()
+        print("Full Statistics:")
 
     @staticmethod
     def display_melee_animation(player, enemy, damage):

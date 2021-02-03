@@ -14,6 +14,16 @@ class Player(Creature):
         self.killed_enemies = 0
         self.collected_food = 0
 
+    def get_statistics(self):
+        return {
+            'name': self.name,
+            'attack': self.attack,
+            'defence': self.defence,
+            'mana': self.mana,
+            'arrows': self.arrows,
+            'killed_enemies': self.killed_enemies,
+            'collected_food': self.collected_food
+        }
 
     def eat_food(self, food):
         self.health += food.health_increase
