@@ -2,7 +2,9 @@ from model.board_objects.Empty_space import Empty_space
 from model.constants import MELEE_ATTACK, RANGE_ATTACK, MAGIC_ATTACK, UPPER, BOTTOM, LEFT, RIGHT
 import random
 from model.items import Arrow, Food 
+# import abc
 
+# @abc.ABC
 class Creature:
     def __init__(self, x, y):
         self.x = x
@@ -47,6 +49,9 @@ class Creature:
 
         return modified_x, modified_y
 
+    def get_defence_dice_roll(self):
+        return random.randint(0, 4)
+
     def chase_creature(self, creature_object, room, distance=3):
         x,y = self.x, self.y
         self.update_steps()
@@ -54,10 +59,12 @@ class Creature:
             if self.x > creature_object.x:
                 if self.x > 1:
                     self.direction = UPPER
+                    # self.direction = BOTTOM
                     self.x-1
             elif self.x < creature_object.x:
                 if self.x < len(room.fields) - 1:
                     self.direction = BOTTOM
+                    # self.direction = UPPER
                     x = self.x+1
             if self.y > creature_object.y:
                 if self.y > 1:
@@ -84,14 +91,16 @@ class Creature:
         return coords_around
 
     def melee_attack(self):
-        dice_roll = random.randint(0,4)
-        damage = dice_roll * self.attack
+        attack_dice_roll = random.randint(0,2)
+
+        damage = attack_dice_roll * self.attack
         return damage
 
     def range_attack(self):
         if self.arrows > 0:
-            dice_roll = random.choice([0,0,0,7,8])
-            damage = dice_roll * self.attack
+            attack_dice_roll = random.choice([0,0,0,2,3,4])
+            
+            damage = attack_dice_roll * self.attack
             self.arrows -= 1
             return damage
         else:
@@ -99,8 +108,9 @@ class Creature:
 
     def magic_attack(self):
         if self.mana >= 5:
-            dice_roll = 10
-            damage = dice_roll * self.attack
+            attack_dice_roll = 4
+    
+            damage = attack_dice_roll * self.attack
             self.mana -= 5
             return damage
         else:

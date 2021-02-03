@@ -34,6 +34,8 @@ class Main:
         if key_pressed in ["w","a","s","d"]:
             direction = cls.convert_key_for_direction(key_pressed)
             current_room = cls.service_pressing_move_key(room, direction, player)
+        elif key_pressed == "i":
+            ui.UI.display_full_statistics(player)
                 
         return current_room
 

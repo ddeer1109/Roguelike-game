@@ -42,9 +42,9 @@ class Board:
         self.boss_room.gates[BOTTOM].connect_gates(self.left_room.gates[UPPER], self.left_room)
         
 
-        key_central_left = self.central_room.create_key(2, 3)
-        key_central_right = self.central_room.create_key(12, 15)
-        key_left_upper = self.right_room.create_key(3, 19)
+        key_central_left = self.central_room.create_key(2, 3, "Central left key")
+        key_central_right = self.central_room.create_key(12, 15, "Central right key")
+        key_left_upper = self.right_room.create_key(3, 19, "Left upper key")
 
         key_central_left.add_gate_to_key(self.central_room.gates[LEFT])
         key_central_right.add_gate_to_key(self.central_room.gates[RIGHT])
@@ -55,10 +55,10 @@ class Board:
         bandit = self.central_room.create_bandit(7, 9)
         self.central_room.add_bandit(bandit)
         
-        bandit = self.central_room.create_bandit(7, 7, chasing=True)
+        bandit = self.central_room.create_bandit(7, 7, chasing=False)
         self.central_room.add_bandit(bandit)
         
-        bandit = self.central_room.create_bandit(5, 8, chasing=True)
+        bandit = self.central_room.create_bandit(5, 8, chasing=False)
         self.central_room.add_bandit(bandit)
 
     def place_player(self, player):    

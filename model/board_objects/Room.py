@@ -50,8 +50,8 @@ class Room:
         return board
 
 #######################################################
-    def create_key(self, x, y):
-        key = Key(x, y)
+    def create_key(self, x, y, name):
+        key = Key(x, y, name)
         self.fields[x][y] = key
         return self.fields[x][y]
 
@@ -92,7 +92,7 @@ class Room:
             self.refresh_enemy_direction(next_object, enemy_object)
         
         self.service_moving_of_direction(enemy_object, enemy_object.direction)
-        
+        UI.display_room(self)
         player_nearby = self.get_object_if_nearby(enemy_object, Player)
         if player_nearby != None:
             UI.display_attack_info(enemy_object)

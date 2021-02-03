@@ -12,7 +12,7 @@ class Fight:
         winner = self.start_fight()
         UI.annouce_winner(winner)
         if type(winner) is Player:
-            
+            self.player.killed_enemies += 1
             return "victory"
         
         elif winner == RUN:
@@ -76,17 +76,36 @@ class Fight:
 
     @staticmethod
     def serve_move(move, player, enemy):
+        enemy_defence_dice_roll = enemy.get_defence_dice_roll()
+        UI.display_info(f"ENEMY DEFENCE DICE ROLL: {enemy_defence_dice_roll}")
         if move == MELEE_ATTACK:
-            damage = player.melee_attack()
+            damage = player.melee_attack()  
+            if damage > 0:
+                damage -= enemy_defence_dice_roll
+            else:
+                damage = 0
+            
             UI.display_melee_animation(player, enemy, damage)
 
         elif move == RANGE_ATTACK:
             damage = player.range_attack()
+            if damage > 0:
+                damage -= enemy_defence_dice_roll
+            else:
+                damage = 0
+            
             UI.display_range_animation(player, enemy, damage)
             
         elif move == MAGIC_ATTACK:
             damage = player.magic_attack()
+            if damage > 0:
+                damage -= enemy_defence_dice_roll
+            else:
+                damage = 0
+
             UI.display_magic_animation(player, enemy, damage)
 
+        damage = 0 if damage < 0 else damage
+        UI.display_info(f"DAMAGE: {damage}")
         enemy.health -= damage
      

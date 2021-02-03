@@ -57,13 +57,80 @@ class UI:
 
         input("\nPress enter to continue...")
 
+    @staticmethod
+    def display_full_statistics(player):
+        full_statistics = player.get_statistics()
+        # formatted_rows = UI.get_formatted_rows_list(full_statistics)
+        # UI.print_table(formatted_rows)
+        Util.clear_screen()
+        print("Full player statistics:\n")
+        for key, value in full_statistics.items():
+            print("| {:20} : {:10} |".format(key, value))
+        input("\nPress enter to continue...")
+        Util.clear_screen()
+        
+
+    # @staticmethod
+    # def print_table(table):
+    #     """Prints tabular data like above.
+        
+    #     Args:
+    #         table: list of lists - the table to print out
+    #     """
     
+    #     formatted_rows = UI.get_formatted_rows_list(table)
+    #     example_row = formatted_rows[0]
+        
+    #     length_of_bot_top_border = len(example_row)
+    #     border_center = "-" * length_of_bot_top_border
+        
+    #     top_border = f"/{border_center}\\"
+    #     bottom_border = f"\\{border_center}/"
+        
+    #     inside_border = "".join(["-" if element != "|" else "|" for element in example_row])
+        
+    #     print(top_border)
+    #     last_index = len(formatted_rows) - 1
+    #     for current_index in range(len(formatted_rows)):
+    #         print(formatted_rows[current_index])
+    #         if current_index != last_index:
+    #             print(inside_border)
+    #     print(bottom_border)
+    
+
+
+    # def get_formatted_rows_list(table):
+    #     ID_INDEX = 0
+
+    #     header_record = table[ID_INDEX]
+    #     columns = [[] for _ in range(len(header_record))]
+    #     for record in table:
+    #         for col_index ,table_element in enumerate(record):
+    #             columns[col_index].append(table_element)
+
+    #     formatted_columns = []
+        
+    #     for column in columns:
+    #         max_length = max(map(len, column)) + 2       
+    #         formatted_column = []
+    #         for element in column:
+    #             formatted_item = element.center(max_length)
+    #             formatted_column.append(formatted_item)       
+    #         formatted_columns.append(formatted_column)
+    #     formatted_rows = []
+        
+    #     for row_index in range(len(table)): 
+    #         formatted_rows.append(["|".join(element) for element in formatted_columns])
+
+    #     return formatted_rows
 
     @staticmethod
     def display_melee_animation(player, enemy, damage):
+        is_blocked = damage < 0         
+
         if damage == 0:
             UI.display_info("Melee attack has missed.")
-            return None
+            return None            
         elif type(player) is Player.Player:
             Util.clear_screen()
             print(f'  {player}-/==>  {enemy} ')
@@ -76,7 +143,10 @@ class UI:
             Util.clear_screen()
             print(f'    {player}-/==>{enemy} ')
             sleep(0.25)
-
+            if is_blocked:
+                UI.display_info("Melee attack has been blocked")
+                return
+            
             Util.clear_screen()
             print(f'      {player}-/={enemy}=>')
 
@@ -93,6 +163,9 @@ class UI:
             Util.clear_screen()
             print(f'  {enemy}<==/-{player} ')
             sleep(0.25)
+            if is_blocked:
+                UI.display_info("Melee attack has been blocked")
+                return
 
             Util.clear_screen()
             print(f'<={enemy}=/-{player} ')
@@ -101,6 +174,8 @@ class UI:
     
     @staticmethod
     def display_range_animation(player, enemy, damage):
+        is_blocked = damage < 0            
+
         if damage == 0:
             UI.display_info("Range attack missed or no ammunition.")
         elif type(player) is Player.Player:
@@ -115,6 +190,10 @@ class UI:
             Util.clear_screen()
             print(f'  {player}|)    -->{enemy} ')
             sleep(0.25)
+
+            if is_blocked:
+                UI.display_info("Range attack has been blocked")
+                return
 
             Util.clear_screen()
             print(f'  {player}|)      -{enemy}> ')
@@ -132,6 +211,10 @@ class UI:
             print(f'  {enemy}<--    (|{player} ')
             sleep(0.25)
 
+            if is_blocked:
+                UI.display_info("Range attack has been blocked")
+                return
+
             Util.clear_screen()
             print(f' <{enemy}-     (|{player} ')
             sleep(0.25)
@@ -141,6 +224,8 @@ class UI:
 
     @staticmethod
     def display_magic_animation(player, enemy, damage):
+        is_blocked = damage < 0      
+
         if damage == 0:
             UI.display_info("No enough mana for magic attack.")
             return None
@@ -157,6 +242,10 @@ class UI:
             print(f'  {player}      ~o{enemy} ')
             sleep(0.25)
 
+            if is_blocked:
+                UI.display_info("Magic attack has been blocked")
+                return
+
             Util.clear_screen()
             print(f'  {player}        {enemy}~o')
             sleep(0.25)
@@ -172,6 +261,10 @@ class UI:
             Util.clear_screen()
             print(f'  {enemy}o~      {player} ')
             sleep(0.25)
+
+            if is_blocked:
+                UI.display_info("Magic attack has been blocked")
+                return
 
             Util.clear_screen()
             print(f'o~{enemy}        {player}  ')

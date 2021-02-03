@@ -8,7 +8,7 @@ class Bandit(Creature):
         super().__init__(x, y)
         self.icon = BANDIT
         self.attack = 3
-        self.health = 20
+        self.health = self.get_random_health()
         self.mana = 5
         self.arrows = 5
         self.direction = LEFT
@@ -17,6 +17,9 @@ class Bandit(Creature):
     def __repr__(self) -> str:
         return "Bandit"
 
+    def get_random_health(self):
+        temp_health = random.randrange(20, 35)
+        return temp_health
         
     def attack_player(self, player):
         player.health -= self.attack
