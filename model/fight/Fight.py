@@ -76,17 +76,28 @@ class Fight:
 
     @staticmethod
     def serve_move(move, player, enemy):
+        enemy_defence_dice_roll = enemy.get_defence_dice_roll()
+
         if move == MELEE_ATTACK:
-            damage = player.melee_attack()
+            damage = player.melee_attack()  
+            damage -= enemy_defence_dice_roll
+            
             UI.display_melee_animation(player, enemy, damage)
 
         elif move == RANGE_ATTACK:
             damage = player.range_attack()
+            damage -= enemy_defence_dice_roll
+            
+            
             UI.display_range_animation(player, enemy, damage)
             
         elif move == MAGIC_ATTACK:
             damage = player.magic_attack()
+            damage -= enemy_defence_dice_roll
+            
+
             UI.display_magic_animation(player, enemy, damage)
 
+        damage = 0 if damage < 0 else damage
         enemy.health -= damage
      

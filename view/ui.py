@@ -61,9 +61,11 @@ class UI:
 
     @staticmethod
     def display_melee_animation(player, enemy, damage):
+        is_blocked = damage < 0         
+
         if damage == 0:
             UI.display_info("Melee attack has missed.")
-            return None
+            return None            
         elif type(player) is Player.Player:
             Util.clear_screen()
             print(f'  {player}-/==>  {enemy} ')
@@ -76,7 +78,10 @@ class UI:
             Util.clear_screen()
             print(f'    {player}-/==>{enemy} ')
             sleep(0.25)
-
+            if is_blocked:
+                UI.display_info("Melee attack has been blocked")
+                return
+            
             Util.clear_screen()
             print(f'      {player}-/={enemy}=>')
 
@@ -93,6 +98,9 @@ class UI:
             Util.clear_screen()
             print(f'  {enemy}<==/-{player} ')
             sleep(0.25)
+            if is_blocked:
+                UI.display_info("Melee attack has been blocked")
+                return
 
             Util.clear_screen()
             print(f'<={enemy}=/-{player} ')
@@ -101,6 +109,8 @@ class UI:
     
     @staticmethod
     def display_range_animation(player, enemy, damage):
+        is_blocked = damage < 0            
+
         if damage == 0:
             UI.display_info("Range attack missed or no ammunition.")
         elif type(player) is Player.Player:
@@ -115,6 +125,10 @@ class UI:
             Util.clear_screen()
             print(f'  {player}|)    -->{enemy} ')
             sleep(0.25)
+
+            if is_blocked:
+                UI.display_info("Range attack has been blocked")
+                return
 
             Util.clear_screen()
             print(f'  {player}|)      -{enemy}> ')
@@ -132,6 +146,10 @@ class UI:
             print(f'  {enemy}<--    (|{player} ')
             sleep(0.25)
 
+            if is_blocked:
+                UI.display_info("Range attack has been blocked")
+                return
+
             Util.clear_screen()
             print(f' <{enemy}-     (|{player} ')
             sleep(0.25)
@@ -141,6 +159,8 @@ class UI:
 
     @staticmethod
     def display_magic_animation(player, enemy, damage):
+         is_blocked = damage < 0      
+
         if damage == 0:
             UI.display_info("No enough mana for magic attack.")
             return None
@@ -157,6 +177,10 @@ class UI:
             print(f'  {player}      ~o{enemy} ')
             sleep(0.25)
 
+            if is_blocked:
+                UI.display_info("Magic attack has been blocked")
+                return
+
             Util.clear_screen()
             print(f'  {player}        {enemy}~o')
             sleep(0.25)
@@ -172,6 +196,10 @@ class UI:
             Util.clear_screen()
             print(f'  {enemy}o~      {player} ')
             sleep(0.25)
+
+            if is_blocked:
+                UI.display_info("Magic attack has been blocked")
+                return
 
             Util.clear_screen()
             print(f'o~{enemy}        {player}  ')

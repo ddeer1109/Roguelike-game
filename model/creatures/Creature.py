@@ -49,6 +49,9 @@ class Creature:
 
         return modified_x, modified_y
 
+    def get_defence_dice_roll(self):
+        return random.randint(0, 4)
+
     def chase_creature(self, creature_object, room, distance=3):
         x,y = self.x, self.y
         if abs(x - creature_object.x) <= distance and abs(y - creature_object.y) <= distance: 
@@ -85,14 +88,16 @@ class Creature:
         return coords_around
 
     def melee_attack(self):
-        dice_roll = random.randint(0,4)
-        damage = dice_roll * self.attack
+        attack_dice_roll = random.randint(0,4)
+
+        damage = attack_dice_roll * self.attack
         return damage
 
     def range_attack(self):
         if self.arrows > 0:
-            dice_roll = random.choice([0,0,0,7,8])
-            damage = dice_roll * self.attack
+            attack_dice_roll = random.randint([0,0,0,5,6,7])
+            
+            damage = attack_dice_roll * self.attack
             self.arrows -= 1
             return damage
         else:
@@ -100,8 +105,9 @@ class Creature:
 
     def magic_attack(self):
         if self.mana >= 5:
-            dice_roll = 10
-            damage = dice_roll * self.attack
+            attack_dice_roll = 8
+    
+            damage = attack_dice_roll * self.attack
             self.mana -= 5
             return damage
         else:
