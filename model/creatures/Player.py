@@ -5,10 +5,14 @@ from model.items import Key, Food, Arrow
 class Player(Creature):
     def __init__(self, x, y):
         super().__init__(x, y)
+        self.name = "Hero"
         self.icon = PLAYER
         self.inventory = []
         self.attack = 3
+        self.defence = 3
         self.mana = 10
+        self.killed_enemies = 0
+        self.collected_food = 0
 
 
     def eat_food(self, food):

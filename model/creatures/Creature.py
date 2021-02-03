@@ -2,7 +2,9 @@ from model.board_objects.Empty_space import Empty_space
 from model.constants import MELEE_ATTACK, RANGE_ATTACK, MAGIC_ATTACK, UPPER, BOTTOM, LEFT, RIGHT
 import random
 from model.items import Arrow, Food 
+# import abc
 
+# @abc.ABC
 class Creature:
     def __init__(self, x, y):
         self.x = x
