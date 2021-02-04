@@ -88,14 +88,19 @@ class Room:
 
     def create_boss(self):
         boss = Boss(10, 10)
+        boss.create_boss_parts()
 
-        for row in range(5):
-            boss.x += 1
-            for col in range(5):
-                boss.y += 1
-                self.fields[boss.x][boss.y] = boss
-                self.boss_parts.append(boss)
-            boss.y = 10
+        for boss in boss.parts:
+            self.fields[boss.x][boss.y] = boss
+            self.boss_parts.append(boss)
+        # for row in range(5):
+        #     boss.x += 1
+        #     for col in range(5):
+        #         boss.y += 1
+        #         self.fields[boss.x][boss.y] = boss
+        #         self.boss_parts.append(boss)
+        #     boss.y = 10
+        pass
 
 
     def add_bandit(self, bandit):
@@ -104,11 +109,18 @@ class Room:
 
 #######################################################
     def move_all_bandits(self, player_object):
-        for bandit in self.bandits:
+        # for bandit in self.bandits:
 
-            result = self.service_enemies_actions(bandit, player_object)
+        #     result = self.service_enemies_actions(bandit, player_object)
+        #     if result == "game_over":
+        #         return result
+
+        for boss_part in self.boss_parts:
+
+            result = self.service_enemies_actions(boss_part, player_object)
             if result == "game_over":
                 return result
+
 
     ####################### ENEMY CREATURES MAIN FUNCTIONS #############################
     def service_enemies_actions(self, enemy_object, player_object):
@@ -134,7 +146,7 @@ class Room:
                 return "game_over"
         else:
             self.service_moving_of_direction(enemy_object, enemy_object.direction)
-            enemy_object.update_steps()
+            # enemy_object.update_steps()
             UI.display_room(self)
         
 
