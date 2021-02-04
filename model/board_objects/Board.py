@@ -8,6 +8,7 @@ from model.board_objects.Room import Room
 from model.board_objects.Gate import Gate
 from model.creatures.Bandit import Bandit
 from model.creatures.Archer_bandit import ArcherBandit
+from model.creatures.Boss import Boss
 from model.constants import  UPPER, BOTTOM, LEFT, RIGHT, CENTRAL, BOSS
 import random
 
@@ -27,12 +28,14 @@ class Board:
 
     def generate_room_elements(self):
 
-        for room in [self.central_room, self.left_room, self.right_room]:
+        # for room in [self.central_room, self.left_room, self.right_room]:
+        for room in [self.left_room, self.right_room]:
             for _ in range(random.randint(3,7)): room.create_food()
             for _ in range(random.randint(1,4)): room.create_bandit()
             for _ in range(random.randint(1,3)): room.create_bandit(ArcherBandit)
             for _ in range(random.randint(0,2)): room.create_bandit(MagicianBandit)
 
+        self.central_room.create_boss()
         self.generate_gates()
         self.generate_keys()
 

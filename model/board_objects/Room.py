@@ -14,6 +14,7 @@ from model.creatures.Player import Player
 from model.creatures.Bandit import Bandit
 from model.creatures.Archer_bandit import ArcherBandit
 from model.creatures.Magic_bandit import MagicianBandit
+from model.creatures.Boss import Boss
 from model.constants import ARROW, UPPER, BOTTOM, LEFT, RIGHT
 from model.items.Key import Key
 from model.items.Food import Food
@@ -33,6 +34,7 @@ class Room:
             RIGHT: None
         }
         self.bandits = []
+        self.boss_parts = []
 
     
     def init_board(self, height,width):
@@ -83,6 +85,17 @@ class Room:
         bandit.isChasing = random.choice([True, True, True, False])
         self.fields[x][y] = bandit
         self.add_bandit(bandit)
+
+    def create_boss(self):
+        boss = Boss(10, 10)
+
+        for row in range(5):
+            boss.x += 1
+            for col in range(5):
+                boss.y += 1
+                self.fields[boss.x][boss.y] = boss
+                self.boss_parts.append(boss)
+            boss.y = 10
 
 
     def add_bandit(self, bandit):
