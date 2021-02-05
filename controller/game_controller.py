@@ -48,8 +48,9 @@ class Main:
     @classmethod
     def service_pressing_move_key(cls, room, direction, player):
         game_state = room.service_pressing_move_key(direction, player)
-        game_state = Main.proceed_enemies_moves(room, player, 1)
-        
+        enemies_actions = Main.proceed_enemies_moves(room, player, 1)
+        if enemies_actions == "game_over":
+            return "game_over"
         return game_state
 
     @staticmethod

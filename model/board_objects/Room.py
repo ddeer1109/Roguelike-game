@@ -126,14 +126,15 @@ class Room:
         else:
             next_x, next_y = enemy_object.get_data_after_key_press(enemy_object.direction)
         
-        next_object = self.fields[next_x][next_y]
-
         # if type(next_object) in [Gate, Key, Food, Arrow, Wall, Bandit, ArcherBandit, MagicianBandit]:
         
+        
+        next_object = self.fields[next_x][next_y]
+
         if type(next_object) is not Empty_space:
             self.refresh_enemy_direction(next_object, enemy_object)
             return
-        
+
         player_nearby = self.get_object_if_nearby(enemy_object, Player)
         
         if player_nearby != None:
@@ -143,6 +144,8 @@ class Room:
             fight_result = self.service_interaction_with_creature(enemy_object, player_nearby)
             if fight_result == "defeat":
                 return "game_over"
+        
+        
         else:
             self.service_moving_of_direction(enemy_object, enemy_object.direction)
             if type(enemy_object) is not BossPart:
@@ -338,7 +341,7 @@ class Room:
     
     def service_moving_of_direction(self, player, direction):
         
-        if type(self.fields[player.x][player.y]) in [Arrow, Food, Key, ManaPotion]:
+        if type(player) is Player and type(self.fields[player.x][player.y]) in [Arrow, Food, Key, ManaPotion]:
             player.service_picking_item(self.fields[player.x][player.y])
 
         if direction == UPPER:

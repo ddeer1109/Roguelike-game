@@ -26,7 +26,7 @@ class BossPart(Creature):
 
     def drop_item(self, room):
         for boss_part in room.enemy_creatures[:5]:
-            room.fields[boss_part.x][boss_part.y] = random.choice(self.dropping_items)(boss_part.x, boss_part.y)
+            room.fields[boss_part.x][boss_part.y] = Empty_space(boss_part.x, boss_part.y)
         del room.enemy_creatures[:5]
 
        
