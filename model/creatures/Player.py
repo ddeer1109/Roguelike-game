@@ -10,7 +10,7 @@ class Player(Creature):
         self.inventory = []
         self.attack = 20
         self.defence = 5
-        self.mana = 10
+        self.mana = 50
         self.killed_enemies = 0
         self.collected_items = 0
 

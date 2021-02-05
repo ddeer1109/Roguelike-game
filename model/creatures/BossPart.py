@@ -25,8 +25,17 @@ class BossPart(Creature):
         
 
     def drop_item(self, room):
-        room.fields[self.x][self.y] = Empty_space(self.x, self.y)
+        new_body_part = BossPart(self.x, self.y, self.icon)
+        killed_part_index = room.enemy_creatures.index(self)
+        
         del room.enemy_creatures[room.enemy_creatures.index(self)]
+        room.fields[self.x][self.y] = new_body_part
+        room.enemy_creatures.insert(killed_part_index, new_body_part)
+        
+        if len(room.enemy_creatures) != 0:
+            for _ in range(5):
+                removed = room.enemy_creatures.pop(0)
+                room.fields[removed.x][removed.y] = Empty_space(self.x, self.y)
 
 
 

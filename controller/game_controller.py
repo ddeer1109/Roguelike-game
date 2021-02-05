@@ -74,6 +74,8 @@ class Main:
         ui.UI.display_room(game_state)
 
         while is_running:
+            if len(board.boss_room.enemy_creatures) == 0:
+                return print("You have won congratulations")
             ui.UI.display_room(game_state)
             ui.UI.display_statistics(player)
 

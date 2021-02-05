@@ -117,7 +117,11 @@ class Room:
             result = self.service_enemies_actions(enemy_creature, player_object)
             if result == "game_over":
                 return result
-
+        
+        if len(self.enemy_creatures) != 0:
+            if type(self.enemy_creatures[0]) == BossPart:
+                for enemy_creature in self.enemy_creatures:
+                    self.service_moving_of_direction(enemy_creature, enemy_creature.direction)
 
     ####################### ENEMY CREATURES MAIN FUNCTIONS #############################
     def service_enemies_actions(self, enemy_object, player_object):
@@ -131,7 +135,7 @@ class Room:
         
         next_object = self.fields[next_x][next_y]
 
-        if type(next_object) is not Empty_space:
+        if type(next_object) not in [Empty_space, BossPart]:
             self.refresh_enemy_direction(next_object, enemy_object)
             return
 
@@ -140,21 +144,17 @@ class Room:
         if player_nearby != None:
             
             UI.display_decor_info(enemy_object, "ATTACKED YOU")
-
-            if type(enemy_object) is BossPart:
-                enemy_object = self.enemy_creatures[0] 
             
             fight_result = self.service_interaction_with_creature(enemy_object, player_nearby)
             if fight_result == "defeat":
                 return "game_over"
-        
-        
+    
         else:
-            self.service_moving_of_direction(enemy_object, enemy_object.direction)
             if type(enemy_object) is not BossPart:
+                self.service_moving_of_direction(enemy_object, enemy_object.direction)
                 enemy_object.update_steps()
-            UI.display_room(self)
-        
+
+
 
 
     def get_object_if_nearby(self, field_object, looked_object):
