@@ -25,8 +25,9 @@ class BossPart(Creature):
         
 
     def drop_item(self, room):
-        for boss_part in room.enemy_creatures[:5]:
-            room.fields[boss_part.x][boss_part.y] = Empty_space(boss_part.x, boss_part.y)
-        del room.enemy_creatures[:5]
+        room.fields[self.x][self.y] = Empty_space(self.x, self.y)
+        del room.enemy_creatures[room.enemy_creatures.index(self)]
+
+
 
        

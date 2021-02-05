@@ -141,6 +141,9 @@ class Room:
             
             UI.display_decor_info(enemy_object, "ATTACKED YOU")
 
+            if type(enemy_object) is BossPart:
+                enemy_object = self.enemy_creatures[0] 
+            
             fight_result = self.service_interaction_with_creature(enemy_object, player_nearby)
             if fight_result == "defeat":
                 return "game_over"
@@ -295,6 +298,7 @@ class Room:
     
     def service_interaction_with_creature(self, moving_object, next_object):
     
+
         if type(moving_object) is not Player:
             result_of_fight = Fight(next_object, moving_object).service_fight()
         else:
