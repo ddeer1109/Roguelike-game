@@ -55,5 +55,5 @@ class Bandit(Creature):
 
     def drop_item(self, room):
         item = random.choice(self.dropping_items)
-        del room.bandits[room.bandits.index(self)]
+        del room.enemy_creatures[room.enemy_creatures.index(self)]
         room.fields[self.x][self.y] = item(self.x, self.y)

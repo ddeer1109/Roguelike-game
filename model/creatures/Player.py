@@ -8,7 +8,7 @@ class Player(Creature):
         self.name = "Hero"
         self.icon = PLAYER
         self.inventory = []
-        self.attack = 10
+        self.attack = 20
         self.defence = 5
         self.mana = 10
         self.killed_enemies = 0

@@ -54,7 +54,9 @@ class UI:
             \n\tENEMY Health: {enemy.health}     Arrows: {enemy.arrows}   Mana: {enemy.mana}")
         print()
 
-        
+
+    
+    
     @staticmethod
     def display_fight_statistics():
         pass

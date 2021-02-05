@@ -1,12 +1,14 @@
 from view.ui import UI
 from model.constants import MELEE_ATTACK, RANGE_ATTACK, MAGIC_ATTACK, RUN
 from model.creatures.Player import Player
+from model.creatures.BossPart import BossPart
 
 
 class Fight:
-    def __init__(self, player, enemy):
+    def __init__(self, player, enemy, boss_fight=False):
         self.player = player
         self.enemy = enemy
+        self.boss_fight = boss_fight
 
     def service_fight(self):
         winner = self.start_fight()
@@ -31,7 +33,7 @@ class Fight:
         
         while self.player.health > 0 and self.enemy.health > 0:
             UI.display_fight(player,enemy)
-
+            # UI.display_boss_fight(player, enemy)
             winner = self.serve_turn(player, enemy)
             
             if winner == RUN:

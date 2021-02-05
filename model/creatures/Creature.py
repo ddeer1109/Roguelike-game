@@ -109,7 +109,7 @@ class Creature(Field):
             return 0
 
     
-    def get_random_possible_move(self):
+    def get_possible_moves_list(self):
         possible_moves = [MELEE_ATTACK]
         if self.arrows > 0:
             possible_moves.append(RANGE_ATTACK)

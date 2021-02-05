@@ -1,25 +1,30 @@
-from model.items.Mana_potion import ManaPotion
+
 from os import error
 import sys
 import os.path
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
-from view import util
+
 from model.board_objects.Empty_space import Empty_space
 from model.board_objects.Wall import Wall
 from model.board_objects.Gate import Gate
 from model.board_objects.Field import Field
+
 from model.creatures.Player import Player
 from model.creatures.Bandit import Bandit
 from model.creatures.Archer_bandit import ArcherBandit
 from model.creatures.Magic_bandit import MagicianBandit
 from model.creatures.Boss import Boss
-from model.constants import ARROW, UPPER, BOTTOM, LEFT, RIGHT
+from model.creatures.Boss import BossPart
+
+from model.constants import UPPER, BOTTOM, LEFT, RIGHT
 from model.items.Key import Key
 from model.items.Food import Food
 from model.items.Arrow import Arrow
 from model.fight.Fight import Fight
+from model.items.Mana_potion import ManaPotion
+
 from view.ui import UI 
 import random
 
@@ -33,8 +38,7 @@ class Room:
             LEFT: None,
             RIGHT: None
         }
-        self.bandits = []
-        self.boss_parts = []
+        self.enemy_creatures = []
 
     
     def init_board(self, height,width):
@@ -89,35 +93,28 @@ class Room:
     def create_boss(self):
         boss = Boss(10, 10)
         boss.create_boss_parts()
-
-        for boss in boss.parts:
-            self.fields[boss.x][boss.y] = boss
-            self.boss_parts.append(boss)
-        # for row in range(5):
-        #     boss.x += 1
-        #     for col in range(5):
-        #         boss.y += 1
-        #         self.fields[boss.x][boss.y] = boss
-        #         self.boss_parts.append(boss)
-        #     boss.y = 10
-        pass
+        self.enemy_creatures = boss.parts
+        
+        for boss_part in boss.parts:
+            self.fields[boss_part.x][boss_part.y] = boss_part
+        
 
 
     def add_bandit(self, bandit):
-        self.bandits.append(bandit)
+        self.enemy_creatures.append(bandit)
 
 
 #######################################################
-    def move_all_bandits(self, player_object):
-        # for bandit in self.bandits:
+    def move_enemies(self, player_object):
+        # for bandit in self.enemy_creatures:
 
         #     result = self.service_enemies_actions(bandit, player_object)
         #     if result == "game_over":
         #         return result
 
-        for boss_part in self.boss_parts:
+        for enemy_creature in self.enemy_creatures:
 
-            result = self.service_enemies_actions(boss_part, player_object)
+            result = self.service_enemies_actions(enemy_creature, player_object)
             if result == "game_over":
                 return result
 
@@ -131,7 +128,9 @@ class Room:
         
         next_object = self.fields[next_x][next_y]
 
-        if type(next_object) in [Gate, Key, Food, Arrow, Wall, Bandit, ArcherBandit, MagicianBandit]:
+        # if type(next_object) in [Gate, Key, Food, Arrow, Wall, Bandit, ArcherBandit, MagicianBandit]:
+        
+        if type(next_object) is not Empty_space:
             self.refresh_enemy_direction(next_object, enemy_object)
             return
         
@@ -146,7 +145,8 @@ class Room:
                 return "game_over"
         else:
             self.service_moving_of_direction(enemy_object, enemy_object.direction)
-            # enemy_object.update_steps()
+            if type(enemy_object) is not BossPart:
+                enemy_object.update_steps()
             UI.display_room(self)
         
 
@@ -199,14 +199,17 @@ class Room:
         next_object = self.fields[modified_player_x][modified_player_y]
 
         if type(next_object) is Gate:
+            
             return self.service_interaction_with_gate(direction, player)
         
-        if type(next_object) in [Bandit, ArcherBandit, MagicianBandit]:
+        if type(next_object) in [Bandit, ArcherBandit, MagicianBandit, BossPart]:
+            
             fight_result = self.service_interaction_with_creature(player, next_object)
             if fight_result == "defeat":
                 return "game_over"
             
         elif type(next_object) is not Wall:
+            
             if type(next_object) in [Key, Food, Arrow, ManaPotion]:
                 player.service_picking_item(next_object)
             self.service_moving_of_direction(player, direction)
@@ -334,6 +337,7 @@ class Room:
 
     
     def service_moving_of_direction(self, player, direction):
+        
         if type(self.fields[player.x][player.y]) in [Arrow, Food, Key, ManaPotion]:
             player.service_picking_item(self.fields[player.x][player.y])
 

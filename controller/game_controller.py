@@ -7,15 +7,9 @@ sys.path.append(
 
 from controller import engine
 from view import ui, util
-# from view.ui import UI
 from model.creatures.Player import Player
-from model.creatures.Bandit import Bandit
-from model.fight.Fight import Fight
-from model.board_objects.Wall import Wall
-from model.board_objects.Gate import Gate
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
-from model.items.Key import Key
-from model.items.Food import Food
+
 
 PLAYER_ICON = '@'
 PLAYER_START_X = 1
@@ -29,15 +23,15 @@ class Main:
     @classmethod
     def service_player_inputs(cls, key_pressed, room, player):
 
-        current_room = room 
+        game_state = room 
         
         if key_pressed in ["w","a","s","d"]:
             direction = cls.convert_key_for_direction(key_pressed)
-            current_room = cls.service_pressing_move_key(room, direction, player)
+            game_state = cls.service_pressing_move_key(room, direction, player)
         elif key_pressed == "i":
             ui.UI.display_full_statistics(player)
                 
-        return current_room
+        return game_state
 
 
     @classmethod
@@ -53,16 +47,15 @@ class Main:
 
     @classmethod
     def service_pressing_move_key(cls, room, direction, player):
-        current_room = room.service_pressing_move_key(direction, player)
-        if Main.proceed_enemies_moves(room, player, 1) == "game_over":
-            return "game_over"
+        game_state = room.service_pressing_move_key(direction, player)
+        game_state = Main.proceed_enemies_moves(room, player, 1)
         
-        return current_room
+        return game_state
 
     @staticmethod
     def proceed_enemies_moves(room, player, moves_count=1):
         for _ in range(moves_count):
-            if room.move_all_bandits(player) == "game_over":
+            if room.move_enemies(player) == "game_over":
                 return "game_over"
             ui.UI.display_room(room)
         return room
@@ -74,13 +67,13 @@ class Main:
 
         engine.put_player_on_board(board, player)
 
-        current_room = board.central_room
+        game_state = board.central_room
         is_running = True
 
-        ui.UI.display_room(current_room)
+        ui.UI.display_room(game_state)
 
         while is_running:
-            ui.UI.display_room(current_room)
+            ui.UI.display_room(game_state)
             ui.UI.display_statistics(player)
 
             key = util.Util.key_pressed()
@@ -88,7 +81,7 @@ class Main:
             if key == 'q':
                 is_running = False
             else:
-                current_room = cls.service_player_inputs(key, current_room, player)
-                if current_room == "game_over": 
+                game_state = cls.service_player_inputs(key, game_state, player)
+                if game_state == "game_over": 
                     is_running = False
                     return ui.UI.display_info("Thank you for your time")

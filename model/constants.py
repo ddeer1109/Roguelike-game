@@ -6,7 +6,7 @@ PLAYER = "@"
 BANDIT = "/"
 ARCHER = ")"
 MAGIC = "&"
-BOSS_ICON = "£"
+BOSS_ICON_TOP, BOSS_ICON_SIDE, BOSS_ICON_INNER = "~", "|", "H"
 
 UPPER = 'upper'
 BOTTOM = 'bottom'
