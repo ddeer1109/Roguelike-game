@@ -37,7 +37,6 @@ class Board:
 
         self.generate_gates()
         self.generate_keys()
-
         self.boss_room.create_boss()
         # self.central_room.create_boss()
 

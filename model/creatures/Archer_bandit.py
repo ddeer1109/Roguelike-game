@@ -3,6 +3,7 @@ from model.creatures.Bandit import Bandit
 from model.constants import ARCHER, MELEE_ATTACK, RANGE_ATTACK
 from model.items import Arrow
 from model.items.Food import Food
+from model.items import Bow
 import random
 
 class ArcherBandit(Bandit):
@@ -14,7 +15,7 @@ class ArcherBandit(Bandit):
         self.defence = super().get_random_stat(0,2)
         self.health = super().get_random_stat(20,30)
 
-        self.dropping_items = [Arrow.Arrow, Arrow.Arrow, Arrow.Arrow, Food]
+        self.dropping_items = [Arrow.Arrow, Bow.Bow]
 
     def __repr__(self) -> str:
         return "Archer Bandit"

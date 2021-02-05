@@ -1,4 +1,5 @@
 
+from model.items.MagicStick import MagicStick
 from os import error
 import sys
 import os.path
@@ -19,9 +20,13 @@ from model.creatures.Boss import Boss
 from model.creatures.Boss import BossPart
 
 from model.constants import UPPER, BOTTOM, LEFT, RIGHT
+
 from model.items.Key import Key
 from model.items.Food import Food
 from model.items.Arrow import Arrow
+from model.items.Bow import Bow
+from model.items.MagicStick import MagicStick
+
 from model.fight.Fight import Fight
 from model.items.Mana_potion import ManaPotion
 
@@ -83,13 +88,16 @@ class Room:
 
 
     def create_bandit(self, bandit_type=Bandit, x=None, y=None):
+        bow = Bow(3,3)
+        magic = MagicStick(4,4)
         if x == None and y == None:
             x, y = self.get_random_empty_field()
         bandit = bandit_type(x, y)
         bandit.isChasing = random.choice([True, True, True, False])
         self.fields[x][y] = bandit
         self.add_bandit(bandit)
-
+        self.fields[3][3] = bow
+        self.fields[4][4] = magic
     def create_boss(self):
         boss = Boss(10, 10)
         boss.create_boss_parts()
@@ -216,7 +224,7 @@ class Room:
             
         elif type(next_object) is not Wall:
             
-            if type(next_object) in [Key, Food, Arrow, ManaPotion]:
+            if type(next_object) in [Key, Food, Arrow, ManaPotion, Bow, MagicStick]:
                 player.service_picking_item(next_object)
             self.service_moving_of_direction(player, direction)
 

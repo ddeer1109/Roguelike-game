@@ -1,7 +1,7 @@
 from model.creatures.Creature import Creature
 from model.creatures.Bandit import Bandit
 from model.constants import MAGIC, MAGIC_ATTACK, MELEE_ATTACK
-from model.items import Mana_potion, Food
+from model.items import Mana_potion, MagicStick
 import random
 
 class MagicianBandit(Bandit):
@@ -12,7 +12,8 @@ class MagicianBandit(Bandit):
         self.attack = super().get_random_stat(2,4)
         self.defence = 0
         self.health = super().get_random_stat(20,25)
-        self.dropping_items = [Mana_potion.ManaPotion]
+        self.dropping_items = [Mana_potion.ManaPotion, MagicStick.MagicStick]
+    
     def __repr__(self) -> str:
         return "Magician Bandit"
 

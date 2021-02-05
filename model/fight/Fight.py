@@ -92,7 +92,9 @@ class Fight:
 
         elif move == RANGE_ATTACK:
             damage = player.range_attack()
-            if damage > 0:
+            if damage == "no_weapon":
+                return UI.display_info("You have not tool to perform this attack.")
+            elif damage > 0:
                 damage -= enemy_defence_dice_roll
             else:
                 damage = 0
@@ -101,7 +103,9 @@ class Fight:
             
         elif move == MAGIC_ATTACK:
             damage = player.magic_attack()
-            if damage > 0:
+            if damage == "no_weapon":
+                return UI.display_info("You have not tool to perform this attack.")
+            elif damage > 0:
                 damage -= enemy_defence_dice_roll
             else:
                 damage = 0

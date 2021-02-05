@@ -1,6 +1,6 @@
 from model.creatures.Creature import Creature
 from model.constants import PLAYER, CENTRAL
-from model.items import Key, Food, Arrow
+from model.items import Key, Food, Arrow, Bow, MagicStick
 from view.ui import UI
 class Player(Creature):
     def __init__(self, x, y):
@@ -40,9 +40,16 @@ class Player(Creature):
     def pick_arrow(self, arrow):
         self.arrows += arrow.count
 
+    
+    def add_weapon(self, weapon):
+        self.attack += weapon.attack_increase
+        self.inventory.append(repr(weapon))
+
 
     def get_coords_around(self):
         return super().get_coords_around()
+
+        
 
     def service_picking_item(self, item):
         if type(item) is Key.Key:
@@ -51,6 +58,8 @@ class Player(Creature):
             self.eat_food(item)
         elif type(item) is Arrow.Arrow:
             self.pick_arrow(item)
+        elif type(item) in [Bow.Bow, MagicStick.MagicStick]:
+            self.add_weapon(item)
         else:
             self.pick_mana_potion(item)
         self.collected_items += 1
@@ -62,8 +71,14 @@ class Player(Creature):
 
     
     def range_attack(self):
-        return super().range_attack()
+        if "Wooden bow" in self.inventory:
+            return super().range_attack()
+        else:
+            return "no_weapon"
 
 
     def magic_attack(self):
-        return super().magic_attack()
+        if "Magic stick" in self.inventory:
+            return super().magic_attack()
+        else:
+            return "no_weapon"
