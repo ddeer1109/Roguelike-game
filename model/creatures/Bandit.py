@@ -20,7 +20,10 @@ class Bandit(Creature):
     def __repr__(self) -> str:
         return "Bandit"
 
-        
+    def fight_repr(self):
+        return super().fight_repr()
+
+
     def attack_player(self, player):
         player.health -= self.attack
 

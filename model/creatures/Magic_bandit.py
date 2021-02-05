@@ -17,6 +17,8 @@ class MagicianBandit(Bandit):
     def __repr__(self) -> str:
         return "Magician Bandit"
 
+    def fight_repr(self):
+        return super().fight_repr()
 
     def melee_attack(self):
         return super().melee_attack()

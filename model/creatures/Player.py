@@ -1,7 +1,8 @@
 from model.creatures.Creature import Creature
-from model.constants import PLAYER, CENTRAL
+from model.constants import PLAYER
 from model.items import Key, Food, Arrow, Bow, MagicStick
 from view.ui import UI
+
 class Player(Creature):
     def __init__(self, x, y):
         super().__init__(x, y)
@@ -13,6 +14,9 @@ class Player(Creature):
         self.mana = 50
         self.killed_enemies = 0
         self.collected_items = 0
+
+    def fight_repr(self):
+        return self.icon
 
     def get_statistics(self):
         return {
@@ -49,7 +53,7 @@ class Player(Creature):
     def get_coords_around(self):
         return super().get_coords_around()
 
-        
+
 
     def service_picking_item(self, item):
         if type(item) is Key.Key:

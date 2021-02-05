@@ -28,17 +28,17 @@ class Board:
 
     def generate_room_elements(self):
 
-        for room in [self.central_room, self.left_room, self.right_room]:
+        # for room in [self.central_room, self.left_room, self.right_room]:
         # for room in [self.left_room, self.right_room]:
-            for _ in range(random.randint(3,7)): room.create_food()
-            for _ in range(random.randint(1,4)): room.create_bandit()
-            for _ in range(random.randint(1,3)): room.create_bandit(ArcherBandit)
-            for _ in range(random.randint(0,2)): room.create_bandit(MagicianBandit)
+            # for _ in range(random.randint(3,7)): room.create_food()
+            # for _ in range(random.randint(1,4)): room.create_bandit()
+            # for _ in range(random.randint(1,3)): room.create_bandit(ArcherBandit)
+            # for _ in range(random.randint(0,2)): room.create_bandit(MagicianBandit)
 
         self.generate_gates()
         self.generate_keys()
         self.boss_room.create_boss()
-        # self.central_room.create_boss()
+        self.central_room.create_boss()
 
     def generate_gates(self):
         self.central_room.create_gates(left=True, right=True)

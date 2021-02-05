@@ -1,7 +1,6 @@
 from view.ui import UI
 from model.constants import MELEE_ATTACK, RANGE_ATTACK, MAGIC_ATTACK, RUN
 from model.creatures.Player import Player
-from model.creatures.BossPart import BossPart
 
 
 class Fight:

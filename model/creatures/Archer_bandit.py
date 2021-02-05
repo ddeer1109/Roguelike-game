@@ -20,6 +20,9 @@ class ArcherBandit(Bandit):
     def __repr__(self) -> str:
         return "Archer Bandit"
 
+    def fight_repr(self):
+        return super().fight_repr()
+
     def melee_attack(self):
         return super().melee_attack()
 

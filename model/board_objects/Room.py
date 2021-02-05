@@ -161,6 +161,7 @@ class Room:
             if type(enemy_object) is not BossPart:
                 self.service_moving_of_direction(enemy_object, enemy_object.direction)
                 enemy_object.update_steps()
+                UI.display_room(self)
 
 
 

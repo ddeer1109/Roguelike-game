@@ -47,7 +47,7 @@ class UI:
     def display_fight(player, enemy):
         Util.clear_screen()
         UI.add_new_line(2)
-        print(f'\t\t\t  {player}        {enemy}  ')
+        print(f'\t\t\t  {player}        {enemy.fight_repr()}  ')
         print()
         print("\t\t\t*** FIGHT ***\n")
         print(f"\tPLAYER Health: {player.health}    Arrows: {player.arrows}    Mana: {player.mana}\
@@ -96,17 +96,17 @@ class UI:
         elif type(player) is Player.Player:
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {player}-/==>  {enemy} ')
+            print(f'\t\t\t  {player.fight_repr()}-/==>  {enemy.fight_repr()} ')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t   {player}-/==> {enemy} ')
+            print(f'\t\t\t   {player.fight_repr()}-/==> {enemy.fight_repr()} ')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t    {player}-/==>{enemy} ')
+            print(f'\t\t\t    {player.fight_repr()}-/==>{enemy.fight_repr()} ')
             sleep(0.25)
             if is_blocked:
                 UI.display_info("Melee attack has been blocked")
@@ -114,23 +114,23 @@ class UI:
             
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t      {player}-/={enemy}=>')
+            print(f'\t\t\t      {player.fight_repr()}-/={enemy.fight_repr()}=>')
 
             
         elif type(player) is not Player.Player:
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {enemy}  <==/-{player}  ')
+            print(f'\t\t\t  {enemy.fight_repr()}  <==/-{player.fight_repr()}  ')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {enemy} <==/-{player} ')
+            print(f'\t\t\t  {enemy.fight_repr()} <==/-{player.fight_repr()} ')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {enemy}<==/-{player} ')
+            print(f'\t\t\t  {enemy.fight_repr()}<==/-{player.fight_repr()} ')
             sleep(0.25)
             if is_blocked:
                 UI.display_info("Melee attack has been blocked")
@@ -138,7 +138,7 @@ class UI:
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t<={enemy}=/-{player} ')
+            print(f'\t\t\t<={enemy.fight_repr()}=/-{player.fight_repr()} ')
         print(f"Damage done: {damage}.")
         sleep(2)
     
@@ -151,17 +151,17 @@ class UI:
         elif type(player) is Player.Player:
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {player}|)->     {enemy} ')
+            print(f'\t\t\t  {player.fight_repr()}|)->     {enemy.fight_repr()} ')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {player}|) -->   {enemy} ')
+            print(f'\t\t\t  {player.fight_repr()}|) -->   {enemy.fight_repr()} ')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {player}|)    -->{enemy} ')
+            print(f'\t\t\t  {player.fight_repr()}|)    -->{enemy.fight_repr()} ')
             sleep(0.25)
 
             if is_blocked:
@@ -170,22 +170,22 @@ class UI:
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {player}|)      -{enemy}> ')
+            print(f'\t\t\t  {player.fight_repr()}|)      -{enemy.fight_repr()}> ')
             sleep(0.25)
         elif type(player) is not Player.Player:
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {enemy}     <-(|{player}')
+            print(f'\t\t\t  {enemy.fight_repr()}     <-(|{player.fight_repr()}')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {enemy}   <-- (|{player} ')
+            print(f'\t\t\t  {enemy.fight_repr()}   <-- (|{player.fight_repr()} ')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {enemy}<--    (|{player} ')
+            print(f'\t\t\t  {enemy.fight_repr()}<--    (|{player.fight_repr()} ')
             sleep(0.25)
 
             if is_blocked:
@@ -194,7 +194,7 @@ class UI:
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t <{enemy}-     (|{player} ')
+            print(f'\t\t\t <{enemy.fight_repr()}-     (|{player.fight_repr()} ')
             sleep(0.25)
 
         print(f"Damage done: {damage}.")
@@ -210,17 +210,17 @@ class UI:
         elif type(player) is Player.Player:
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {player}~o      {enemy} ')
+            print(f'\t\t\t  {player.fight_repr()}~o      {enemy.fight_repr()} ')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {player}   ~o   {enemy} ')
+            print(f'\t\t\t  {player.fight_repr()}   ~o   {enemy.fight_repr()} ')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {player}      ~o{enemy} ')
+            print(f'\t\t\t  {player.fight_repr()}      ~o{enemy.fight_repr()} ')
             sleep(0.25)
 
             if is_blocked:
@@ -229,22 +229,22 @@ class UI:
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {player}        {enemy}~o')
+            print(f'\t\t\t  {player.fight_repr()}        {enemy.fight_repr()}~o')
             sleep(0.25)
         elif type(player) is not Player.Player:
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {enemy}      o~{player} ')
+            print(f'\t\t\t  {enemy.fight_repr()}      o~{player.fight_repr()} ')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {enemy}   o~   {player} ')
+            print(f'\t\t\t  {enemy.fight_repr()}   o~   {player.fight_repr()} ')
             sleep(0.25)
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t  {enemy}o~      {player} ')
+            print(f'\t\t\t  {enemy.fight_repr()}o~      {player.fight_repr()} ')
             sleep(0.25)
 
             if is_blocked:
@@ -253,7 +253,7 @@ class UI:
 
             Util.clear_screen()
             UI.add_new_line()
-            print(f'\t\t\t o~{enemy}       {player}  ')
+            print(f'\t\t\t o~{enemy.fight_repr()}       {player.fight_repr()}  ')
             sleep(0.25)
 
         print(f"Damage done: {damage}.")
@@ -276,4 +276,4 @@ class UI:
             Util.clear_screen()
         UI.add_new_line(new_lines)
         print(string)
-        sleep(0.5)
+        sleep(1)

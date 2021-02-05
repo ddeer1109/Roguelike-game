@@ -26,6 +26,9 @@ class Creature(Field):
     def __str__(self):
         return self.icon
 
+    def fight_repr(self):
+        return self.icon
+
     def move_up(self):
         self.x -= 1
 
